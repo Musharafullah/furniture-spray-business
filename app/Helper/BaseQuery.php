@@ -165,4 +165,12 @@ trait BaseQuery
     {
         return Session::remove($key);
     }
+    // upload files
+     // upload_common_func files
+    public function upload_common_func($fileName, $path, $file)
+    {
+        $path = $constrct_id . '/' . $path . '/' . $fileName;
+        Storage::disk('public_uploads')->put($path, File::get($file));
+        return  $path;
+    }
 }

@@ -19,4 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home/{slug?}/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/product', [App\Http\Controllers\ProductController::class, 'create'])->name('add_product');
+Route::post('/product-save', [App\Http\Controllers\ProductController::class, 'store'])->name('product_store');
+// DashboardDataController
+// Route::get('/nav/{slug}', [App\Http\Controllers\DashboardDataController::class, 'navbar_pages'])->name('navbar_pages');

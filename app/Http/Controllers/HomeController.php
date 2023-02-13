@@ -21,8 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($slug = null)
     {
-        return view('home');
+        // dd($slug);
+        return view('home',compact('slug'));
+        // return view('home',compact('slug'));
     }
 }
