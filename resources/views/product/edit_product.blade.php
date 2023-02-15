@@ -1,6 +1,6 @@
 @extends('dashboardlayouts.master')
 @section('title')
-    <title>Add Product</title>
+    <title>Edit Product</title>
 @endsection
 
 @section('content')
@@ -14,11 +14,10 @@
                         @endforeach
                     </ul>
                 @endif --}}
-
-                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     @include('product/_form')
-
                 </form>
             </div>
         </div>

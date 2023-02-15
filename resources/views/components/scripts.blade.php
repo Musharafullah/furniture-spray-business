@@ -12,6 +12,8 @@
 <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/colreorder/1.6.1/js/dataTables.colReorder.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
@@ -62,5 +64,54 @@
                 ]
             }]
         });
+
     });
+    //
+    function showAlertMessage(data, message = null) {
+        toastr.options = {
+            "closeButton": true,
+            "positionClass": "toast-bottom-right",
+            "progressBar": true,
+            "debug": false,
+            "newestOnTop": false,
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        if (data == 'state') {
+            toastr.success("Status Update Successfully...")
+        }
+        if (data == 'success') {
+            var msg = "{{ Session::get('success') }}"
+
+            toastr.success(msg)
+        }
+        if (data == 'error') {
+            var msg = "{{ Session::get('error') }}"
+
+            toastr.error(msg)
+        }
+        if (data == 'js') {
+            toastr.error(message)
+        }
+
+        //alert("Status Update Successfully...");
+        $("#send").prop("disabled", true)
+
+    }
+    @if (Session::has('success'))
+        showAlertMessage('success')
+    @endif
+
+    @if (Session::has('error'))
+        showAlertMessage('error')
+    @endif
 </script>

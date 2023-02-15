@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->UUID('id')->primary();
             $table->string('code')->unique();
-            $table->string('product_name')->unique();
+            $table->string('product_name')->nullable();
             $table->string('product_image_path')->nullable();
-            $table->double('cost_from_supplier');
-            $table->double('sale_net_sqm');
+            $table->double('cost_from_supplier')->nullable();
+            $table->double('sale_net_sqm')->nullable();
             $table->double('cut_out')->nullable();
             $table->double('notch')->nullable();
             $table->double('hole')->nullable();
@@ -29,8 +29,9 @@ return new class extends Migration
             $table->double('printed')->nullable();
             $table->double('cnc')->nullable();
             $table->double('standblasted')->nullable();
-            $table->double('ritec')->nullable();
-            $table->string('type')->nullable();
+            $table->double('rake')->nullable()->nullable();
+            $table->double('ritec')->nullable()->nullable();
+            $table->string('type')->nullable()->nullable();
             $table->string('radius_corners')->nullable();
             $table->string('product_note')->nullable();
             $table->string('bevel_edges')->nullable();

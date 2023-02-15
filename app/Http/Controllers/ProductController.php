@@ -30,10 +30,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        dd("here");
-        // $all = $this->get_all($this->_modal);
 
-        // return view({{ routeName }}, compact('all'));
+        $data = $this->get_all($this->_modal);
+        $slug = "products";
+        return view('home',compact('slug','data'));
 
     }
 
@@ -45,7 +45,8 @@ class ProductController extends Controller
     public function create()
     {
         // return view({{ view_name }});
-        return view('product.add_product');
+        $product =$this->_modal;
+        return view('product.add_product', compact('product'));
     }
 
     /**
@@ -59,26 +60,27 @@ class ProductController extends Controller
         // dd($this->_request->all());
         $this->validate($this->_request,
         [
+
             'type'=> 'required',
-            'code'=> 'required',
-            'product_name'=> 'required',
-            'product_image'=> 'required',
-            'cost_from_supplier'=> 'required',
-            'sale_net_sqm'=> 'required',
-            'cut_out'=> 'required',
-            'notch'=> 'required',
-            'hole'=> 'required',
-            'painted'=> 'required',
-            'sparkle_finish'=> 'required',
-            'metallic_finish'=> 'required',
-            'printed'=> 'required',
-            'cnc'=> 'required',
-            'standblasted'=> 'required',
-            'ritec'=> 'required',
-            'rake'=> 'required',
-            'radius_corners'=> 'required',
-            'product_note'=> 'required',
-            'bevel_edges'=> 'required',
+            'code'=> 'required|unique:products',
+            // 'product_name'=> 'required',
+            // 'product_image'=> 'required',
+            // 'cost_from_supplier'=> 'required',
+            // 'sale_net_sqm'=> 'required',
+            // 'cut_out'=> 'required',
+            // 'notch'=> 'required',
+            // 'hole'=> 'required',
+            // 'painted'=> 'required',
+            // 'sparkle_finish'=> 'required',
+            // 'metallic_finish'=> 'required',
+            // 'printed'=> 'required',
+            // 'cnc'=> 'required',
+            // 'standblasted'=> 'required',
+            // 'ritec'=> 'required',
+            // 'rake'=> 'required',
+            // 'radius_corners'=> 'required',
+            // 'product_note'=> 'required',
+            // 'bevel_edges'=> 'required',
 
         ]);
 
@@ -97,6 +99,7 @@ class ProductController extends Controller
         'cnc',
         'standblasted',
         'ritec',
+        'rake',
         'type',
         'radius_corners',
         'product_note',
@@ -104,19 +107,20 @@ class ProductController extends Controller
         );
         // dd($product);
         $product = $this->_request->except('_token');
+
+
         if ($this->_request->file('product_image'))
         {
-
             $file = $this->_request->file('product_image');
             $fileName   =  $file->getClientOriginalName();
-            $path =  'product';
-            Storage::disk('public')->put($path, File::get($file));
-            $return_path = $path . '/' . $fileName;
-            $product['product_image_path'] = $return_path;
+            // Storage::disk('public')->put($path, File::get($file));
+            $file->move(public_path('product_image/product'), $fileName );
+            $product['product_image_path'] = $fileName;
         }
-        // dd($product);
+
+
         $var = $this->add($this->_modal, $product);
-        return redirect()->back()->with('success','product has been added');
+        return redirect()->route('product.index')->with('success','product has been added');
     }
 
     /**
@@ -139,8 +143,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->get_by_id($this->_modal, $id);
-        return view('{{view_name}}', compact('data'));
+
+        $product = $this->get_by_id($this->_modal, $id);
+        return view('product.edit_product',compact('product'));
     }
 
     /**
@@ -152,15 +157,64 @@ class ProductController extends Controller
      */
     public function update($id)
     {
-        $this->validate($this->_request, [
-            'name' => 'required',
+        // dd($this->_request->all());
+        $this->validate($this->_request,[
+
+        'code' => 'required|unique:products,code',
+        'product_name' => 'required|unique:products,product_name',
         ]);
 
-        $data = $this->_request->except('_token', '_method');
+        $product = $this->_request->only(
+        'code',
+        'product_name',
+        'cost_from_supplier',
+        'sale_net_sqm',
+        'cut_out',
+        'notch',
+        'hole',
+        'painted',
+        'sparkle_finish',
+        'metallic_finish',
+        'printed',
+        'cnc',
+        'standblasted',
+        'ritec',
+        'rake',
+        'type',
+        'radius_corners',
+        'product_note',
+        'bevel_edges',
+        );
+        // dd($product);
+        $product = $this->_request->except('_token');
 
-        $data = $this->get_by_id($this->_modal, $id)->update($data);
+        if ($this->_request->file('product_image'))
+        {
+            $file = $this->_request->file('product_image');
+            $fileName  =  $file->getClientOriginalName();
+            // Storage::disk('public')->put($path, File::get($file));
+            $file->move(public_path('product_image/product'), $fileName );
+        }else{
+            $exist = $this->get_by_id($this->_modal, $id);
+            $fileName =  $exist->product_image_path;
+        }
+        $product['product_image_path'] = $fileName;
+        $var = $exist->update($product);
+        return redirect()->route('product.index')->with('success','product has been updated');
+    }
+    public function duplicate($id)
+    {
+        // dd($id);
+        $copy = '-copy';
+        $diplicate_product = $this->get_by_id($this->_modal, $id);
+        //dd($diplicate);
+        $diplicate_product = $diplicate_product->replicate();
+        $diplicate_product->product_name = $diplicate_product->product_name.'-copy';
+        $diplicate_product->code = $diplicate_product->code.'-copy';
 
-        return redirect()->route('{{routeName}}.index');
+        $diplicate_product->save();
+        return back()->with('alert-success', 'Product Duplicate Successfully');
+        //dd($code);
     }
 
     /**
