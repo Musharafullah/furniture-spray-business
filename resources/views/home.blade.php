@@ -21,6 +21,5 @@
         }
         
     @endphp
-    {{-- @dd($comp) --}}
-    <x-dynamic-component :component="$comp" />
+    <x-dynamic-component :component="$comp" :datadetail="$data" />
 @endsection

@@ -24,7 +24,10 @@ class HomeController extends Controller
     public function index($slug = null)
     {
         // dd($slug);
-        return view('home',compact('slug'));
+
+
+        $data = null;
+        return view('home',compact('slug','data'));
         // return view('home',compact('slug'));
     }
 }

@@ -22,6 +22,7 @@ class Product extends Model
         'painted',
         'sparkle_finish',
         'metallic_finish',
+        'rake',
         'printed',
         'cnc',
         'standblasted',
