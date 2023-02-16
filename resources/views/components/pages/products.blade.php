@@ -19,7 +19,6 @@
             <tbody>
 
                 @if ($datadetail)
-
                     @foreach ($datadetail as $key => $product)
                         {{-- @dd($product->product_image_path) --}}
                         <tr>

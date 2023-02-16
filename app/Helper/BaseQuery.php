@@ -44,6 +44,10 @@ trait BaseQuery
     {
         return $model->get();
     }
+    public function get_all_by_roll($model)
+    {
+        return $model->role('client')->get();
+    }
 
     /**
      * get all record
