@@ -22,5 +22,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/product', App\Http\Controllers\ProductController::class);
 Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::class, 'duplicate'])->name('product_duplicate');
-// DashboardDataController
-// Route::get('/nav/{slug}', [App\Http\Controllers\DashboardDataController::class, 'navbar_pages'])->name('navbar_pages');
+
+// user controller
+Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);

@@ -13,7 +13,7 @@
                     <a href="{{ route('home') }}" class="btn">Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{ route('home', 'customer') }}" class="btn">Customers</a>
+                    <a href="{{ route('customer.index') }}" class="btn">Customers</a>
                 </li>
                 <li>
                     <a href="{{ route('product.index') }}" class="btn">Products</a>
