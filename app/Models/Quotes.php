@@ -11,7 +11,6 @@ class Quotes extends Model
 
     protected $fillable = [
         'client_id',
-        'client_id',
         'user_id',
         'delivery_distance',
         'delivery_option',
@@ -21,4 +20,14 @@ class Quotes extends Model
         'survey',
         'comment',
     ];
+    public function User()
+    {
+        return $this->belongsTo(User::class,'client_id');
+    }
+    // relation with 
+    // relation with quote
+    public function Deals()
+    {
+        return $this->hasMany(Deals::class);
+    }
 }

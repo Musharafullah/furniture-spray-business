@@ -9,8 +9,31 @@ class Deals extends Model
 {
     use HasFactory,HasUuids;
 
-    protected $fillable = [
-        'min_delivery_charges',
-        'min_survey_and_fitting_charges',
+    protected $fillable = 
+    [
+        'quote_id',
+        'product_id',
+        'width',
+        'height',
+        'sqm',
+        'product_price',
+        'cutout',
+        'notch',
+        'hole',
+        'back_select',
+        'finish',
+        'cnc',
+        'sandblasted',
+        'ritec',
+        'quantity',
+        'net_price',
+        'vat',
+        'trade_discount',
+        'total_gross',
     ];
+    // relation with 
+    public function Quotes()
+    {
+        return $this->belongsTo(Quotes::class,'client_id');
+    }
 }

@@ -101,6 +101,12 @@ class UserOrCustomerController extends Controller
         $data = $this->get_by_id($this->_modal, $id);
         return view('{{view_name}}', compact('data'));
     }
+    // hete get the quote against usre
+    public function customer_quote($id)
+    {
+        $client_data = $this->get_by_id($this->_modal, $id);
+        return view('customer.view_customer_quote', compact('client_data'));
+    }
 
     /**
      * Show the form for editing the specified resource.

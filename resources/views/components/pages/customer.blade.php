@@ -31,7 +31,7 @@
                                         title="Edit Customer">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="" data-toggle="tooltip" title="View Related Quotes">
+                                    <a href="{{route('customer_quote',$clients->id)}}" data-toggle="tooltip" title="View Related Quotes">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </div>
