@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->UUID('id')->primary();
-            $table->integer('client_id');
+           
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        
             $table->integer('user_id');
             $table->double('delivery_distance');
             $table->string('delivery_option')->nullable();

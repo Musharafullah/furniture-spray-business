@@ -25,3 +25,4 @@ Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::c
 
 // user controller
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);
+Route::get('/customer-quote/{id}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');

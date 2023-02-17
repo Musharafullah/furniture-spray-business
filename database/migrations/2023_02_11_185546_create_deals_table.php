@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('deals', function (Blueprint $table) {
             $table->UUID('id')->primary();
-            $table->integer('quote_id');
-            $table->integer('product_id');
+            
+            $table->foreignUuid('quote_id')->references('id')->on('quotes')->onDelete('cascade');
+            
+            $table->foreignUuid('product_id')->references('id')->on('products')->onDelete('cascade');
+          
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
             $table->double('sqm')->nullable();
