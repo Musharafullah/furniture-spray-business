@@ -20,7 +20,11 @@
 
                 @if ($datadetail)
                     @foreach ($datadetail as $key => $product)
-                        {{-- @dd($product->product_image_path) --}}
+                        @php
+                            $type = $product->type;
+                            $pro_type = str_replace('_', ' ', $type);
+                            $pro_type = ucwords($pro_type);
+                        @endphp
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $product->code }}</td>
@@ -30,7 +34,7 @@
                             </td>
                             <td>{{ $product->cost_from_supplier }}</td>
                             <td>{{ $product->sale_net_sqm }}</td>
-                            <td>{{ $product->type }}</td>
+                            <td>{{ $pro_type }}</td>
                             <td>
                                 <div>
                                     <a href="{{ route('product.edit', $product->id) }}" data-toggle="tooltip"
