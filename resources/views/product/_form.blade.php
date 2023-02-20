@@ -1,63 +1,38 @@
 <div class="row">
-    <div class="col-sm-11">
-        <div class="form-group">
-            <select name="type" id="type" class="form-control " data-live-search="false" tabindex="-1"
-                aria-hidden="true" required>
-                @php
-                    $types = ['full_featured', 'partial_featured', 'non_featured', 'non_glass'];
-                @endphp
-
-                <option value=""> -- Select Product Type --</option>
-                @foreach ($types as $type)
-                    @php
-                        $select = old('type', $product->type) == $type ? 'selected' : '';
-                    @endphp
-                    <option value="{{ $type ?? old('type') }}" {{ $select }}>
-                        @php
-                            // $role_name= $role->name;
-                            $type = str_replace('_', ' ', $type);
-                            $type = ucwords($type);
-                        @endphp
-                        {{ $type }}</option>
-                @endforeach
-            </select>
-            @if ($errors->any())
-                @if ($errors->has('type'))
-                    <strong class="text-danger">{{ $errors->first('type') }}</strong>
-                @endif
+    <div class="col-9 col-sm-10 col-xl-11">
+        <select name="type" id="type" class="form-select" required>
+            <option value=""> -- Select Product Type --</option>
+            <option value="standard" {{ $product->type == 'standard' ? 'selected' : ''}} >Standard</option>
+            <option value="basic" {{ $product->type == 'basic' ? 'selected' : ''}} >Basic</option>
+            <option value="full_paint" {{ $product->type == 'full_paint' ? 'selected' : ''}} >Full (Paint)</option>
+            <option value="full_wood" {{ $product->type == 'full_wood' ? 'selected' : ''}} >Full (Wood)</option>
+        </select>
+        @if ($errors->any())
+            @if ($errors->has('type'))
+                <strong class="text-danger">{{ $errors->first('type') }}</strong>
             @endif
-
-        </div>
+        @endif
     </div>
-    <div class="col-sm-1">
-        <div class="form-group">
-            <a href="#" data-toggle="modal" data-target="#productdetail" id="product_detail"><i
-                    class="fa fa-question-circle"></i> Help</a>
-        </div>
+    <div class="col-3 col-sm-2 col-xl-1">
+        <a href="" data-bs-toggle="modal" data-bs-target="#productdetail">
+            <i class="fa fa-question-circle"></i> Help
+        </a>
     </div>
 </div>
-
 <div class="row">
     <div class="col-sm-12">
-        <label for="input-file-now">Product Image</label>
-        @if ($product->product_image)
-            <input type="file" name="product_image" id="product_image" class="dropify"
-                value="{{ $product->product_image }}"
-                data-default-file="{{ asset('assets/product_images/' . $product->product_image) }}" />
+        <label for="product_image">Product Image</label>
+        @if ($product->product_image_path)
+        <input type="file" name="product_image" id="product_image" class="dropify" value="{{ $product->product_image }}" 
+                        data-default-file="{{ asset('product_image/product/' . $product->product_image_path) }}" />
         @else
             <input type="file" name="product_image" id="product_image" class="dropify" />
         @endif
     </div>
-</div>
-
-
-<div class="row">
     <div class="col-sm-6">
         <div class="form-group">
             <label for="code">Code</label>
-            <input id="code" name="code" class="form-control" type="text" placeholder="Enter Code"
-                value="{{ $product->code ?? old('code') }}">
-            {{--  --}}
+            <input id="code" name="code" class="form-control" type="text" placeholder="Enter Code" value="{{ $product->code ?? old('code') }}">
             @if ($errors->any())
                 @if ($errors->has('code'))
                     <strong class="text-danger">{{ $errors->first('code') }}</strong>
@@ -68,8 +43,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="product_name">Title</label>
-            <input id="product_name" name="product_name" class="form-control" type="text"
-                placeholder="Enter Product Name" value="{{ $product->product_name ?? old('product_name') }}">
+            <input id="product_name" name="product_name" class="form-control" type="text" placeholder="Enter Product Name" value="{{ $product->product_name ?? old('product_name') }}">
             @if ($errors->any())
                 @if ($errors->has('product_name'))
                     <strong class="text-danger">{{ $errors->first('product_name') }}</strong>
@@ -77,16 +51,10 @@
             @endif
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="cost_from_supplier">Cost From Supplier
-            </label>
-            <input id="cost_from_supplier" name="cost_from_supplier" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->cost_from_supplier ?? old('cost_from_supplier') }}"
-                step="any">
+            <label for="cost_from_supplier">Cost From Supplier</label>
+            <input id="cost_from_supplier" name="cost_from_supplier" class="form-control" type="number" placeholder="Enter Number" value="{{ $product->cost_from_supplier ?? old('cost_from_supplier') }}" step="any">
             @if ($errors->any())
                 @if ($errors->has('cost_from_supplier'))
                     <span class="invalid-feedback" role="alert">
@@ -96,10 +64,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 standard basic">
         <div class="form-group">
-            <label for="sale_net_sqm">Sale Net Per SQM
-            </label>
+            <label for="sale_net_sqm">Sale Net Per SQM</label>
             <input id="sale_net_sqm" name="sale_net_sqm" class="form-control" type="number" placeholder="Enter Number"
                 value="{{ $product->sale_net_sqm ?? old('sale_net_sqm') }}" step="any">
             @if ($errors->any())
@@ -111,225 +78,220 @@
             @endif
         </div>
     </div>
-</div>
-
-<div class="row non_featured">
-    <div class="col-sm-6">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="cut_out">Cut Out
-            </label>
-            <input id="cut_out" name="cut_out" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->cut_out ?? old('cut_out') }}" step="any">
+            <label>Rate / Sqm (1 sided) - Matt Finish</label>
+            <select class="form-select" id="matt_finish" name="matt_finish">
+                <option value=""> -- Select One --</option>
+                <option value="single" {{ $product->matt_finish == 'single' ? 'selected' : ''}} >Single</option>
+                <option value="double" {{ $product->matt_finish == 'double' ? 'selected' : ''}} >Double</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('cut_out'))
+                @if ($errors->has('matt_finish'))
                     <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('cut_out') }}</strong>
+                        <strong class="text-danger">{{ $errors->first('matt_finish') }}</strong>
                     </span>
                 @endif
             @endif
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="notch">Notch
-            </label>
-            <input id="notch" name="notch" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->notch ?? old('notch') }}" step="any">
+            <label>Min Charges</label>
+            <input class="form-control" type="number" name="min_charges" id="min_charges" placeholder="Enter Number" value="{{ $product->min_charges ?? old('min_charges') }}">
             @if ($errors->any())
-                @if ($errors->has('notch'))
+                @if ($errors->has('min_charges'))
                     <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('notch') }}</strong>
+                        <strong class="text-danger">{{ $errors->first('min_charges') }}</strong>
                     </span>
                 @endif
             @endif
         </div>
     </div>
-
-    <div class="col-sm-6">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="hole">Hole
-            </label>
-            <input id="hole" name="hole" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->hole ?? old('hole') }}" step="any">
+            <label>Spraying Edges - Rate per L/M</label>
+            <select class="form-select" id="spraying_edges" name="spraying_edges">
+                <option value="yes" selected>Yes</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('hole'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('hole') }}</strong>
-                    </span>
+                @if ($errors->has('spraying_edges'))
+                    <strong class="text-danger">{{ $errors->first('spraying_edges') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    {{--    new feature starts --}}
-    <div class="col-sm-6">
+    <div class="col-sm-6 full_paint">
         <div class="form-group">
-            <label for="hole">Rake
-            </label>
-            <input id="hole" name="rake" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->rake ?? old('rake') }}" step="any">
+            <label>Metallic Paint - Add on / Sqm (1 sided)</label>
+            <select class="form-select" id="metallic_paint" name="metallic_paint">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->metallic_paint == 'yes' ? 'selected' : ''}}>Yes</option>
+                <option value="no" {{ $product->metallic_paint == 'no' ? 'selected' : ''}}>No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('rake'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('rake') }}</strong>
-                    </span>
+                @if ($errors->has('metallic_paint'))
+                    <strong class="text-danger">{{ $errors->first('metallic_paint') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-
-    <div class="col-sm-6">
+    <div class="col-sm-6 full_wood">
         <div class="form-group">
-            <label for="hole">Radius Corners
-            </label>
-            <input id="hole" name="radius_corners" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->radius_corners ?? old('radius_corners') }}"
-                step="any">
+            <label>Wood Stain - Add on / Sqm (1 sided)</label>
+            <select class="form-select" id="wood_stain" name="wood_stain">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->wood_stain == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->wood_stain == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('radius_corners'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('radius_corners') }}</strong>
-                    </span>
+                @if ($errors->has('wood_stain'))
+                    <strong class="text-danger">{{ $errors->first('wood_stain') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    {{--    new feature ends --}}
-    <div class="col-sm-6 paint">
-        <div class="form-group">
-            <label for="printed">Printed
-            </label>
-            <input id="printed" name="printed" class="form-control print" type="number"
-                placeholder="Enter Number" value="{{ $product->printed ?? old('printed') }}" step="any">
+    <div class="col-sm-6 full_paint">
+        <div class="form-group" id="gloss_80%" name="gloss_80">
+            <label>80% Gloss - Add on / Sqm (1 sided)</label>
+            <select class="form-select" id="gloss_80" name="gloss_80">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->gloss_80 == 'yes' ? 'selected' : ''}}>Yes</option>
+                <option value="no" {{ $product->gloss_80 == 'no' ? 'selected' : ''}}>No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('printed'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('printed') }}</strong>
-                    </span>
+                @if ($errors->has('gloss_80%'))
+                    <strong class="text-danger">{{ $errors->first('gloss_80%') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-
-    <div class="col-sm-4 print">
+    <div class="col-sm-6 full_paint">
         <div class="form-group">
-            <label for="painted">Painted
-            </label>
-            <input id="painted" name="painted" class="form-control paint" type="number"
-                placeholder="Enter Number" value="{{ $product->painted ?? old('painted') }}" step="any">
+            <label>100% Gloss / Wet Look PU Paint (SQM)</label>
+            <select class="form-select" id="gloss_100_paint" name="gloss_100_paint">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->gloss_100_paint == 'yes' ? 'selected' : ''}}>Yes</option>
+                <option value="no" {{ $product->gloss_100_paint == 'no' ? 'selected' : ''}}>No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('painted'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('painted') }}</strong>
-                    </span>
+                @if ($errors->has('gloss_100_paint'))
+                    <strong class="text-danger">{{ $errors->first('gloss_100_paint') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    <div class="col-sm-4 sparkle">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="sparkle_finish">Sparkle Finish
-            </label>
-            <input id="sparkle_finish" name="sparkle_finish" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->sparkle_finish ?? old('sparkle_finish') }}"
-                step="any">
+            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
+            <select class="form-select" id="gloss_100%_acrylic_lacquer" name="gloss_100_acrylic_lacquer">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->gloss_100_acrylic_lacquer == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->gloss_100_acrylic_lacquer == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('sparkle_finish'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('sparkle_finish') }}</strong>
-                    </span>
+                @if ($errors->has('gloss_100_acrylic_lacquer'))
+                    <strong class="text-danger">{{ $errors->first('gloss_100_acrylic_lacquer') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    <div class="col-sm-4 metallic">
+    <div class="col-sm-6 full_wood">
         <div class="form-group">
-            <label for="metallic_finish">Metallic Finish
-            </label>
-            <input id="metallic_finish" name="metallic_finish" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->metallic_finish ?? old('metallic_finish') }}"
-                step="any">
+            <label>Polyester / Full Grain (SQM)</label>
+            <select class="form-select" id="polyester_or_full_grain" name="polyester_or_full_grain">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->polyester_or_full_grain == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->polyester_or_full_grain == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('metallic_finish'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('metallic_finish') }}</strong>
-                    </span>
+                @if ($errors->has('polyester_or_full_grain'))
+                    <strong class="text-danger">{{ $errors->first('polyester_or_full_grain') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-
-    <div class="col-sm-4">
+    <div class="col-sm-6 full_wood">
         <div class="form-group">
-            <label for="cnc">CNC
-            </label>
-            <input id="cnc" name="cnc" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->cnc ?? old('cnc') }}" step="any">
+            <label>Burnished Finish (SQM)</label>
+            <select class="form-select" id="burnished_finish" name="burnished_finish">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->burnished_finish == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->burnished_finish == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('cnc'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('cnc') }}</strong>
-                    </span>
+                @if ($errors->has('burnished_finish'))
+                    <strong class="text-danger">{{ $errors->first('burnished_finish') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="standblasted">Sandblasted
-            </label>
-            <input id="standblasted" name="standblasted" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->standblasted ?? old('standblasted') }}"
-                step="any">
+            <label>Edgebanding - Rate Per L/M</label>
+            <select class="form-select" id="edgebanding" name="edgebanding">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->edgebanding == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->edgebanding == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('standblasted'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('standblasted') }}</strong>
-                    </span>
+                @if ($errors->has('edgebanding'))
+                    <strong class="text-danger">{{ $errors->first('edgebanding') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6 full_paint">
         <div class="form-group">
-            <label for="ritec">Ritec
-            </label>
-            <input id="ritec" name="ritec" class="form-control" type="number" placeholder="Enter Number"
-                value="{{ $product->ritec ?? old('ritec') }}" step="any">
+            <label>Micro bevel - Rate Per L/M</label>
+            <select class="form-select" id="micro_bevel" name="micro_bevel">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->micro_bevel == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->micro_bevel == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('ritec'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('ritec') }}</strong>
-                    </span>
+                @if ($errors->has('micro_bevel'))
+                    <strong class="text-danger">{{ $errors->first('micro_bevel') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    {{--    new feature starts --}}
-    <div class="col-sm-4">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="standblasted">Bevel Edges
-            </label>
-            <input id="standblasted" name="bevel_edges" class="form-control" type="number"
-                placeholder="Enter Number" value="{{ $product->bevel_edges ?? old('bevel_edges') }}" step="any">
+            <label>Routed / J Handle  Spraying</label>
+            <select class="form-select" id="routed_handle_spraying" name="routed_handle_spraying">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->routed_handle_spraying == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->routed_handle_spraying == 'no' ? 'selected' : ''}} >No</option>
+            </select>
             @if ($errors->any())
-                @if ($errors->has('bevel_edges'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('bevel_edges') }}</strong>
-                    </span>
+                @if ($errors->has('routed_handle_spraying'))
+                    <strong class="text-danger">{{ $errors->first('routed_handle_spraying') }}</strong>
                 @endif
             @endif
         </div>
     </div>
-    {{--    new feature ends --}}
-</div>
-<div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label for="product_note">Note
-            </label>
+            <label>Beaded Door - Rate Per L/M</label>
+            <select class="form-select" id="beaded_door" name="beaded_door">
+                <option value=""> -- Select One --</option>
+                <option value="yes" {{ $product->beaded_door == 'yes' ? 'selected' : ''}} >Yes</option>
+                <option value="no" {{ $product->beaded_door == 'no' ? 'selected' : ''}} >No</option>
+            </select>
+            @if ($errors->any())
+                @if ($errors->has('beaded_door'))
+                    <strong class="text-danger">{{ $errors->first('beaded_door') }}</strong>
+                @endif
+            @endif
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label for="product_note">Note</label>
             <textarea id="product_note" name="product_note" class="form-control" placeholder="Add Product Note" rows="5">{{ $product->product_note ?? old('product_note') }}</textarea>
             @if ($errors->any())
-                @if ($errors->has('ritec'))
+                @if ($errors->has('product_note'))
                     <span class="invalid-feedback" role="alert">
                         <strong class="text-danger">{{ $errors->first('product_note') }}</strong>
                     </span>
@@ -338,87 +300,11 @@
         </div>
     </div>
 </div>
-<div style="clear: both; height: 20px;"></div>
-<div class="row">
-    <div class="col-sm-offset-6 col-sm-6">
-        <button class="btn btn-rounded btn-primary btn-block form-group">Save
-            <span><i class="fa fa-save"></i></span></button>
+
+<div class="row d-flex button-container">
+    <div class="col-sm-6">
+        <button class="btn btn-primary-rounded">
+            Save <span><i class="fa fa-save"></i></span>
+        </button>
     </div>
 </div>
-
-
-<!--start Modal for edit survey and fit-->
-<div aria-hidden="true" aria-labelledby="ProductDetailModal" class="modal fade" id="productdetail" role="dialog"
-    tabindex="-1" style="margin-top:100px;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3><span id="form_output" class="alert-info"></span></h3>
-                    <h6><span id="errors" class="alert-danger"></span></h6>
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            <h3 class="modal-title">Product Type Details</h3>
-                        </div>
-                        <div class="col-sm-6">
-                            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                                    aria-hidden="true">&times;</span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="product_type_id">Full Featured Products:</label>
-                                <p>Products which contains all of the attributes. In full featured product we have to
-                                    fill all of the fields.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="product_type_id">Partial Featured Products:</label>
-                                <p>
-                                    Products which the Painted/ Printed Back attributes. In Partial featured products
-                                    the fields for
-                                    <span style="color:red;">'Printed', 'Painted', 'Sparkle Finish'</span>
-                                    and <span style="color:red;">'Metallic Finish'</span> are excluded.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="product_type_id">Non Featured Products:</label>
-                                <p>
-
-                                    Products which contains only the Width and Height attributes. In Non featured
-                                    products we have only these fields,
-                                    <span style="color:blue;">'Code', 'Title', 'Cost From Supplier', 'Sale Net Per
-                                        SQM', ‘Width’</span>
-                                    and <span style="color:blue;">‘Height’</span>.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="product_type_id">Non Glass Products:</label>
-                                <p>
-                                    Products which are to be quoted based on quantity only. In Non glass products we
-                                    only these fields,
-                                    <span style="color:blue;">'Code', 'Title' , 'Cost From Supplier'</span> and
-                                    <span style="color:blue;">'Sale Price’</span>.
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End endedit modal for survey and fit -->

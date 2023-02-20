@@ -62,7 +62,8 @@ class ProductController extends Controller
         [
 
             'type'=> 'required',
-            'code'=> 'required|unique:products',
+            'code' => 'required|unique:products,code',
+            'product_name' => 'required|unique:products,product_name',
             // 'product_name'=> 'required',
             // 'product_image'=> 'required',
             // 'cost_from_supplier'=> 'required',
@@ -85,25 +86,26 @@ class ProductController extends Controller
         ]);
 
         $product = $this->_request->only(
-        'code',
-        'product_name',
-        'cost_from_supplier',
-        'sale_net_sqm',
-        'cut_out',
-        'notch',
-        'hole',
-        'painted',
-        'sparkle_finish',
-        'metallic_finish',
-        'printed',
-        'cnc',
-        'standblasted',
-        'ritec',
-        'rake',
-        'type',
-        'radius_corners',
-        'product_note',
-        'bevel_edges',
+            'type',
+            'code',
+            'product_name',
+            'cost_from_supplier',
+            'sale_net_sqm',
+            'matt_finish',
+            'min_charges',
+            'spraying_edges',
+            'metallic_paint',
+            'wood_stain',
+            'gloss_80',
+            'gloss_100_paint',
+            'gloss_100_acrylic_lacquer',
+            'polyester_or_full_grain',
+            'burnished_finish',
+            'edgebanding',
+            'micro_bevel',
+            'product_note',
+            'routed_handle_spraying',
+            'beaded_door',
         );
         // dd($product);
         $product = $this->_request->except('_token');
@@ -160,33 +162,36 @@ class ProductController extends Controller
         // dd($this->_request->all());
         $this->validate($this->_request,[
 
-        'code' => 'required|unique:products,code',
-        'product_name' => 'required|unique:products,product_name',
+            'type'=> 'required',
+            'code' => 'required',
+            'product_name' => 'required',
         ]);
 
         $product = $this->_request->only(
-        'code',
-        'product_name',
-        'cost_from_supplier',
-        'sale_net_sqm',
-        'cut_out',
-        'notch',
-        'hole',
-        'painted',
-        'sparkle_finish',
-        'metallic_finish',
-        'printed',
-        'cnc',
-        'standblasted',
-        'ritec',
-        'rake',
-        'type',
-        'radius_corners',
-        'product_note',
-        'bevel_edges',
+            'type',
+            'code',
+            'product_name',
+            'cost_from_supplier',
+            'sale_net_sqm',
+            'matt_finish',
+            'min_charges',
+            'spraying_edges',
+            'metallic_paint',
+            'wood_stain',
+            'gloss_80%',
+            'gloss_100%_paint',
+            'gloss_100%_acrylic_lacquer',
+            'polyester_or_full_grain',
+            'burnished_finish',
+            'edgebanding',
+            'micro_bevel',
+            'product_note',
+            'routed_handle_spraying',
+            'beaded_door',
         );
         // dd($product);
         $product = $this->_request->except('_token');
+        $exist = $this->get_by_id($this->_modal, $id);
 
         if ($this->_request->file('product_image'))
         {
@@ -195,13 +200,14 @@ class ProductController extends Controller
             // Storage::disk('public')->put($path, File::get($file));
             $file->move(public_path('product_image/product'), $fileName );
         }else{
-            $exist = $this->get_by_id($this->_modal, $id);
             $fileName =  $exist->product_image_path;
         }
+
         $product['product_image_path'] = $fileName;
         $var = $exist->update($product);
         return redirect()->route('product.index')->with('success','product has been updated');
     }
+    
     public function duplicate($id)
     {
         // dd($id);

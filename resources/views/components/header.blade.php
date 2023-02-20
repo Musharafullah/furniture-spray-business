@@ -17,3 +17,6 @@
 <link href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css" rel="stylesheet">
 {{-- toastr --}}
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<!---------------------------- DROPIFY -------------------------------->
+<link rel="stylesheet" type="text/css" href="{{  asset('assets/dist/css/dropify.min.css') }}">

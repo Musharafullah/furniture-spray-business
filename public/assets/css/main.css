@@ -19,27 +19,42 @@
 html {
     scroll-behavior: smooth;
     height: 100%;
-    overflow-x: hidden !important;
+    overflow-y:auto;
 }
 
 body {
     font-family: Poppins-Regular, sans-serif;
     height: 100%;
     background-color: #fafafa;
-    overflow-x: hidden !important;
+    overflow-y:auto;
     font-size: 14px;
     color: #333333;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #333333;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .text-dark {
     color: #333333!important;
 }
 
+.btn {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
 .btn-primary {
+    border-radius: 4px;
     font-weight: 500!important;
     font-size: 14px;
     padding: 10px;
@@ -47,6 +62,16 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
     outline: none!important;
     border: 1px solid #3483de !important;
+    -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
+    box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
+}
+
+.btn-primary:hover,.btn-primary:focus {   
+    color: #fff;
+    background-color: #2275d7;
+    border-color: #1d65b8;
+    -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
+    box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
 }
 
 .btn-primary-rounded {
@@ -59,6 +84,8 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 25px;
     padding-left: 30px;
     padding-right: 30px;
+    -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
 }
 
 .btn-primary-rounded:hover, .btn-primary-rounded:focus {
@@ -67,6 +94,37 @@ h1, h2, h3, h4, h5, h6 {
     color: #4A90E2 !important; 
     -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
     box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+}
+
+.btn-rounded {
+    border-radius: 25px;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border: 1px solid #269abc!important;
+    font-size: 14px;
+    -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+}
+
+.btn-info:hover, .btn-info:focus  {
+    color: #fff;
+    background-color: #31b0d5;
+    border: 1px solid #269abc!important;
+    -webkit-box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
+    box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%)!important;
+}
+
+.btn-secondary {
+    font-weight: 500!important;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #efefef;
+    color: #333333;
+    border: 1px solid #d3d3d3!important;
+    border-radius: 4px;
 }
 
 .chart-stats {
@@ -147,6 +205,89 @@ textarea {
     color: #979797;
 }
 
+/*==================================================[MODAL]============================================*/
+
+.close {
+    font-size: 21px;
+    font-weight: bold;
+    color: #000;
+    opacity: .2;
+    padding: 0px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.close:hover, .close:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #e5e5e5!important;
+}
+
+/*==================================================[TOGGLE BUTTON]============================================*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    margin-bottom: -8px;
+    /* float:right;*/
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 3px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input.primary:checked + .slider {
+    background-color: #2196F3;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
 /*==================================================[DATA TABLES]============================================*/
 .table {
     font-size: 14px;
@@ -160,7 +301,12 @@ textarea {
 }
 
 .table-bordered {
-    border: 1px solid #ddd;
+    border: 1px solid #ddd !important;
+}
+
+.table-bordered th {
+    border-top: 1px solid #ddd !important;
+    border-bottom: 2px solid #ddd !important;
 }
 
 .table-bordered td {
@@ -207,7 +353,7 @@ textarea {
 
 /*==================================================[HEADER]============================================*/
 .navbar-default {
-    z-index: 10000;
+    z-index: 100;
     font-weight: bold;
     background-color: #fff;
     border-color: #eeeeee;
@@ -485,6 +631,108 @@ textarea {
     height: 38px;
 }
 
+/*==================================================[VIEW QUOTE]============================================*/
+.view-quote .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.view-quote button {
+    width: 100%;
+}
+
+.view-quote .customer-info {
+    display: flex;
+    justify-content: end;
+}
+
+.total, .total > div {
+    border: 1px solid #ddd !important;
+}
+
+.total > div {
+    border: 1px solid #ddd !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.total h5 {
+    color: #333333;
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.grand-total h5 {
+    display: inline;
+    line-height: 1.8;
+}
+
+.grand-total small {
+    color: #333333;
+}
+
+.customer-info a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+/*====================================[ CREATE-CUSTOMER PAGE/ EDIT-CUSTOMER PAGE]===================================*/
+
+.client .row > div {
+    margin-bottom: 15px;
+}
+
+.client .form-select {
+    height: 38px;
+}
+
+.client .button-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.client .button-container > div {
+    margin-bottom: 0px;
+}
+
+.client button {
+    width: 100%;
+}
+
+/*====================================[ ADD-PRODUCT PAGE/ EDIT-PRODUCT PAGE]===================================*/
+
+.product-add-edit .row > div {
+    margin-bottom: 40px;
+}
+
+.product-add-edit .form-select {
+    height: 38px;
+}
+
+.product-add-edit .button-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.product-add-edit .button-container > div {
+    margin-bottom: 0px;
+}
+
+.product-add-edit button {
+    width: 100%;
+}
+
+.product-add-edit a {
+    color: #666;
+    text-decoration: none;
+}
+
+.product-add-edit a:hover {
+    color: #4A90E2;
+}
+
 
 /*==================================================[RESPONSIVE]============================================*/
 @media (max-width: 1200px) {
@@ -517,6 +765,13 @@ textarea {
     }
 }
 
+@media (max-width: 992px) {
+    .dashboard .top-card .stat {
+        border: none;
+    }
+}
+
+
 @media (max-width: 768px) {
     .login-page img {
         width: 280px;
@@ -531,9 +786,55 @@ textarea {
     }
 }
 
+@media (max-width: 576px) {
+    .hideInMobile {
+        display: none;
+    }
+
+    .dashboard .top-card .stat {
+        text-align: center;
+    }
+
+    .total h5 {
+        display: inline;
+        margin-right: 10px;
+    }
+}
+
 @media (max-width: 420px) {
     .login-page img {
         width: 240px;
     }
 }
 
+@media (min-width: 992px) and (max-width: 1400px) {
+    .container {
+        padding-left: 70px!important;
+        padding-right: 70px!important;
+        max-width: 100% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .container {
+        padding-left: 50px!important;
+        padding-right: 50px!important;
+        max-width: 100% !important;
+    }
+
+    .hideInMediumScreen {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .container {
+        padding-left: 20px!important;
+        padding-right: 20px!important;
+        max-width: 100% !important;
+    }
+
+    .hideInTablet {
+        display: none;
+    }
+}
