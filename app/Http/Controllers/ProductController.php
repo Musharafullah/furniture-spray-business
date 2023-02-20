@@ -90,10 +90,10 @@ class ProductController extends Controller
             'code',
             'product_name',
             'cost_from_supplier',
-            'sale_net_sqm',
-            'matt_finish',
-            'min_charges',
-            'spraying_edges',
+            // 'sale_net_sqm',
+            // 'matt_finish',
+            // 'min_charges',
+            // 'spraying_edges',
             'metallic_paint',
             'wood_stain',
             'gloss_80',
@@ -119,8 +119,100 @@ class ProductController extends Controller
             $file->move(public_path('product_image/product'), $fileName );
             $product['product_image_path'] = $fileName;
         }
+        // if type="standered"
+        if($this->_request->type == "standard")
+        {
+            // this rate will fixed sel net per square 30
+            $product['sale_net_sqm'] = $this->_request->sale_net_sqm * 30;
+            //
+            $product['min_charges'] = '0';
+            $product['matt_finish'] = '0';
+            $product['spraying_edges'] = '0';
+            $product['metallic_paint'] = '0';
+            $product['gloss_80'] = '0';
+            $product['gloss_100_paint'] = '0';
+            $product['gloss_100_acrylic_lacquer'] = '0';
+            $product['edgebanding'] = '0';
+            $product['micro_bevel'] = '0';
+            $product['routed_handle_spraying'] = '0';
+            $product['beaded_door'] = '0';
+
+        }
+        // if type is full_paint
+        if($this->_request->type == "full_paint")
+        {
+            // this rate will fixed sel net per square 30
+            if($this->_request->matt_finish =="yes")
+            {
+                $mat_finish_rate = '65';
+            }else{
+                $mat_finish_rate = '130';
+            }
+            $product['matt_finish'] = $mat_finish_rate;
+
+            $product['min_charges'] = $this->_request->min_charges * 35;
+            $product['spraying_edges'] = '5';
+            if($this->_request->matt_finish =="yes")
+            {
+                $matalic_paint_1side = '5';
+            }else{
+                $matalic_paint_1side = '10';
+            }
+            $product['metallic_paint'] = $matalic_paint_1side;
+            if($this->_request->gloss_80 =="yes")
+            {
+                $glass_80_1side = '10';
+            }else{
+                $glass_80_1side = '20';
+            }
+            $product['gloss_80'] = $glass_80_1side;
+            $product['gloss_100_paint'] = '30';
+            $product['gloss_100_acrylic_lacquer'] = '45';
+            $product['edgebanding'] = '6';
+            $product['micro_bevel'] = '4';
+            $product['routed_handle_spraying'] = '15';
+            $product['beaded_door'] = '14';
+
+        }
+        // if type is full_paint
+        if($this->_request->type == "full_wood")
+        {
+            // this rate will fixed sel net per square 30
+            $product['min_charges'] = $this->_request->min_charges * 30;
+            if($this->_request->matt_finish =="yes")
+            {
+                $mat_finish_rate = '40';
+            }else{
+                $mat_finish_rate = '80';
+            }
+            $product['matt_finish'] = $mat_finish_rate;
+
+            $product['spraying_edges'] = '3';
+
+            if($this->_request->wood_stain =="yes")
+            {
+                $matalic_wood_1side = '3';
+            }else{
+                $matalic_wood_1side = '6';
+            }
+            $product['wood_stain'] = $matalic_wood_1side;
+            if($this->_request->gloss_100_acrylic_lacquer =="yes")
+            {
+                $product['gloss_100_acrylic_lacquer'] = '44';
+            }
+            $product['polyester_or_full_grain'] = '100';
+            $product['burnished_finish'] = '70';
+            $product['edgebanding'] = '7.5';
+            $product['routed_handle_spraying'] = '10';
+            $product['beaded_door'] = '10';
+
+        }
+
+        // if type is type is full_paint
+        // matt_finish
 
 
+        // dd($product);
         $var = $this->add($this->_modal, $product);
         return redirect()->route('product.index')->with('success','product has been added');
     }
@@ -207,7 +299,7 @@ class ProductController extends Controller
         $var = $exist->update($product);
         return redirect()->route('product.index')->with('success','product has been updated');
     }
-    
+
     public function duplicate($id)
     {
         // dd($id);
