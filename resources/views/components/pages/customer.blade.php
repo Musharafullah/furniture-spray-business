@@ -21,7 +21,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $clients->name }}</td>
-                            <td>{{ $clients->email }}</td>
+                            <td>{{ $clients->email }}</td> 
                             <td>{{ $clients->phone }}</td>
                             <td>{{ $clients->postal_code }}</td>
                             <td>{{ $clients->address }}</td>
@@ -31,7 +31,7 @@
                                         title="Edit Customer">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{{route('customer_quote',$clients->id)}}" data-toggle="tooltip" title="View Related Quotes">
+                                    <a href="{{route('customer_quote', $clients->id)}}" data-toggle="tooltip" title="View Related Quotes">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </div>
