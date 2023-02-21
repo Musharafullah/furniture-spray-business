@@ -142,7 +142,7 @@ class ProductController extends Controller
         if($this->_request->type == "full_paint")
         {
             // this rate will fixed sel net per square 30
-            if($this->_request->matt_finish =="yes")
+            if($this->_request->matt_finish =="single")
             {
                 $mat_finish_rate = '65';
             }else{

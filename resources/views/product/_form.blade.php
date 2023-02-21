@@ -152,7 +152,7 @@
         </div>
     </div>
     <div class="col-sm-6 full_paint">
-        <div class="form-group" id="gloss_80%" name="gloss_80">
+        <div class="form-group">
             <label>80% Gloss - Add on / Sqm (1 sided)</label>
             <select class="form-select" id="gloss_80" name="gloss_80">
                 <option value=""> -- Select One --</option>
@@ -184,7 +184,7 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
-            <select class="form-select" id="gloss_100%_acrylic_lacquer" name="gloss_100_acrylic_lacquer">
+            <select class="form-select" id="gloss_100_acrylic_lacquer" name="gloss_100_acrylic_lacquer">
                 <option value=""> -- Select One --</option>
                 <option value="yes" {{ $product->gloss_100_acrylic_lacquer == 'yes' ? 'selected' : ''}} >Yes</option>
                 <option value="no" {{ $product->gloss_100_acrylic_lacquer == 'no' ? 'selected' : ''}} >No</option>

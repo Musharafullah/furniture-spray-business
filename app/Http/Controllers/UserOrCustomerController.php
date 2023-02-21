@@ -12,16 +12,18 @@ class UserOrCustomerController extends Controller
 {
     private $_request = null;
     private $_modal = null;
+    private $_qModel = null;
 
     /**
      * Create a new controller instance.
      *
      * @return $reauest, $modal
      */
-    public function __construct(Request $request, User $modal)
+    public function __construct(Request $request, User $modal, Quote $qModel)
     {
         $this->_request = $request;
         $this->_modal = $modal;
+        $this->_qModel = $qModel; 
     }
 
     /**
@@ -105,7 +107,7 @@ class UserOrCustomerController extends Controller
     // hete get the quote against usre
     public function customer_quote($id)
     {
-        $quotes = Quote::with('user' , 'deals')
+        $quotes = $this->_qModel::with('user' , 'deals')
             ->when($id, function ($query, $id) {
                 return $query->where('client_id', $id);
             })
