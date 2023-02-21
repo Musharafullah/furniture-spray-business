@@ -38,6 +38,18 @@ class UserOrCustomerController extends Controller
 
     }
 
+    // here  get all client info by ajax
+    public function allclient()
+    {
+
+        $data = $this->get_all_by_roll($this->_modal);
+        // return view('render_data.clients')->rendor('data');
+        $client  = view('render_data.clients', compact('data'))->render();
+
+        return response()->json([
+            'client' =>$client
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -101,18 +113,6 @@ class UserOrCustomerController extends Controller
     {
         $data = $this->get_by_id($this->_modal, $id);
         return view('{{view_name}}', compact('data'));
-    }
-    // hete get the quote against usre
-    public function customer_quote($id)
-    {
-        $quotes = Quote::with('user' , 'deals')
-            ->when($id, function ($query, $id) {
-                return $query->where('client_id', $id);
-            })
-            ->get();
-
-        //$client_data = $this->get_by_id($this->_modal, $id);
-        return view('customer.view_customer_quote', compact('quotes'));
     }
 
     /**
