@@ -45,9 +45,9 @@ class BydefaultData extends Seeder
         //  $user1->assignRole('admin');
         //
         $user1 = new User;
-        $user1->name = 'Majid Fazal';
+        $user1->name = 'Admin';
         $user1->phone = '123456789';
-        $user1->email = 'majidfazal@gmail.com';
+        $user1->email = 'admin@gmail.com';
         $user1->postal_code = 'EC2A 4NE';
         $user1->address = 'rawalpindi';
         $user1->latitude = 51.523220;
