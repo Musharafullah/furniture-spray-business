@@ -19,7 +19,7 @@
                     <a href="{{ route('product.index') }}" class="btn">Products</a>
                 </li>
                 <li>
-                    <a href="{{ route('home', 'quotes') }}" class="btn">Quotes</a>
+                    <a href="{{ route('quote.index') }}" class="btn">Quotes</a>
                 </li>
                 <li>
                     <a href="{{ route('home', 'delivery') }}" class="btn">Delivery Charges</a>
@@ -28,7 +28,7 @@
                     <a href="{{ route('home', 'reports') }}" class="btn">Report</a>
                 </li>
                 <li class="quote-btn-nav ">
-                    <a class="btn btn-primary" href="">Create a Quote</a>
+                    <a class="btn btn-primary" href="{{ route('quote.create') }}">Create a Quote</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
