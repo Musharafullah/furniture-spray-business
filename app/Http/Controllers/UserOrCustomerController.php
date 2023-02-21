@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Quote;
 use Auth;
 use Hash;
 class UserOrCustomerController extends Controller
@@ -104,8 +105,14 @@ class UserOrCustomerController extends Controller
     // hete get the quote against usre
     public function customer_quote($id)
     {
-        $client_data = $this->get_by_id($this->_modal, $id);
-        return view('customer.view_customer_quote', compact('client_data'));
+        $quotes = Quote::with('user' , 'deals')
+            ->when($id, function ($query, $id) {
+                return $query->where('client_id', $id);
+            })
+            ->get();
+
+        //$client_data = $this->get_by_id($this->_modal, $id);
+        return view('customer.view_customer_quote', compact('quotes'));
     }
 
     /**
