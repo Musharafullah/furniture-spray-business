@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quote;
+use App\Models\User;
+use App\Models\Product;
 class QuotesController extends Controller
 {
     private $_request = null;
@@ -29,6 +31,7 @@ class QuotesController extends Controller
     public function index()
     {
 
+
         $data = $this->get_all($this->_modal);
         $slug = "quote";
         return view('home',compact('slug','data'));
@@ -39,10 +42,17 @@ class QuotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id = null)
     {
+        if($id){
+            dd($id,'if');
+        }else{
+            $quote = $this->get_all(new Quote);
+        }
+        $data = $this->get_all_by_roll(new User);
+        $products = $this->get_all(new Product);
 
-        return view('quote.quote_create');
+        return view('quote.quote_create',compact('data','products','quote'));
     }
 
     /**

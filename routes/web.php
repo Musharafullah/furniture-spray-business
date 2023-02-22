@@ -30,7 +30,7 @@ Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::c
 // user controller
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);
 Route::get('/customer-quote/{id}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');
-Route::get('/all-client',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
+Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'clientinfo'])->name('clientinfo');
 
 // Quote Controller
 Route::resource('/quote',App\Http\Controllers\QuotesController::class);
