@@ -100,51 +100,19 @@
                 if (type == 'standard') {
                     $('.full_paint, .full_wood').hide();
                     $('.standard').show();
-
-                    $('#code').val('SKIRT');
-                    $('#product_name').val('Skirting (Room)');
-                    $('#sale_net_sqm').val('30');
                 }
 
                 if (type == 'basic') {
                     $('.full_paint, .full_wood').hide();
                     $('.basic').show();
-
-                    $('#code').val('CC');
-                    $('#product_name').val('Colour Change');
-                    $('#sale_net_sqm').val('25');
                 }
                 if (type == 'full_paint') {
-                    $('.full_wood, .standard').hide();
+                    $('.full_wood').hide();
                     $('.full_paint').show(); 
-
-                    $('#code').val('MDFSLD');
-                    $('#product_name').val('MDF Slab Door');
-                    $('#matt_finish').val('single');
-                    $('#metallic_paint').val('yes');
-                    $('#gloss_80').val('yes');
-                    $('#gloss_100_paint').val('yes');
-                    $('#gloss_100_acrylic_lacquer').val('yes');
-                    $('#edgebanding').val('yes');
-                    $('#micro_bevel').val('yes');
-                    $('#routed_handle_spraying').val('yes');
-                    $('#beaded_door').val('yes');
                 }
                 if (type == 'full_wood') {
-                    $('.full_paint, .standard').hide();
+                    $('.full_paint').hide();
                     $('.full_wood').show(); 
-
-                    $('#code').val('OAKMDFV');
-                    $('#product_name').val('OAK Veneered MDF');
-                    $('#matt_finish').val('single');
-                    $('#wood_stain').val('yes');
-                    $('#gloss_80').val('yes');
-                    $('#gloss_100_acrylic_lacquer').val('yes');
-                    $('#edgebanding').val('yes');
-                    $('#burnished_finish').val('yes');
-                    $('#polyester_or_full_grain').val('yes');
-                    $('#routed_handle_spraying').val('yes');
-                    $('#beaded_door').val('yes');
                 }
             });
 
