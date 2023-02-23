@@ -123,20 +123,38 @@
                                             <label for="product_sqm">SQM</label>
                                             <input id="product_sqm" name="sqm" class="form-control" type="number"
                                                 placeholder="" readonly="">
-                                            <input id="pro_price" class="form-control" type="hidden" placeholder=" ">
+                                            <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="cost_from_supplier">Cost From Supplier</label>
+                                            <input id="cost_from_supplier" name="cost_from_supplier" class="form-control" type="number" value="" placeholder="Enter Number">
+                                            @if ($errors->any())
+                                                @if ($errors->has('cost_from_supplier'))
+                                                    <strong class="text-danger">{{ $errors->first('cost_from_supplier') }}</strong>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="price">Price</label>
+                                            <input id="price" name="price" class="form-control" type="number" value="" readonly>
+                                            @if ($errors->any())
+                                                @if ($errors->has('price'))
+                                                    <strong class="text-danger">{{ $errors->first('price') }}</strong>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Rate / Sqm (1 sided) - Matt Finish</label>
-                                            <select class="form-select" id="matt_finish" name="matt_finish">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="single">Single</option>
-                                                <option value="double">Double</option>
-                                            </select>
+                                            <input id="matt_finish" name="matt_finish" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('matt_finish'))
                                                     <span class="invalid-feedback" role="alert">
@@ -162,9 +180,7 @@
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Spraying Edges - Rate per L/M</label>
-                                            <select class="form-select" id="spraying_edges" name="spraying_edges">
-                                                <option value="yes" selected>Yes</option>
-                                            </select>
+                                            <input id="spraying_edges" name="spraying_edges" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('spraying_edges'))
                                                     <strong class="text-danger">{{ $errors->first('spraying_edges') }}</strong>
@@ -175,11 +191,7 @@
                                     <div class="col-sm-6 full_paint">
                                         <div class="form-group">
                                             <label>Metallic Paint - Add on / Sqm (1 sided)</label>
-                                            <select class="form-select" id="metallic_paint" name="metallic_paint">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="metallic_paint" name="metallic_paint" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('metallic_paint'))
                                                     <strong class="text-danger">{{ $errors->first('metallic_paint') }}</strong>
@@ -190,11 +202,7 @@
                                     <div class="col-sm-6 full_wood">
                                         <div class="form-group">
                                             <label>Wood Stain - Add on / Sqm (1 sided)</label>
-                                            <select class="form-select" id="wood_stain" name="wood_stain">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="wood_stain" name="wood_stain" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('wood_stain'))
                                                     <strong class="text-danger">{{ $errors->first('wood_stain') }}</strong>
@@ -205,14 +213,10 @@
                                     <div class="col-sm-6 full_paint">
                                         <div class="form-group">
                                             <label>80% Gloss - Add on / Sqm (1 sided)</label>
-                                            <select class="form-select" id="gloss_80" name="gloss_80">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="gloss_80" name="gloss_80" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
-                                                @if ($errors->has('gloss_80%'))
-                                                    <strong class="text-danger">{{ $errors->first('gloss_80%') }}</strong>
+                                                @if ($errors->has('gloss_80'))
+                                                    <strong class="text-danger">{{ $errors->first('gloss_80') }}</strong>
                                                 @endif
                                             @endif
                                         </div>
@@ -220,11 +224,7 @@
                                     <div class="col-sm-6 full_paint">
                                         <div class="form-group">
                                             <label>100% Gloss / Wet Look PU Paint (SQM)</label>
-                                            <select class="form-select" id="gloss_100_paint" name="gloss_100_paint">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="gloss_100_paint" name="gloss_100_paint" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('gloss_100_paint'))
                                                     <strong class="text-danger">{{ $errors->first('gloss_100_paint') }}</strong>
@@ -235,11 +235,7 @@
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
-                                            <select class="form-select" id="gloss_100_acrylic_lacquer" name="gloss_100_acrylic_lacquer">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="gloss_100_acrylic_lacquer" name="gloss_100_acrylic_lacquer" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('gloss_100_acrylic_lacquer'))
                                                     <strong class="text-danger">{{ $errors->first('gloss_100_acrylic_lacquer') }}</strong>
@@ -250,11 +246,7 @@
                                     <div class="col-sm-6 full_wood">
                                         <div class="form-group">
                                             <label>Polyester / Full Grain (SQM)</label>
-                                            <select class="form-select" id="polyester_or_full_grain" name="polyester_or_full_grain">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="polyester_or_full_grain" name="polyester_or_full_grain" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('polyester_or_full_grain'))
                                                     <strong class="text-danger">{{ $errors->first('polyester_or_full_grain') }}</strong>
@@ -265,26 +257,16 @@
                                     <div class="col-sm-6 full_wood">
                                         <div class="form-group">
                                             <label>Burnished Finish (SQM)</label>
-                                            <select class="form-select" id="burnished_finish" name="burnished_finish">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
-                                            @if ($errors->any())
+                                            <input id="burnished_finish" name="burnished_finish" class="form-control" type="number" placeholder="Enter Number" value="">
                                                 @if ($errors->has('burnished_finish'))
                                                     <strong class="text-danger">{{ $errors->first('burnished_finish') }}</strong>
                                                 @endif
-                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Edgebanding - Rate Per L/M</label>
-                                            <select class="form-select" id="edgebanding" name="edgebanding">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="edgebanding" name="edgebanding" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('edgebanding'))
                                                     <strong class="text-danger">{{ $errors->first('edgebanding') }}</strong>
@@ -295,11 +277,7 @@
                                     <div class="col-sm-6 full_paint">
                                         <div class="form-group">
                                             <label>Micro bevel - Rate Per L/M</label>
-                                            <select class="form-select" id="micro_bevel" name="micro_bevel">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="micro_bevel" name="micro_bevel" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('micro_bevel'))
                                                     <strong class="text-danger">{{ $errors->first('micro_bevel') }}</strong>
@@ -310,11 +288,7 @@
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Routed / J Handle  Spraying</label>
-                                            <select class="form-select" id="routed_handle_spraying" name="routed_handle_spraying">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="routed_handle_spraying" name="routed_handle_spraying" class="form-control" type="number" placeholder="Enter Number" value="">
                                             @if ($errors->any())
                                                 @if ($errors->has('routed_handle_spraying'))
                                                     <strong class="text-danger">{{ $errors->first('routed_handle_spraying') }}</strong>
@@ -325,11 +299,8 @@
                                     <div class="col-sm-6 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Beaded Door - Rate Per L/M</label>
-                                            <select class="form-select" id="beaded_door" name="beaded_door">
-                                                <option value=""> -- Select One --</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
+                                            <input id="beaded_door" name="beaded_door" class="form-control" type="number" placeholder="Enter Number" value="">
+
                                             @if ($errors->any())
                                                 @if ($errors->has('beaded_door'))
                                                     <strong class="text-danger">{{ $errors->first('beaded_door') }}</strong>
@@ -642,15 +613,14 @@
 
                 $.get(url, function (result) {
                     set_product(result);
+
+                    var height = Number($('#product_height').val());
+                    var width = Number($('#product_width').val());
+                    if (width > 0 && height > 0) {
+                        calculate_price();
+                    }
                 });
-
-                $('#product_sqm').val(0.25);
-
-                var height = Number($('#product_height').val());
-                var width = Number($('#product_width').val());
-                if (width > 0 && height > 0) {
-                    calculate_price();
-                }
+                
             });
 
             //disabled remove from height attribute if width is given
@@ -681,11 +651,15 @@
                 }
             });
 
-            $('#produt_height').on('keyup', function () {
+            $('#quantity, #net_price, #trade_discount').on('keyup', function (event) {
+                calculate_gross();
+            });
+
+            $('#product_height').on('keyup', function () {
                 calculate_price();
             });
 
-            $('#cutout, #notch, #hole, #back_select, #cnc, #sandblasted, #ritec').on('keyup keydown change', function () {
+            $('#cost_from_supplier, #matt_finish, #min_charges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester_or_full_grain, #burnished_finish, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel, #spraying_edges').on('keyup keydown change', function () {
                 calculate_price();
             });
 
@@ -725,201 +699,130 @@
                 $('.full_paint, .full_wood').hide();
                 $('.standard').show();
 
-                var net_price = row.sale_net_sqm;
-                $('#pro_price').val(net_price);
+                $('#matt_finish').val(0);
+                $('#min_charges').val(0);
+                $('#metallic_paint').val(0);
+                $('#gloss_80').val(0);
+                $('#gloss_100_paint').val(0);
+                $('#gloss_100_acrylic_lacquer').val(0);
+                $('#edgebanding').val(0);
+                $('#micro_bevel').val(0);
+                $('#routed_handle_spraying').val(0);
+                $('#beaded_door').val(0);
+                $('#wood_stain').val(0);
+                $('#polyester_or_full_grain').val(0);
+                $('#burnished_finish').val(0);
+                $('#spraying_edges').val(0);
+                
             }
-
             if (type == 'basic') {
                 $('.full_paint, .full_wood').hide();
+                $('.basic').show();
 
-                var net_price = row.sale_net_sqm;
-                $('#pro_price').val(net_price);
+                $('#matt_finish').val(0);
+                $('#min_charges').val(0);
+                $('#metallic_paint').val(0);
+                $('#gloss_80').val(0);
+                $('#gloss_100_paint').val(0);
+                $('#gloss_100_acrylic_lacquer').val(0);
+                $('#edgebanding').val(0);
+                $('#micro_bevel').val(0);
+                $('#routed_handle_spraying').val(0);
+                $('#beaded_door').val(0);
+                $('#wood_stain').val(0);
+                $('#polyester_or_full_grain').val(0);
+                $('#burnished_finish').val(0);
+                $('#spraying_edges').val(0);
             }
             if (type == 'full_paint') {
-                $('.full_wood, .standard').hide();
+                $('.full_wood').hide();
                 $('.full_paint').show(); 
 
-                if(row.matt_finish =="65")
-                {
-                    $('#matt_finish').val('single');
-                }else{
-                    $('#matt_finish').val('double');
-                }
-
+                $('#matt_finish').val(row.matt_finish);
                 $('#min_charges').val(row.min_charges);
+                $('#metallic_paint').val(row.metallic_paint);
+                $('#gloss_80').val(row.gloss_80);
+                $('#gloss_100_paint').val(row.gloss_100_paint);
+                $('#gloss_100_acrylic_lacquer').val(row.gloss_100_acrylic_lacquer);
+                $('#edgebanding').val(row.edgebanding);
+                $('#micro_bevel').val(row.micro_bevel);
+                $('#routed_handle_spraying').val(row.routed_handle_spraying);
+                $('#beaded_door').val(row.beaded_door);
+                $('#spraying_edges').val(row.spraying_edges);
 
-                if(row.metallic_paint =="10")
-                {
-                    $('#metallic_paint').val('yes');
-                }else{
-                    $('#metallic_paint').val('no');
-                } 
-
-                if(row.gloss_80 =="10")
-                {
-                    $('#gloss_80').val('yes');
-                }else{
-                    $('#gloss_80').val('no');
-                }
-
-                if(row.gloss_100_paint =="30")
-                {
-                    $('#gloss_100_paint').val('yes');
-                }else{
-                    $('#gloss_100_paint').val('no');
-                }
-
-                if(row.gloss_100_acrylic_lacquer =="45")
-                {
-                    $('#gloss_100_acrylic_lacquer').val('yes');
-                }else{
-                    $('#gloss_100_acrylic_lacquer').val('no');
-                }
-
-                if(row.edgebanding =="6")
-                {
-                    $('#edgebanding').val('yes');
-                }else{
-                    $('#edgebanding').val('no');
-                }
-
-                if(row.micro_bevel =="4")
-                {
-                    $('#micro_bevel').val('yes');
-                }else{
-                    $('#micro_bevel').val('no');
-                }
-
-                if(row.routed_handle_spraying =="15")
-                {
-                    $('#routed_handle_spraying').val('yes');
-                }else{
-                    $('#routed_handle_spraying').val('no');
-                }
-
-                if(row.beaded_door =="45")
-                {
-                    $('#beaded_door').val('yes');
-                }else{
-                    $('#beaded_door').val('no');
-                }
-
+                $('#wood_stain').val(0);
+                $('#polyester_or_full_grain').val(0);
+                $('#burnished_finish').val(0);
             }
             if (type == 'full_wood') {
-                $('.full_paint, .standard').hide();
+                $('.full_paint').hide();
                 $('.full_wood').show(); 
 
-                if(row.matt_finish =="40")
-                {
-                    $('#matt_finish').val('single');
-                }else{
-                    $('#matt_finish').val('double');
-                }
-
+                $('#matt_finish').val(row.matt_finish);
                 $('#min_charges').val(row.min_charges);
+                $('#wood_stain').val(row.wood_stain);
+                $('#gloss_100_acrylic_lacquer').val(row.gloss_100_acrylic_lacquer);
+                $('#polyester_or_full_grain').val(row.polyester_or_full_grain);
+                $('#burnished_finish').val(row.burnished_finish);
+                $('#edgebanding').val(row.edgebanding);
+                $('#routed_handle_spraying').val(row.routed_handle_spraying);
+                $('#beaded_door').val(row.beaded_door);
+                $('#spraying_edges').val(row.spraying_edges);
 
-                if(row.wood_stain =="3")
-                {
-                    $('#wood_stain').val('yes');
-                }else{
-                    $('#wood_stain').val('no');
-                } 
-
-                if(row.gloss_100_acrylic_lacquer =="44")
-                {
-                    $('#gloss_100_acrylic_lacquer').val('yes');
-                }else{
-                    $('#gloss_100_acrylic_lacquer').val('no');
-                }
-
-                if(row.polyester_or_full_grain =="100")
-                {
-                    $('#polyester_or_full_grain').val('yes');
-                }else{
-                    $('#polyester_or_full_grain').val('no');
-                }
-
-                if(row.burnished_finish =="70")
-                {
-                    $('#burnished_finish').val('yes');
-                }else{
-                    $('#burnished_finish').val('no');
-                }
-
-                if(row.edgebanding =="7.5")
-                {
-                    $('#edgebanding').val('yes');
-                }else{
-                    $('#edgebanding').val('no');
-                }
-
-                if(row.routed_handle_spraying =="10")
-                {
-                    $('#routed_handle_spraying').val('yes');
-                }else{
-                    $('#routed_handle_spraying').val('no');
-                }
-
-                if(row.beaded_door =="10")
-                {
-                    $('#beaded_door').val('yes');
-                }else{
-                    $('#beaded_door').val('no');
-                }
+                $('#metallic_paint').val(0);
+                $('#gloss_80').val(0);
+                $('#gloss_100_paint').val(0);
+                $('#micro_bevel').val(0);
             }
 
-            function calculate_price() {
-                var total = 0;
-                $('#cutout, #notch, #hole, #cnc').each(function () {
-                    total += Number($(this).val());
-                });
-                // product price per sqm
-                var input_sqm = Number($('#product_sqm').val());
-                if (input_sqm < 0.25) {
-                    input_sqm = 0.25;
-                }
+            $('#cost_from_supplier').val(row.cost_from_supplier);
+            $('#note').val(row.note);
+            var net_price = row.sale_net_sqm;
+            $('#pro_price').val(net_price);
+        }
 
-                var sqm_product = $('#pro_price').val();
+        function calculate_price() {
+            var total = 0;
 
-                var sqm_price = input_sqm * sqm_product;
-                $('#product_price').val(sqm_price);
-
-                //back per sqm
-                var back = $('#back_select').val();
-                var back_per_sqm = back * input_sqm;
-
-                //standblasted per sqm
-                var stand = $('#sandblasted').val();
-                var stand_per_sqm = stand * input_sqm;
-
-                //ritec per sqm
-                var retic = $('#ritec').val();
-                var retic_per_sqm = retic * input_sqm;
-                total += sqm_price + back_per_sqm + stand_per_sqm + retic_per_sqm;
-
-                $('#net_price').val(total.toFixed(2));
-                $('#basic_net').val(total.toFixed(2));
-
-                calculate_gross();
+            $('#cost_from_supplier, #matt_finish, #min_charges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester_or_full_grain, #burnished_finish, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel, #spraying_edges').each(function () {
+                total += Number($(this).val());
+            });
+            // product price per sqm
+            var input_sqm = Number($('#product_sqm').val());
+            if (input_sqm < 0.25) {
+                input_sqm = 0.25;
             }
 
-            function calculate_gross() {
-                var quantity = Number($('#quantity').val());
-                var basic_net = Number($('#basic_net').val());
-                var discount = Number($('#trade_discount').val());
+            var sqm_product = Number($('#pro_price').val());
 
-                var net = Number(quantity * basic_net);
+            var sqm_price = input_sqm * sqm_product;
+            $('#price').val(sqm_price);
 
-                var vat = (20 * net) / 100;
+            total += sqm_price;
 
-                var gross = net + vat;
+            $('#net_price').val(total.toFixed(2));
+            $('#basic_net').val(total.toFixed(2));
 
-                var net_discount = (discount * gross) / 100;
+            calculate_gross();
+        }
 
-                var total_gross = gross - net_discount;
+        function calculate_gross() {
+            var quantity = Number($('#quantity').val());
+            var basic_net = Number($('#basic_net').val());
+            var discount = Number($('#trade_discount').val());
 
-                $('#total_gross').val(total_gross.toFixed(2));
-            }
+            var net = Number(quantity * basic_net);
+
+            var vat = (20 * net) / 100;
+            $('#vat').val(vat.toFixed(2));
+
+            var gross = net + vat;
+
+            var net_discount = (discount * gross) / 100;
+
+            var total_gross = gross - net_discount;
+
+            $('#total_gross').val(total_gross.toFixed(2));
         }
     </script>
 @endsection
