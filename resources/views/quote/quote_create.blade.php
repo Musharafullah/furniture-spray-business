@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-2">
                                     <div class="form-group">
-                                        <label for="product-code">Code</label>
+                                        <label for="code_id">Code</label>
                                         <select name="code_id" id="code_id" class="form-control" data-live-search="true"
                                             tabindex="-1" aria-hidden="true">
                                             <option value=""> -- Select One --</option>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="network_preferences">Products</label>
+                                        <label for="product_id">Products</label>
                                         <select name="product_id" id="product_id" class="form-control"
                                             data-live-search="true" tabindex="-1" aria-hidden="true">
                                             <option value=""> -- Select One --</option>
@@ -336,8 +336,6 @@
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
                                 <input id="quantity" name="quantity" class="form-control" type="number"
-                                    placeholder="Please enter quantity" min="1" value="1" step="1">
-                                <input id="qty" name="qty" class="form-control" type="number"
                                     placeholder="Please enter quantity" min="1" value="1" step="1">
                                 @if ($errors->has('quantity'))
                                     <span class="invalid-feedback" role="alert">
@@ -619,5 +617,359 @@
             });
         }
         //
+        function addon_selectboxes(selectbox_id, mul) {
+            var options = '';
+            options += '<option value="0">NO</option>';
+            options += '<option value="' + mul + '">YES</option>';
+            $('#' + selectbox_id).html(options);
+        }
+
+
+        function set_selectbox(selectbox_id, mul) {
+            var options = '';
+            var loop = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            $.each(loop, function(index, value) {
+                options += '<option value="' + (value * mul) + '">' + value + '</option>';
+            });
+            $('#' + selectbox_id).html(options);
+
+        }
+
+        function set_form(row) {
+
+            var options = '';
+            options += '<option id="clear" value="0">Clear</option>';
+            options += '<option id="paint" value="' + row.painted + '">Painted</option>';
+            options += '<option id="print" value="' + row.printed + '">Printed</option>';
+            $('#back_select').html(options);
+
+            // painted option
+
+            var option = '';
+            option += '<option value="0">Select option</option>';
+            option += '<option value="' + row.sparkle_finish + '">Sparkle Finish</option>';
+            option += '<option value="' + row.metallic_finish + '">Mettalic Finish</option>';
+            $('#painted_option').html(option);
+
+            // display sparkle and metallic finish
+            $('#back_select, #code_id, #product_id').each(function() {
+                if ($('#back_select').val() == row.painted || row.type != 'non_glass') {
+                    $('.width, .height, .sqm, .back, .finish').show();
+
+
+                    // $('#quantity').show();
+                    // $('#qty').hide();
+
+                    $('#quantity, #trade_discount').show();
+                    $('#qty, #trade_discount1').hide();
+                    //                    $('#net_price1').val('');
+
+                } else if (row.type == "non_glass" && $('#qty').val() == 1) {
+
+                    // $('#quantity').hide();
+                    // $('#qty').show();
+
+                    $('#quantity, #trade_discount').hide();
+                    $('#qty, #trade_discount1').show();
+
+                    $('.width, .height,.sqm').hide();
+                    var net_price = row.sale_net_sqm;
+
+                    var qty = $('#quantity').val();
+
+                    var net = qty * net_price;
+                    $('#net_price').val(net);
+
+                    var vat = (20 * net) / 100;
+                    $('#vat').val(vat);
+
+                    var gross = net + vat;
+
+
+                    // var discount = $('#trade_discount').val();
+                    var discount = $('#trade_discount1').val();
+
+
+
+                    var net_discount = (discount * gross) / 100;
+
+
+                    var total_gross = gross - net_discount;
+                    $('#total_gross').val(total_gross.toFixed(2));
+
+                    if (row.type == 'non_glass') {
+
+                        // $('#qty').show();
+                        // $('#quantity').hide();
+                        $('#qty, #trade_discount1').show();
+                        $('#quantity, #trade_discount').hide();
+
+                        var back = '';
+                        back += '<option value="0">Painted</option>';
+                        back += '<option value="0">Printed</option>';
+                        $('#back_select').html(back);
+                        $('.back').hide();
+
+                    }
+
+                }
+                $(".finish").hide();
+                if (row.type == 'non_featured' || row.type == 'partial_featured') {
+
+                    // $('#qty').hide();
+                    // $('#quantity').show();
+                    $('#qty, #trade_discount1').hide();
+                    $('#quantity, #trade_discount').show();
+
+                    var back = '';
+                    back += '<option id="clear" value="0" selected="selected">Clear</option>';
+                    back += '<option value="0">Painted</option>';
+                    back += '<option value="0">Printed</option>';
+                    $('#back_select').html(back);
+                    $('.back').hide();
+
+                }
+                if ($('#qty') && row.type == 'non_glass') {
+
+                    $('#qty, #trade_discount1').on('keyup.qty, keyup.trade_discount', function(e) {
+                        // $('#quantity').hide();
+                        // $('#qty').show();
+                        $('#quantity, #trade_discount').hide();
+                        $('#qty, #trade_discount1').show();
+                        var net_price = row.sale_net_sqm;
+
+                        var qty = $('#qty').val();
+
+                        var net = qty * net_price;
+                        $('#net_price').val(net);
+
+
+                        var vat = (20 * net) / 100;
+                        $('#vat').val(vat);
+
+                        var gross = net + vat;
+
+                        // var discount = $('#trade_discount').val();
+                        var discount = $('#trade_discount1').val();
+
+
+                        var net_discount = (discount * gross) / 100;
+
+
+                        var total_gross = gross - net_discount;
+                        $('#total_gross').val(total_gross.toFixed(2));
+
+
+                    });
+                }
+            });
+
+            //for non featured products
+            if (row.type == 'non_featured') {
+
+                set_selectbox('cutout', 0);
+                set_selectbox('notch', 0);
+                set_selectbox('hole', 0);
+                set_selectbox('rake', 0);
+                set_selectbox('radius_corners', 0);
+                $('.cut, .notches, .holes, .rake, .radius_corners').hide();
+
+                addon_selectboxes('cnc', 0);
+                addon_selectboxes('sandblasted', 0);
+                addon_selectboxes('ritec', 0);
+                addon_selectboxes('bevel_edges', 0);
+                $('.shape, .sand, .ritecs, .bevel_edges').hide();
+
+            } else {
+                $('.cut, .notches, .holes, .rake, .radius_corners, .shape, .sand, .ritecs, .bevel_edges').show();
+                set_selectbox('cutout', row.cut_out);
+                set_selectbox('notch', row.notch);
+                set_selectbox('hole', row.hole);
+                set_selectbox('rake', row.rake);
+                set_selectbox('radius_corners', row.radius_corners);
+
+                addon_selectboxes('cnc', row.cnc);
+                addon_selectboxes('sandblasted', row.standblasted);
+                addon_selectboxes('ritec', row.ritec);
+                addon_selectboxes('bevel_edges', row.bevel_edges);
+
+            }
+            if (row.type == 'non_glass') {
+
+                // $('#qty').show();
+                // $('#quantity').hide();
+                $('#qty, #trade_discount1').show();
+                $('#quantity, #trade_discount').hide();
+
+                set_selectbox('cutout', 0);
+                set_selectbox('notch', 0);
+                set_selectbox('hole', 0);
+                set_selectbox('rake', 0);
+                set_selectbox('radius_corners', 0);
+                $('.cut, .notches, .holes, .rake, .radius_corners, .width, .height, .sqm, .back').hide();
+
+                addon_selectboxes('cnc', 0);
+                addon_selectboxes('sandblasted', 0);
+                addon_selectboxes('ritec', 0);
+                addon_selectboxes('bevel_edges', 0);
+                $('.shape, .sand, .ritecs, .bevel_edges').hide();
+
+            }
+            var net_price = row.sale_net_sqm;
+            $('#pro-price').val(net_price);
+        }
+
+        function calculate_gross() {
+
+            var quantity = Number($('#quantity').val());
+            var basic_net = Number($('#basic_net').val());
+            //console.log('basic net:' + basic_net);
+            var discount = 0;
+
+
+            var net = Number(quantity * basic_net);
+
+            $('#net_price').val(net.toFixed(2));
+
+
+            var vat = (20 * net) / 100;
+            $('#vat').val(vat.toFixed(2));
+
+
+            var gross = net + vat;
+
+
+            var net_discount = (discount * gross) / 100;
+
+            var total_gross = gross - net_discount;
+
+            $('#total_gross').val(total_gross.toFixed(2));
+
+        }
+
+        function calculate_price() {
+            var total = 0;
+            $('#cutout, #notch, #hole, #rake, #radius_corners, #cnc').each(function() {
+                total += Number($(this).val());
+            });
+
+            // product price per sqm
+            var input_sqm = Number($('#prod-sqm').val());
+            if (input_sqm < 0.25) {
+                input_sqm = 0.25;
+            }
+
+            $('#prod-sqm').val(input_sqm.toFixed(2));
+
+            var sqm_product = $('#pro-price').val();
+
+            var sqm_price = input_sqm * sqm_product;
+
+            var pro_discount = Number($('#trade_discount').val());
+
+            pro_discount = (pro_discount * sqm_price) / 100;
+
+            sqm_price = sqm_price - pro_discount;
+
+
+            $('#product_price').val(sqm_price.toFixed(2));
+
+            //back per sqm
+            var back = $('#back_select').val();
+            var back_per_sqm = back * input_sqm;
+
+            //finish per sqm
+            var finish = $('#painted_option').val();
+
+            var myOption = $("#back_select option:selected").attr("id");
+
+            if (myOption == 'paint') {
+
+                var finish_per_sqm = finish * input_sqm;
+                $('.finish').show();
+            }
+            if (myOption == 'print' | myOption == 'clear') {
+                var finish_per_sqm = 0 * input_sqm;
+                $('.finish').hide();
+            }
+
+            //standblasted per sqm
+            var stand = $('#sandblasted').val();
+            var stand_per_sqm = stand * input_sqm;
+
+            //ritec per sqm
+            var retic = $('#ritec').val();
+            var retic_per_sqm = retic * input_sqm;
+
+            //bevel edges per sqm
+            var bevel_edges = $('#bevel_edges').val();
+            var bevel_edges_cal = bevel_edges * input_sqm;
+            var bevel_edges_per_sqm = bevel_edges_cal * 4;
+
+            total += sqm_price + back_per_sqm + stand_per_sqm + bevel_edges_per_sqm + retic_per_sqm + finish_per_sqm;
+
+            $('#net_price').val(total.toFixed(2));
+            $('#basic_net').val(total.toFixed(2));
+
+
+            calculate_gross();
+
+        }
+        $(document).ready(function(e) {
+            //get product details
+            $("#code_id, #product_id").change(function() {
+                var product_info = $('#code_id, #product_id, #notch, #hole');
+                var val = $(this).val();
+                var id = $(this).attr('id');
+                if (id == 'code_id') {
+                    $('#product_id').val(val);
+                } else {
+                    $('#code_id').val(val);
+                }
+                //This is simple Get ajax request
+                var url = '{{ url('get.product') }}' + '/' + val;
+                $.get(url, function(result) {
+                    var pro_type = result.type;
+                    var product_note = result.product_note;
+                    $('#pro_type').val(pro_type);
+                    $('#product_note').val(product_note);
+                    set_form(result);
+                });
+
+                var height = Number($('#prod-height').val());
+                var width = Number($('#prod-width').val());
+                if (width > 0 && height > 0) {
+                    calculate_price();
+                }
+            });
+            //disabled remove from height attribute if width is given
+            $('#prod-width').on('keyup', function(event) {
+
+                var val = $(this).val();
+
+                if (val.length > 0) {
+                    $('#prod-height').removeAttr('disabled');
+                } else {
+                    $('#prod-height').attr('disabled', 'disabled');
+                }
+            });
+            $('#prod-width, #prod-height').on('keyup', function(event) {
+                var height = $('#prod-height').val();
+                var width = $('#prod-width').val();
+                if (height.length > 0 && width.length > 0) {
+                    var mul = width * height;
+                    var sqm = mul / 1000000;
+
+                    $('#prod-sqm').val(sqm);
+
+                }
+            });
+            $('#cutout, #notch, #hole, #rake, #radius_corners, #back_select, #cnc, #sandblasted, #ritec, #bevel_edges, #painted_option,#code_id, #prod-height, #trade_discount')
+                .on('keyup keydown change', function() {
+                    // $('#cutout, #notch, #hole, #back_select, #cnc, #sandblasted, #ritec, #painted_option,#code_id, #prod-height, #trade_discount').on('keyup keydown change', function () {
+                    calculate_price();
+                });
+
+        });
     </script>
 @endsection

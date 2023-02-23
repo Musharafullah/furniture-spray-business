@@ -228,6 +228,12 @@ class ProductController extends Controller
         $data = $this->get_by_id($this->_modal, $id);
         return view('{{view_name}}', compact('data'));
     }
+    //get products detail through ajax
+    public function product_data($id)
+    {
+        $get_product = $this->get_by_id($this->_modal, $id);
+        return response()->json($get_product);
+    }
 
     /**
      * Show the form for editing the specified resource.

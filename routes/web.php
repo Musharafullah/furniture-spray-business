@@ -26,6 +26,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/product', App\Http\Controllers\ProductController::class);
 Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::class, 'duplicate'])->name('product_duplicate');
+Route::get('get-product-data/{id}', [App\Http\Controllers\ProductController::class,'product_data'])->name('get.product');
 
 // user controller
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);

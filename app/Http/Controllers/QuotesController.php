@@ -51,7 +51,6 @@ class QuotesController extends Controller
         }
         $data = $this->get_all_by_roll(new User);
         $products = $this->get_all(new Product);
-
         return view('quote.quote_create',compact('data','products','quote'));
     }
 
