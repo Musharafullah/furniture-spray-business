@@ -9,16 +9,16 @@
         </button>
         <div class="navbar-collapse navbar-ex1-collapse collapse in" id="navbarSupportedContent">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li class="{{ Request::is('home') ? 'active' : '' }}">
                     <a href="{{ route('home') }}" class="btn">Dashboard</a>
                 </li>
-                <li>
+                <li class="{{ Request::is('customer') ? 'active' : '' }}">
                     <a href="{{ route('customer.index') }}" class="btn">Customers</a>
                 </li>
-                <li>
+                <li class="{{ Request::is('product') ? 'active' : '' }}">
                     <a href="{{ route('product.index') }}" class="btn">Products</a>
                 </li>
-                <li>
+                <li class="{{ Request::is('quote') ? 'active' : '' }}">
                     <a href="{{ route('quote.index') }}" class="btn">Quotes</a>
                 </li>
                 <li>

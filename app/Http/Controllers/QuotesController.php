@@ -47,8 +47,19 @@ class QuotesController extends Controller
     public function create($id = null)
     {
 
+        if($id){
+            dd($id,'if');
+        }else{
+            $quote = $this->get_all(new Quote);
+        }
+        $data = $this->get_all_by_roll(new User);
+        $products = $this->get_all(new Product);
+        return view('quote.quote_create',compact('data','products','quote'));
+
+
         $products = $this->get_all($this->_pmodal);
         return view('quote.quote_create', compact('products'));
+
 
     }
 
