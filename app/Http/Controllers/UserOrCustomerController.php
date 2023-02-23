@@ -52,6 +52,51 @@ class UserOrCustomerController extends Controller
             'client' =>$client
         ]);
     }
+
+    public function client_data(Request $request){
+        //dd($request->id);
+        $get_client = $this->get_by_id($this->_modal, $request->id);
+        //dd($get_client);
+        return response()->json($get_client);
+    }
+
+    public function client_store(Request $request){
+        $this->validate($this->_request,
+        [
+            'name' => 'required|string|max:191',
+            'email' => 'required|e-mail|unique:users',
+            'postal_code'=> 'required',
+        ]);
+        $customer = $this->_request->only(
+            'name',
+            'email',
+            'password',
+            'phone',
+            'postal_code',
+            'address',
+            'latitude',
+            'longitude',
+            'trade_discount',
+        );
+        $customer = $this->_request->except('_token');
+
+        //we use UB6 8JN  zip code for starting point
+        $lati1= $this->_request->latitude;
+        $long1 = $this->_request->longitude;
+        $final_distance = $this->find_distance($lati1,$long1);
+
+        $customer['user_id'] = Auth::user()->id;
+        $customer['password'] = Hash::make('123456');
+        $customer['distance'] = $final_distance;
+        $var = $this->add($this->_modal, $customer);
+        $var->assignRole('client');
+
+        //dd($customer);
+
+        return response()->json($var);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

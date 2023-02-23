@@ -332,4 +332,13 @@ class ProductController extends Controller
         $this->delete($this->_modal, $id);
         return redirect()->route('{{ routeName }}');
     }
+
+
+    //get products detail through ajax
+    public function product_data($id)
+    {
+        $product = $this->get_by_id($this->_modal, $id);
+        //dd($product);
+        return response()->json($product);
+    }
 }
