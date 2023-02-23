@@ -64,7 +64,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-6 standard basic">
+    <div class="col-sm-6">
         <div class="form-group">
             <label for="sale_net_sqm">Sale Net Per SQM</label>
             <input id="sale_net_sqm" name="sale_net_sqm" class="form-control" type="number" placeholder="Enter Number"
@@ -78,14 +78,21 @@
             @endif
         </div>
     </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input id="price" name="price" class="form-control" type="number" placeholder="Enter Price" value="{{ $product->price ?? old('price') }}">
+            @if ($errors->any())
+                @if ($errors->has('price'))
+                    <strong class="text-danger">{{ $errors->first('price') }}</strong>
+                @endif
+            @endif
+        </div>
+    </div>
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Rate / Sqm (1 sided) - Matt Finish</label>
-            <select class="form-select" id="matt_finish" name="matt_finish">
-                <option value=""> -- Select One --</option>
-                <option value="single" {{ $product->matt_finish == 'single' ? 'selected' : ''}} >Single</option>
-                <option value="double" {{ $product->matt_finish == 'double' ? 'selected' : ''}} >Double</option>
-            </select>
+            <input id="matt_finish" name="matt_finish" class="form-control" type="number" placeholder="Enter Number" value="{{ $product->matt_finish ?? old('matt_finish') }}">
             @if ($errors->any())
                 @if ($errors->has('matt_finish'))
                     <span class="invalid-feedback" role="alert">
@@ -111,9 +118,8 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Spraying Edges - Rate per L/M</label>
-            <select class="form-select" id="spraying_edges" name="spraying_edges">
-                <option value="yes" selected>Yes</option>
-            </select>
+            <input id="spraying_edges" name="spraying_edges" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->spraying_edges ?? old('spraying_edges') }}">
             @if ($errors->any())
                 @if ($errors->has('spraying_edges'))
                     <strong class="text-danger">{{ $errors->first('spraying_edges') }}</strong>
@@ -124,11 +130,8 @@
     <div class="col-sm-6 full_paint">
         <div class="form-group">
             <label>Metallic Paint - Add on / Sqm (1 sided)</label>
-            <select class="form-select" id="metallic_paint" name="metallic_paint">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->metallic_paint == 'yes' ? 'selected' : ''}}>Yes</option>
-                <option value="no" {{ $product->metallic_paint == 'no' ? 'selected' : ''}}>No</option>
-            </select>
+            <input id="metallic_paint" name="metallic_paint" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->metallic_paint ?? old('metallic_paint') }}">
             @if ($errors->any())
                 @if ($errors->has('metallic_paint'))
                     <strong class="text-danger">{{ $errors->first('metallic_paint') }}</strong>
@@ -139,11 +142,8 @@
     <div class="col-sm-6 full_wood">
         <div class="form-group">
             <label>Wood Stain - Add on / Sqm (1 sided)</label>
-            <select class="form-select" id="wood_stain" name="wood_stain">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->wood_stain == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->wood_stain == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="wood_stain" name="wood_stain" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->wood_stain ?? old('wood_stain') }}">
             @if ($errors->any())
                 @if ($errors->has('wood_stain'))
                     <strong class="text-danger">{{ $errors->first('wood_stain') }}</strong>
@@ -154,14 +154,11 @@
     <div class="col-sm-6 full_paint">
         <div class="form-group">
             <label>80% Gloss - Add on / Sqm (1 sided)</label>
-            <select class="form-select" id="gloss_80" name="gloss_80">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->gloss_80 == 'yes' ? 'selected' : ''}}>Yes</option>
-                <option value="no" {{ $product->gloss_80 == 'no' ? 'selected' : ''}}>No</option>
-            </select>
+            <input id="gloss_80" name="gloss_80" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->gloss_80 ?? old('gloss_80') }}">
             @if ($errors->any())
-                @if ($errors->has('gloss_80%'))
-                    <strong class="text-danger">{{ $errors->first('gloss_80%') }}</strong>
+                @if ($errors->has('gloss_80'))
+                    <strong class="text-danger">{{ $errors->first('gloss_80') }}</strong>
                 @endif
             @endif
         </div>
@@ -169,11 +166,8 @@
     <div class="col-sm-6 full_paint">
         <div class="form-group">
             <label>100% Gloss / Wet Look PU Paint (SQM)</label>
-            <select class="form-select" id="gloss_100_paint" name="gloss_100_paint">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->gloss_100_paint == 'yes' ? 'selected' : ''}}>Yes</option>
-                <option value="no" {{ $product->gloss_100_paint == 'no' ? 'selected' : ''}}>No</option>
-            </select>
+            <input id="gloss_100_paint" name="gloss_100_paint" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->gloss_100_paint ?? old('gloss_100_paint') }}">
             @if ($errors->any())
                 @if ($errors->has('gloss_100_paint'))
                     <strong class="text-danger">{{ $errors->first('gloss_100_paint') }}</strong>
@@ -184,11 +178,8 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
-            <select class="form-select" id="gloss_100_acrylic_lacquer" name="gloss_100_acrylic_lacquer">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->gloss_100_acrylic_lacquer == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->gloss_100_acrylic_lacquer == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="gloss_100_acrylic_lacquer" name="gloss_100_acrylic_lacquer" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->gloss_100_acrylic_lacquer ?? old('gloss_100_acrylic_lacquer') }}">
             @if ($errors->any())
                 @if ($errors->has('gloss_100_acrylic_lacquer'))
                     <strong class="text-danger">{{ $errors->first('gloss_100_acrylic_lacquer') }}</strong>
@@ -199,11 +190,8 @@
     <div class="col-sm-6 full_wood">
         <div class="form-group">
             <label>Polyester / Full Grain (SQM)</label>
-            <select class="form-select" id="polyester_or_full_grain" name="polyester_or_full_grain">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->polyester_or_full_grain == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->polyester_or_full_grain == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="polyester_or_full_grain" name="polyester_or_full_grain" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->polyester_or_full_grain ?? old('polyester_or_full_grain') }}">
             @if ($errors->any())
                 @if ($errors->has('polyester_or_full_grain'))
                     <strong class="text-danger">{{ $errors->first('polyester_or_full_grain') }}</strong>
@@ -214,11 +202,8 @@
     <div class="col-sm-6 full_wood">
         <div class="form-group">
             <label>Burnished Finish (SQM)</label>
-            <select class="form-select" id="burnished_finish" name="burnished_finish">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->burnished_finish == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->burnished_finish == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="burnished_finish" name="burnished_finish" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->burnished_finish ?? old('burnished_finish') }}">
             @if ($errors->any())
                 @if ($errors->has('burnished_finish'))
                     <strong class="text-danger">{{ $errors->first('burnished_finish') }}</strong>
@@ -229,11 +214,8 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Edgebanding - Rate Per L/M</label>
-            <select class="form-select" id="edgebanding" name="edgebanding">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->edgebanding == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->edgebanding == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="edgebanding" name="edgebanding" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->edgebanding ?? old('edgebanding') }}">
             @if ($errors->any())
                 @if ($errors->has('edgebanding'))
                     <strong class="text-danger">{{ $errors->first('edgebanding') }}</strong>
@@ -244,11 +226,8 @@
     <div class="col-sm-6 full_paint">
         <div class="form-group">
             <label>Micro bevel - Rate Per L/M</label>
-            <select class="form-select" id="micro_bevel" name="micro_bevel">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->micro_bevel == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->micro_bevel == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="micro_bevel" name="micro_bevel" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->micro_bevel ?? old('micro_bevel') }}">
             @if ($errors->any())
                 @if ($errors->has('micro_bevel'))
                     <strong class="text-danger">{{ $errors->first('micro_bevel') }}</strong>
@@ -259,11 +238,8 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Routed / J Handle  Spraying</label>
-            <select class="form-select" id="routed_handle_spraying" name="routed_handle_spraying">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->routed_handle_spraying == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->routed_handle_spraying == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="routed_handle_spraying" name="routed_handle_spraying" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->routed_handle_spraying ?? old('routed_handle_spraying') }}">
             @if ($errors->any())
                 @if ($errors->has('routed_handle_spraying'))
                     <strong class="text-danger">{{ $errors->first('routed_handle_spraying') }}</strong>
@@ -274,11 +250,9 @@
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Beaded Door - Rate Per L/M</label>
-            <select class="form-select" id="beaded_door" name="beaded_door">
-                <option value=""> -- Select One --</option>
-                <option value="yes" {{ $product->beaded_door == 'yes' ? 'selected' : ''}} >Yes</option>
-                <option value="no" {{ $product->beaded_door == 'no' ? 'selected' : ''}} >No</option>
-            </select>
+            <input id="beaded_door" name="beaded_door" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->beaded_door ?? old('beaded_door') }}">
+
             @if ($errors->any())
                 @if ($errors->has('beaded_door'))
                     <strong class="text-danger">{{ $errors->first('beaded_door') }}</strong>

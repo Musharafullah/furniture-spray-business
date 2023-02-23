@@ -146,18 +146,17 @@
             var type = $('#type').val();
             if (type == 'standard') {
                 $('.full_paint, .full_wood').hide();
-                $('.standard').show();
             }
 
             if (type == 'basic') {
                 $('.full_paint, .full_wood').hide();
             }
             if (type == 'full_paint') {
-                $('.full_wood, .standard').hide();
+                $('.full_wood').hide();
                 $('.full_paint').show(); 
             }
             if (type == 'full_wood') {
-                $('.full_paint, .standard').hide();
+                $('.full_paint').hide();
                 $('.full_wood').show(); 
             }
         }
