@@ -11,16 +11,18 @@ class QuotesController extends Controller
 {
     private $_request = null;
     private $_modal = null;
+    private $_pmodal = null;
 
     /**
      * Create a new controller instance.
      *
      * @return $reauest, $modal
      */
-    public function __construct(Request $request, Quote $modal)
+    public function __construct(Request $request, Quote $modal, Product $pmodal)
     {
         $this->_request = $request;
         $this->_modal = $modal;
+        $this->_pmodal = $pmodal;
     }
 
     /**
@@ -44,15 +46,10 @@ class QuotesController extends Controller
      */
     public function create($id = null)
     {
-        if($id){
-            dd($id,'if');
-        }else{
-            $quote = $this->get_all(new Quote);
-        }
-        $data = $this->get_all_by_roll(new User);
-        $products = $this->get_all(new Product);
 
-        return view('quote.quote_create',compact('data','products','quote'));
+        $products = $this->get_all($this->_pmodal);
+        return view('quote.quote_create', compact('products'));
+
     }
 
     /**
@@ -140,4 +137,5 @@ class QuotesController extends Controller
         $this->delete($this->_modal, $id);
         return redirect()->route('{{ routeName }}');
     }
+
 }
