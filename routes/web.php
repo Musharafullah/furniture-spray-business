@@ -31,9 +31,13 @@ Route::get('get-product-data/{id}', [App\Http\Controllers\ProductController::cla
 // user controller
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);
 Route::get('/customer-quote/{id}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');
+
 Route::get('/all-client',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
 Route::get('get-client-data/{id}', [App\Http\Controllers\UserOrCustomerController::class, 'client_data'])->name('get_data');
 Route::post('store-client', [App\Http\Controllers\UserOrCustomerController::class, 'client_store'])->name('client_store');
+
+Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'clientinfo'])->name('clientinfo');
+
 
 // Quote Controller
 Route::resource('/quote', App\Http\Controllers\QuotesController::class);
