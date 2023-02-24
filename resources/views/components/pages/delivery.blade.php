@@ -4,24 +4,27 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Min Delivery Charges</th>
-                    <th>Min Survey and Fit Charges</th>
+                    <th>Total Charges</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>40</td>
-                    <td>495</td>
-                    <td>
-                        <div>
-                            <a href="" data-bs-toggle="modal" data-bs-target="#editdeliverycharges" title="Edit">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                @if ($datadetail)
+                    @foreach ($datadetail as $key => $datadetail)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $datadetail->total_charges }}</td>
+                            <td>
+                                <div>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#editdeliverycharges"
+                                        title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

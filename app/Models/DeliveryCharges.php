@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryCharges extends Model
 {
     use HasFactory,HasUuids;
+    protected $fillable = [
+        'total_charges',
+    ];
 }
