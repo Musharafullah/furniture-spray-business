@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quote;
 use App\Models\User;
 use App\Models\Product;
+use Carbon\Carbon;
 class QuotesController extends Controller
 {
     private $_request = null;
@@ -41,8 +42,37 @@ class QuotesController extends Controller
     //create reports between two dates
     public function reports()
     {
+        if ($this->_request->form_date || $this->_request->to_date) {
 
-        return view('reports.index_reports');
+            $this->validate($this->_request, [
+                'from_date' => 'required',
+                'to_date' => 'required|after_or_equal:from_date',
+
+            ]);
+
+            $from = Carbon::parse( $this->_request->from_date )->startOfDay();
+            $to = Carbon::parse( $this->_request->to_date )->endOfDay();
+            $quotes = $this->_modal::orderBy('created_at', 'desc')
+                ->where('created_at', '>=', $from)
+                ->where('created_at', '<=', $to)
+                ->get();
+
+            $grouped =  $this->_modal::whereBetween('created_at', [$from,$to])->get()->groupby(function ($q){
+                return $q->created_at->format('d m Y');
+            });
+
+            $all_quotes = $this->get_all($this->_modal);
+            $total_quotes = $this->_modal::whereBetween('created_at', [$from,$to])->count();
+            $paid_quotes = $this->_modal::where('status','paid-collected')
+                        ->orWhere('status','paid-delivered')
+                        ->orWhere('status','paid-installed-deposit')
+                        ->count();
+   
+            return view('reports.index_reports', compact('quotes', 'from', 'to', 'grouped', 'total_quotes', 'paid_quotes', 'all_quotes'));
+
+        } else {
+            return view('reports.index_reports');
+        }
     }
     /**
      * Show the form for creating a new resource.

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('collected')->nullable();
             $table->string('delivered')->nullable();
             $table->string('survey')->nullable();
+            $table->string('status')->nullable();
             $table->longText('comment')->nullable();
 
             $table->timestamps();

@@ -19,6 +19,7 @@ class Quote extends Model
         'delivered',
         'survey',
         'comment',
+        'status',
     ];
     public function User()
     {
