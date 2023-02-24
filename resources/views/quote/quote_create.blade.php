@@ -149,173 +149,250 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="network_preferences">Cut Out</label>
-                                    <select name="cutout" id="cutout" class="form-control " data-live-search="true"
-                                        tabindex="-1" aria-hidden="true">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="">
-                                            1
-                                        </option>
-                                        <option value="">
-                                            2
-                                        </option>
-                                        <option value="">
-                                            3
-                                        </option>
-                                        <option value="">
-                                            4
-                                        </option>
-                                        <option value="">
-                                            5
-                                        </option>
-                                    </select>
+                        {{-- first row in quote for paint --}}
+                        <section class="row " id="row_paint">
+                            <div class="row ">
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_matt_finish">Rate / Sqm (1 sided) - Matt Finish</label>
+                                        <select name="paint_matt_finish" id="paint_matt_finish" class="form-control "
+                                            data-live-search="true" tabindex="-1" aria-hidden="true">
+                                            <option value="65">
+                                                Single Side
+                                            </option>
+                                            <option value="130">
+                                                Double Side
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="notch">Notches</label>
-                                    <select name="notch" id="notch" class="form-control ">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="">
-                                            1
-                                        </option>
-                                        <option value="">
-                                            2
-                                        </option>
-                                        <option value="">
-                                            3
-                                        </option>
-                                        <option value="">
-                                            4
-                                        </option>
-                                        <option value="">
-                                            More
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="hole">Holes</label>
-                                    <select name="hole" id="hole" class="form-control ">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="">
-                                            1
-                                        </option>
-                                        <option value="">
-                                            2
-                                        </option>
-                                        <option value="">
-                                            3
-                                        </option>
-                                        <option value="">
-                                            4
-                                        </option>
-                                        <option value="">
-                                            5
-                                        </option>
-                                        <option value="">
-                                            6
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="rake">Rake</label>
-                                    <select name="rake" id="rake" class="form-select">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="radius_corners">Radius Corners</label>
-                                    <select name="radius_corners" id="radius_corners" class="form-select">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-2">
-                                <div class="form-group">
-                                    <label for="back_select">Back</label>
-                                    <select name="back_select" id="back_select" class="form-select">
-                                        <option value=""> -- Select One --</option>
-                                        <option value=""> Painted</option>
-                                        <option value="">Printed</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 finish">
-                            <div class="form-group">
-                                <label for="painted_option">Finish</label>
-                                <select name="finish" id="painted_option" class="form-control ">
-                                    <option value="0"> -- Select One --</option>
-                                    <option value="0">
-                                        Sparkle Finish
-                                    </option>
-                                    <option value="">
-                                        Metallic Finish
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_spraying_edges">Spraying Edges - Rate per L/M</label>
+                                        <select name="paint_spraying_edges" id="paint_spraying_edges"
+                                            class="form-control ">
+                                            <option value="5">
+                                                Yes
+                                            </option>
 
-                        <div class="col-sm-2 shape">
-                            <div class="form-group">
-                                <label for="cnc">CNC Shape</label>
-                                <select name="cnc" id="cnc" class="form-control ">
-                                    <option value=""> -- Select One --</option>
-                                    <option value="">
-                                        Yes
-                                    </option>
-                                    <option value="">
-                                        No
-                                    </option>
-                                </select>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_metallic_paint">Metallic Paint - Add on / Sqm (1 sided)s</label>
+                                        <select name="paint_metallic_paint" id="paint_metallic_paint"
+                                            class="form-control ">
+                                            <option value="5">
+                                                Single Side
+                                            </option>
+                                            <option value="10">
+                                                Double Side
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_80_Gloss">80% Gloss - Add on / Sqm (1 sided)</label>
+                                        <select name="paint_80_Gloss" id="paint_80_Gloss" class="form-select">
+                                            <option value="10">Single Side</option>
+                                            <option value="20">Double Side</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_100_Gloss">100% Gloss / Wet Look PU Paint (SQM)</label>
+                                        <select name="paint_100_Gloss" id="paint_100_Gloss" class="form-select">
+                                            <option value="0">No</option>
+                                            <option value="30">Yes</option>
+                                            {{-- <option value="60">Double Side</option> --}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="paint_100_Gloss2">100% Gloss / Wet Look Clear Acrylic Lacquer
+                                            (SQM)</label>
+                                        <select name="paint_100_Gloss2" id="paint_100_Gloss2" class="form-select">
+                                            <option value="0">No</option>
+                                            <option value="45">Yes</option>
+                                            {{-- <option value="60">Double Side</option> --}}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-2 sand">
-                            <div class="form-group">
-                                <label for="sandblasted">Sand Blasted</label>
-                                <select name="sandblasted" id="sandblasted" class="form-control ">
-                                    <option value=""> -- Select One --</option>
-                                    <option value="">
-                                        Yes
-                                    </option>
-                                    <option value="">
-                                        No
-                                    </option>
-                                </select>
+                            <div class="col-sm-2 finish ">
+                                <div class="form-group">
+                                    <label for="paint_edgebanding_rate">Edgebanding - Rate Per L/M</label>
+                                    <select name="paint_edgebanding_rate" id="paint_edgebanding_rate"
+                                        class="form-control ">
+                                        <option value="0">No</option>
+                                        <option value="6">Yes</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-2 ritecs">
-                            <div class="form-group">
-                                <label for="ritec">Ritec</label>
-                                <select name="ritec" id="ritec" class="form-control ">
-                                    <option value=""> -- Select One --</option>
-                                    <option value="">
-                                        Yes
-                                    </option>
-                                    <option value="">
-                                        No
-                                    </option>
-                                </select>
+                            <div class="col-sm-2 shape ">
+                                <div class="form-group">
+                                    <label for="paint_micro_bevel">Micro bevel - Rate Per L/M</label>
+                                    <select name="paint_micro_bevel" id="paint_micro_bevel" class="form-control ">
+                                        <option value=""> -- Select One --</option>
+                                        <option value="0">No</option>
+                                        <option value="4">Yes</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-2 bevel_edges">
+                            <div class="col-sm-2 sand ">
+                                <div class="form-group">
+                                    <label for="paint_routed_j">Routed / J Handle Spraying</label>
+                                    <select name="paint_routed_j" id="paint_routed_j" class="form-control ">
+                                        <option value="0">
+                                            No
+                                        </option>
+                                        <option value="15">
+                                            yes
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 ritecs ">
+                                <div class="form-group">
+                                    <label for="paint_beaded_door">Beaded Door - Rate Per L/M</label>
+                                    <select name="paint_beaded_door" id="paint_beaded_door" class="form-control ">
+                                        <option value="0">
+                                            No
+                                        </option>
+                                        <option value="14">
+                                            Yes
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                        {{-- first row in qoute for wood --}}
+                        <section class="row " id="row_wood">
+                            <div class="row row1_wood">
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="wood_matt_finish">Rate / Sqm (1 sided) - Matt Finish</label>
+                                        <select name="wood_matt_finish" id="wood_matt_finish" class="form-control "
+                                            data-live-search="true" tabindex="-1" aria-hidden="true">
+                                            <option value="40">
+                                                Single Side
+                                            </option>
+                                            <option value="80">
+                                                Double Side
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="wood_spraying_edges">Spraying Edges - Rate per L/M</label>
+                                        <select name="wood_spraying_edges" id="wood_spraying_edges"
+                                            class="form-control ">
+                                            <option value="3">
+                                                Yes
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="wood_stain">Wood stain - Add on / Sqm (1 sided)s</label>
+                                        <select name="wood_stain" id="wood_stain" class="form-control ">
+                                            <option value="25">
+                                                Single Side
+                                            </option>
+                                            <option value="50">
+                                                Double Side
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="wood_100_Gloss_acrylic_lacquer">100% Gloss / Wet Look Clear Acrylic
+                                            Lacquer (SQM)</label>
+                                        <select name="wood_100_Gloss_acrylic_lacquer" id="wood_100_Gloss_acrylic_lacquer"
+                                            class="form-select">
+                                            <option value="0">No</option>
+                                            <option value="40">Double Side</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="wood_polyester">Polyester / Full Grain (SQM)</label>
+                                        <select name="wood_polyester" id="wood_polyester" class="form-select">
+                                            <option value="0">No</option>
+                                            <option value="100">Yes</option>
+                                            {{-- <option value="60">Double Side</option> --}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="100_Gloss2">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
+                                        <select name="100_Gloss2" id="100_Gloss2" class="form-select">
+                                            <option value="0">No</option>
+                                            <option value="45">Yes</option>
+                                            {{-- <option value="60">Double Side</option> --}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 finish">
+                                <div class="form-group">
+                                    <label for="wood_burnished">Burnished Finish (SQM)</label>
+                                    <select name="wood_burnished" id="wood_burnished" class="form-control ">
+                                        <option value="0">No</option>
+                                        <option value="70">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 shape">
+                                <div class="form-group">
+                                    <label for="wood_dgebanding_rate">Edgebanding - Rate Per L/M</label>
+                                    <select name="micro_bevel" id="micro_bevel" class="form-control ">
+                                        <option value=""> -- Select One --</option>
+                                        <option value="0">No</option>
+                                        <option value="7.5">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 sand">
+                                <div class="form-group">
+                                    <label for="wood_routed_j">Routed / J Handle Spraying</label>
+                                    <select name="wood_routed_j" id="wood_routed_j" class="form-control ">
+                                        <option value="0">
+                                            No
+                                        </option>
+                                        <option value="10">
+                                            yes
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 ritecs">
+                                <div class="form-group">
+                                    <label for="wood_beaded_door">Beaded Door - Rate Per L/M</label>
+                                    <select name="wood_beaded_door" id="wood_beaded_door" class="form-control ">
+                                        <option value="0">
+                                            No
+                                        </option>
+                                        <option value="10">
+                                            Yes
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="col-sm-2 bevel_edges ">
                             <div class="form-group">
                                 <label for="bevel_edges">Bevel Edges</label>
                                 <select name="bevel_edges" id="bevel_edges" class="form-control ">
@@ -329,6 +406,7 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">
@@ -605,7 +683,7 @@
                 type: "get",
                 url: "{{ route('clientinfo') }}/" + selectedValue,
                 success: function(response) {
-                    // console.log(response.client);
+                    console.log(response.client);
                     $("#client_data").html(response.client);
                     $('#cust_name').val(response.client.name);
                     $('#cust_phone').val(response.client.phonr);
@@ -917,6 +995,7 @@
         }
         $(document).ready(function(e) {
             //get product details
+            $("#row_wood").hide();
             $("#code_id, #product_id").change(function() {
                 var product_info = $('#code_id, #product_id, #notch, #hole');
                 var val = $(this).val();
@@ -927,13 +1006,18 @@
                     $('#code_id').val(val);
                 }
                 //This is simple Get ajax request
-                var url = '{{ url('get.product') }}' + '/' + val;
+                var url = '{{ route('product_info') }}' + '/' + val;
                 $.get(url, function(result) {
-                    var pro_type = result.type;
-                    var product_note = result.product_note;
-                    $('#pro_type').val(pro_type);
-                    $('#product_note').val(product_note);
-                    set_form(result);
+                    console.log(result.product_type);
+                    // alert(result.product_type);
+                    if (result.product_type == "full_paint" || result.product_type == "basic" ||
+                        result.product_type == "standard") {
+                        $("#row_wood").hide();
+                        $("#row_paint").show();
+                    } else {
+                        $("#row_paint").hide();
+                        $("#row_wood").show();
+                    }
                 });
 
                 var height = Number($('#prod-height').val());
