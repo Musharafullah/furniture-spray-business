@@ -32,43 +32,61 @@
                 searchPlaceholder: "Search Keyword"
             }
         });
+            
+            //----------------------------------------------------------------------------------------------------------
 
-        Highcharts.chart('daily-data-chart', {
-            chart: {
-                type: 'column',
-            },
-            title: false,
-            xAxis: {
-                type: 'category',
-                labels: {
-                    staggerLines: 2,
-                    rotation: -45,
-                    style: {
-                        fontSize: '11px',
-                        fontFamily: 'Poppins-Regular, sans-serif'
+            Highcharts.chart('daily-data-chart', {
+                chart: {
+                    type: 'column'
+                },
+                title: false,
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        step: 2,
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
                     }
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: false
-            },
-            legend: {
-                enabled: false
-            },
-            tooltip: {
-                pointFormat: 'Quote in day: <b>{point.y:.1f}</b>'
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Population',
-                data: [
-                    ['08 12 23', 1]
-                ]
-            }]
-        });
+                },
+                yAxis: {
+                    min: 0,
+                    title: false
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Quote in day: <b>{point.y:.1f}</b>'
+                },
+                series: [{
+                    name: 'Population',
+                    data: [
+                        @if(!empty($from))
+                            @php
+                              //  $from = Carbon\Carbon::now();
+                                //dd($from);
+                             //   $to = Carbon\Carbon::now()->addDays(-10);
+                                if(!empty($from))
+                                $grouped = \App\Models\Quote::whereBetween('created_at', [$from,$to])->get()->groupby(function ($q){
+                                    return $q->created_at->format('d m Y');
+                                });
+
+                            //dd($grouped);
+                            @endphp
+                            @foreach($grouped as $key => $group)
+                            @if($loop->last)
+                        ['{{ $key }}', {{ $group->count() }}]
+                                @else
+                            ['{{ $key }}', {{ $group->count() }}],
+                        @endif
+                        @endforeach
+                        @endif
+                    ]
+                }]
+            });
 
     });
     //

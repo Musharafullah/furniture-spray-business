@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('collected')->nullable();
             $table->string('delivered')->nullable();
             $table->string('survey')->nullable();
+            $table->string('status')->nullable();
             // for paint
             $table->string('wood_matt_finish')->nullable();
             $table->string('wood_spraying_edges')->nullable();

@@ -19,6 +19,9 @@ class Quote extends Model
         'delivered',
         'survey',
         'comment',
+
+        'status',
+
         //
         'wood_matt_finish',
         'wood_spraying_edges',
@@ -42,6 +45,7 @@ class Quote extends Model
         'paint_routed_j',
         'paint_beaded_door',
         'paint_bevel_edges',
+
     ];
     public function User()
     {
