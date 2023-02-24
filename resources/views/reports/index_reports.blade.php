@@ -70,7 +70,7 @@
                                         @php
                                             $highest_quote = 0;
                                         @endphp
-                                        @foreach($quotes as $quote)
+                                        @foreach($all_quotes as $quote)
                                             @if($quote->deals->sum('total_gross') > $highest_quote)
                                                 @php
                                                     $highest_quote = $quote->deals->sum('total_gross');
@@ -86,14 +86,16 @@
                                     <h2>
                                         @php
                                             $quote_total = 0;
+                                            $total_items = 0;
                                         @endphp
-                                        @foreach($quotes as $quote)
+                                        @foreach($all_quotes as $quote)
                                             @php
                                                 $quote_total += $quote->deals->sum('total_gross');
+                                                $total_items++;
                                             @endphp
                                         @endforeach
                                         @php
-                                            $average_quote = $quote_total/$total_quotes;
+                                            $average_quote = $quote_total/$total_items;
                                         @endphp
 
                                         £{{ $average_quote }}

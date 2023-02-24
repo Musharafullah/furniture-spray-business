@@ -61,14 +61,14 @@ class QuotesController extends Controller
                 return $q->created_at->format('d m Y');
             });
 
+            $all_quotes = $this->get_all($this->_modal);
             $total_quotes = $this->_modal::whereBetween('created_at', [$from,$to])->count();
-            $paid_quotes = $this->_modal::wherebetween('created_at', [$from,$to])
-                        ->where('status','paid-collected')
+            $paid_quotes = $this->_modal::where('status','paid-collected')
                         ->orWhere('status','paid-delivered')
                         ->orWhere('status','paid-installed-deposit')
                         ->count();
    
-            return view('reports.index_reports', compact('quotes', 'from', 'to', 'grouped', 'total_quotes', 'paid_quotes'));
+            return view('reports.index_reports', compact('quotes', 'from', 'to', 'grouped', 'total_quotes', 'paid_quotes', 'all_quotes'));
 
         } else {
             return view('reports.index_reports');

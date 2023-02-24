@@ -38,7 +38,6 @@
             Highcharts.chart('daily-data-chart', {
                 chart: {
                     type: 'column'
-
                 },
                 title: false,
                 xAxis: {
