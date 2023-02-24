@@ -27,12 +27,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/product', App\Http\Controllers\ProductController::class);
 Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::class, 'duplicate'])->name('product_duplicate');
 
-Route::get('get-product-data/{id}', [App\Http\Controllers\ProductController::class,'product_data'])->name('get.product');
+Route::get('get-product-data/{id?}', [App\Http\Controllers\ProductController::class,'product_data'])->name('get.product');
 
 
 // user controller
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);
-Route::get('/customer-quote/{id}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');
+Route::get('/customer-quote/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');
 
 Route::get('/all-client',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
 Route::get('get-client-data/{id}', [App\Http\Controllers\UserOrCustomerController::class, 'client_data'])->name('get_data');
@@ -43,4 +43,6 @@ Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class
 
 // Quote Controller
 Route::resource('/quote', App\Http\Controllers\QuotesController::class);
-
+Route::get('/reports/',[App\Http\Controllers\QuotesController::class,'reports'])->name('reports');// reports bwtween dates
+// Delievery Charges
+Route::resource('/deliverycharges', App\Http\Controllers\DeliveryChargesController::class);

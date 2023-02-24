@@ -38,7 +38,12 @@ class QuotesController extends Controller
         $slug = "quote";
         return view('home',compact('slug','data'));
     }
+    //create reports between two dates
+    public function reports()
+    {
 
+        return view('reports.index_reports');
+    }
     /**
      * Show the form for creating a new resource.
      *

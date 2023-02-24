@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('delivery_charges', function (Blueprint $table) {
             $table->UUID('id')->primary();
 
-            $table->double('min_delivery_charges');
-            $table->double('min_survey_and_fitting_charges');
+            // $table->double('min_delivery_charges');
+            // $table->double('min_survey_and_fitting_charges');
+
+            $table->double('total_charges')->default(60);
             $table->timestamps();
         });
     }

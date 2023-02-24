@@ -21,11 +21,11 @@
                 <li class="{{ Request::is('quote') ? 'active' : '' }}">
                     <a href="{{ route('quote.index') }}" class="btn">Quotes</a>
                 </li>
-                <li>
-                    <a href="{{ route('home', 'delivery') }}" class="btn">Delivery Charges</a>
+                <li class="{{ Request::is('deliverycharges') ? 'active' : '' }}">
+                    <a href="{{ route('deliverycharges.index') }}" class="btn">Delivery Charges</a>
                 </li>
-                <li>
-                    <a href="{{ route('home', 'reports') }}" class="btn">Report</a>
+                <li class="{{ Request::is('reports') ? 'active' : '' }}">
+                    <a href="{{ route('reports') }}" class="btn">Report</a>
                 </li>
                 <li class="quote-btn-nav ">
                     <a class="btn btn-primary" href="{{ route('quote.create') }}">Create a Quote</a>
