@@ -216,6 +216,15 @@ class ProductController extends Controller
         $var = $this->add($this->_modal, $product);
         return redirect()->route('product.index')->with('success','product has been added');
     }
+    // get product type
+    public function product_info($id)
+    {
+
+        $product_type = $this->get_by_id($this->_modal, $id);
+        return response()->json([
+            'product_type' =>$product_type->type
+        ]);
+    }
 
     /**
      * Display the specified resource.
