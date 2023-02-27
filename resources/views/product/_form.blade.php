@@ -4,7 +4,7 @@
             <option value=""> -- Select Product Type --</option>
             <option value="standard" {{ $product->type == 'standard' ? 'selected' : '' }}>Standard</option>
             <option value="basic" {{ $product->type == 'basic' ? 'selected' : '' }}>Basic</option>
-            <option value="full_paint" {{ $product->type == 'full_paint' ? 'selected' : '' }}>Full (Paint)</option>
+            <option value="full_paint" {{ $product->type == 'full_paint' ? 'selected' : '' }}>Full (MDF)</option>
             <option value="full_wood" {{ $product->type == 'full_wood' ? 'selected' : '' }}>Full (Wood)</option>
         </select>
         @if ($errors->any())
@@ -71,7 +71,7 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="sale_net_sqm">Sale Net Per SQM</label>
+            <label for="sale_net_sqm">Sale Net Per SQM(Min price)</label>
             <input id="sale_net_sqm" name="sale_net_sqm" class="form-control" type="number" placeholder="Enter Number"
                 value="{{ $product->sale_net_sqm ?? old('sale_net_sqm') }}" step="any">
             @if ($errors->any())
@@ -79,18 +79,6 @@
                     <span class="invalid-feedback" role="alert">
                         <strong class="text-danger">{{ $errors->first('Sale_net_sqm') }}</strong>
                     </span>
-                @endif
-            @endif
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input id="price" name="price" class="form-control" type="number" placeholder="Enter Price"
-                value="{{ $product->price ?? old('price') }}">
-            @if ($errors->any())
-                @if ($errors->has('price'))
-                    <strong class="text-danger">{{ $errors->first('price') }}</strong>
                 @endif
             @endif
         </div>
