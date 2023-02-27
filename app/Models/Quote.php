@@ -18,33 +18,24 @@ class Quote extends Model
         'collected',
         'delivered',
         'survey',
+        'bevel_edges',
         'comment',
-
         'status',
-
         //
-        'wood_matt_finish',
-        'wood_spraying_edges',
-        'wood_stain',
-        'wood_100_Gloss_acrylic_lacquer',
-        'wood_polyester',
-        'wood_burnished',
-        'wood_dgebanding_rate',
-        'wood_routed_j',
-        'wood_beaded_door',
-        //
-        // for wood
-        'paint_matt_finish',
-        'paint_spraying_edges',
+        'matt_finish',
+        'spraying_edges',
         'paint_metallic_paint',
+        'wood_stain',
         'paint_80_Gloss',
         'paint_100_Gloss',
-        'paint_100_Gloss2',
-        'paint_edgebanding_rate',
+        'Gloss_100_acrylic_lacquer',
+        'polyester',
+        'burnished',
+        'barrier_coat',
+        'edgebanding_rate',
         'paint_micro_bevel',
-        'paint_routed_j',
-        'paint_beaded_door',
-        'paint_bevel_edges',
+        'routed_j',
+        'beaded_door',
 
     ];
     public function User()

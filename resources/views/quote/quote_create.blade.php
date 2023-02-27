@@ -137,7 +137,7 @@
 
                                 <div class="col-sm-2 sqm">
                                     <div class="form-group">
-                                        <label for="network_preferences">SQM</label>
+                                        <label for="prod-sqm">SQM</label>
                                         <input id="prod-sqm" name="sqm" class="form-control" type="number"
                                             placeholder=" " readonly>
                                         <input id="pro-price" class="form-control" type="hidden" placeholder=" ">
@@ -157,6 +157,9 @@
                                         <label for="paint_matt_finish">Rate / Sqm (1 sided) - Matt Finish</label>
                                         <select name="paint_matt_finish" id="paint_matt_finish" class="form-control "
                                             data-live-search="true" tabindex="-1" aria-hidden="true">
+                                            <option value="0">
+                                                -- select option --
+                                            </option>
                                             <option value="65">
                                                 Single Side
                                             </option>
@@ -174,7 +177,6 @@
                                             <option value="5">
                                                 Yes
                                             </option>
-
                                         </select>
                                     </div>
                                 </div>
@@ -183,6 +185,9 @@
                                         <label for="paint_metallic_paint">Metallic Paint - Add on / Sqm (1 sided)s</label>
                                         <select name="paint_metallic_paint" id="paint_metallic_paint"
                                             class="form-control ">
+                                            <option value="0" selected>
+                                                -- select option --
+                                            </option>
                                             <option value="5">
                                                 Single Side
                                             </option>
@@ -196,6 +201,9 @@
                                     <div class="form-group">
                                         <label for="paint_80_Gloss">80% Gloss - Add on / Sqm (1 sided)</label>
                                         <select name="paint_80_Gloss" id="paint_80_Gloss" class="form-select">
+                                            <option value="0" selected>
+                                                -- select option --
+                                            </option>
                                             <option value="10">Single Side</option>
                                             <option value="20">Double Side</option>
                                         </select>
@@ -216,7 +224,7 @@
                                         <label for="paint_100_Gloss2">100% Gloss / Wet Look Clear Acrylic Lacquer
                                             (SQM)</label>
                                         <select name="paint_100_Gloss2" id="paint_100_Gloss2" class="form-select">
-                                            <option value="0">No</option>
+                                            <option value="0" selected>No</option>
                                             <option value="45">Yes</option>
                                             {{-- <option value="60">Double Side</option> --}}
                                         </select>
@@ -225,10 +233,19 @@
                             </div>
                             <div class="col-sm-2 finish ">
                                 <div class="form-group">
+                                    <label for="burnished_finish">Burnished Finish (SQM)</label>
+                                    <select name="burnished_finish" id="burnished_finish" class="form-control ">
+                                        <option value="0" selected>No</option>
+                                        <option value="100">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 finish ">
+                                <div class="form-group">
                                     <label for="paint_edgebanding_rate">Edgebanding - Rate Per L/M</label>
                                     <select name="paint_edgebanding_rate" id="paint_edgebanding_rate"
                                         class="form-control ">
-                                        <option value="0">No</option>
+                                        <option value="0" selected>No</option>
                                         <option value="6">Yes</option>
                                     </select>
                                 </div>
@@ -237,8 +254,7 @@
                                 <div class="form-group">
                                     <label for="paint_micro_bevel">Micro bevel - Rate Per L/M</label>
                                     <select name="paint_micro_bevel" id="paint_micro_bevel" class="form-control ">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="0">No</option>
+                                        <option value="0" selected>No</option>
                                         <option value="4">Yes</option>
                                     </select>
                                 </div>
@@ -247,7 +263,7 @@
                                 <div class="form-group">
                                     <label for="paint_routed_j">Routed / J Handle Spraying</label>
                                     <select name="paint_routed_j" id="paint_routed_j" class="form-control ">
-                                        <option value="0">
+                                        <option value="0" selected>
                                             No
                                         </option>
                                         <option value="15">
@@ -260,13 +276,12 @@
                                 <div class="form-group">
                                     <label for="paint_beaded_door">Beaded Door - Rate Per L/M</label>
                                     <select name="paint_beaded_door" id="paint_beaded_door" class="form-control ">
-                                        <option value="0">
+                                        <option value="0" selected>
                                             No
                                         </option>
                                         <option value="14">
                                             Yes
                                         </option>
-
                                     </select>
                                 </div>
                             </div>
@@ -320,7 +335,7 @@
                                         <select name="wood_100_Gloss_acrylic_lacquer" id="wood_100_Gloss_acrylic_lacquer"
                                             class="form-select">
                                             <option value="0">No</option>
-                                            <option value="40">Double Side</option>
+                                            <option value="40">yes</option>
                                         </select>
                                     </div>
                                 </div>
@@ -334,22 +349,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="100_Gloss2">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
-                                        <select name="100_Gloss2" id="100_Gloss2" class="form-select">
-                                            <option value="0">No</option>
-                                            <option value="45">Yes</option>
-                                            {{-- <option value="60">Double Side</option> --}}
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col-sm-2 finish">
                                 <div class="form-group">
                                     <label for="wood_burnished">Burnished Finish (SQM)</label>
                                     <select name="wood_burnished" id="wood_burnished" class="form-control ">
-                                        <option value="0">No</option>
+                                        <option value="0" selected>No</option>
+                                        <option value="70">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 finish">
+                                <div class="form-group">
+                                    <label for="barrier_coat">Barrier Coat (SQM)</label>
+                                    <select name="barrier_coat" id="barrier_coat" class="form-control ">
+                                        <option value="0" selected>No</option>
                                         <option value="70">Yes</option>
                                     </select>
                                 </div>
@@ -358,8 +373,7 @@
                                 <div class="form-group">
                                     <label for="wood_dgebanding_rate">Edgebanding - Rate Per L/M</label>
                                     <select name="micro_bevel" id="micro_bevel" class="form-control ">
-                                        <option value=""> -- Select One --</option>
-                                        <option value="0">No</option>
+                                        <option value="0" selected>No</option>
                                         <option value="7.5">Yes</option>
                                     </select>
                                 </div>
@@ -368,7 +382,7 @@
                                 <div class="form-group">
                                     <label for="wood_routed_j">Routed / J Handle Spraying</label>
                                     <select name="wood_routed_j" id="wood_routed_j" class="form-control ">
-                                        <option value="0">
+                                        <option value="0" selected>
                                             No
                                         </option>
                                         <option value="10">
@@ -381,7 +395,7 @@
                                 <div class="form-group">
                                     <label for="wood_beaded_door">Beaded Door - Rate Per L/M</label>
                                     <select name="wood_beaded_door" id="wood_beaded_door" class="form-control ">
-                                        <option value="0">
+                                        <option value="0" selected>
                                             No
                                         </option>
                                         <option value="10">
@@ -396,7 +410,6 @@
                             <div class="form-group">
                                 <label for="bevel_edges">Bevel Edges</label>
                                 <select name="bevel_edges" id="bevel_edges" class="form-control ">
-                                    <option value=""> -- Select One --</option>
                                     <option value="">
                                         Yes
                                     </option>
@@ -406,7 +419,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -675,6 +687,8 @@
 @endsection
 @section('scripts')
     <script>
+        var total = 0;
+
         function client_info() {
             var selectElement = document.querySelector('.form-select');
             var selectedValue = selectElement.value;
@@ -936,9 +950,8 @@
             if (input_sqm < 0.25) {
                 input_sqm = 0.25;
             }
-
             $('#prod-sqm').val(input_sqm.toFixed(2));
-
+            alert($('#pro-price').val());
             var sqm_product = $('#pro-price').val();
 
             var sqm_price = input_sqm * sqm_product;
@@ -994,6 +1007,7 @@
 
         }
         $(document).ready(function(e) {
+            //
             //get product details
             $("#row_wood").hide();
             $("#code_id, #product_id").change(function() {
@@ -1012,9 +1026,11 @@
                     // alert(result.product_type);
                     if (result.product_type == "full_paint" || result.product_type == "basic" ||
                         result.product_type == "standard") {
+                        total += 5;
                         $("#row_wood").hide();
                         $("#row_paint").show();
                     } else {
+                        total += 3;
                         $("#row_paint").hide();
                         $("#row_wood").show();
                     }
@@ -1024,11 +1040,11 @@
                 var width = Number($('#prod-width').val());
                 if (width > 0 && height > 0) {
                     calculate_price();
+
                 }
             });
             //disabled remove from height attribute if width is given
             $('#prod-width').on('keyup', function(event) {
-
                 var val = $(this).val();
 
                 if (val.length > 0) {
@@ -1038,22 +1054,128 @@
                 }
             });
             $('#prod-width, #prod-height').on('keyup', function(event) {
+                // alert("call 1");
                 var height = $('#prod-height').val();
                 var width = $('#prod-width').val();
                 if (height.length > 0 && width.length > 0) {
                     var mul = width * height;
                     var sqm = mul / 1000000;
 
+                    if (sqm < 0.25) {
+                        sqm = 0.25;
+                    }
                     $('#prod-sqm').val(sqm);
-
+                    // $('#prod-sqm').val(sqm);
+                    calculate_price();
                 }
             });
-            $('#cutout, #notch, #hole, #rake, #radius_corners, #back_select, #cnc, #sandblasted, #ritec, #bevel_edges, #painted_option,#code_id, #prod-height, #trade_discount')
-                .on('keyup keydown change', function() {
-                    // $('#cutout, #notch, #hole, #back_select, #cnc, #sandblasted, #ritec, #painted_option,#code_id, #prod-height, #trade_discount').on('keyup keydown change', function () {
-                    calculate_price();
-                });
 
+            // $('#paint_matt_finish', function() {
+            //     alert("here");
+            //     // calculate_price();
+            // });
+            //
+        });
+        $('#paint_matt_finish').on('change', function() {
+            var paint_finish = parseInt($("#paint_matt_finish").val());
+            if (paint_finish == "130") {
+                alert("inside if");
+                total += 130;
+            } else if (paint_finish == "65") {
+                alert("inside else");
+                total += 65;
+            }
+        });
+        $(' #paint_metallic_paint').on('change', function() {
+            var paint_metallic_paint = parseInt($(" #paint_metallic_paint").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_metallic_paint == "10") {
+                total += 10;
+            } else if (paint_metallic_paint == "5") {
+                total += 5;
+            }
+        });
+        $(' #paint_80_Gloss').on('change', function() {
+            var paint_80_Gloss = parseInt($(" #paint_80_Gloss").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_80_Gloss == "20") {
+                total += 20;
+            } else if (paint_80_Gloss == "10") {
+                total += 10;
+            }
+            alert(total);
+        });
+        $(' #paint_100_Gloss').on('change', function() {
+            var paint_100_Gloss = parseInt($(" #paint_100_Gloss").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_100_Gloss == "30") {
+                total += 30;
+            } else if (paint_100_Gloss == "0") {
+                total -= 30;
+            }
+        });
+        $(' #paint_100_Gloss2').on('change', function() {
+            var paint_100_Gloss2 = parseInt($(" #paint_100_Gloss2").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_100_Gloss2 == "45") {
+                total += 45;
+            } else if (paint_100_Gloss2 == "0") {
+                total -= 45;
+            }
+        });
+        $(' #burnished_finish').on('change', function() {
+            var burnished_finish = parseInt($(" #burnished_finish").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (burnished_finish == "100") {
+                total += 100;
+            } else if (burnished_finish == "0") {
+                total -= 100;
+            }
+        });
+        $(' #paint_edgebanding_rate').on('change', function() {
+            var paint_edgebanding_rate = parseInt($(" #paint_edgebanding_rate").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_edgebanding_rate == "6") {
+                total += 6;
+            } else if (paint_edgebanding_rate == "0") {
+                total -= 6;
+            }
+        });
+        $(' #paint_micro_bevel').on('change', function() {
+            var paint_micro_bevel = parseInt($(" #paint_micro_bevel").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_micro_bevel == "4") {
+                total += 4;
+            } else if (paint_micro_bevel == "0") {
+                total -= 4;
+            }
+        });
+        $(' #paint_routed_j').on('change', function() {
+            var paint_routed_j = parseInt($(" #paint_routed_j").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_routed_j == "15") {
+                total += 15;
+            } else if (paint_routed_j == "0") {
+                total -= 5;
+            }
+        });
+        $(' #paint_beaded_door').on('change', function() {
+            var paint_beaded_door = parseInt($(" #paint_beaded_door").val());
+            // paint_metallic_paint
+            // total += paint_edges;
+            if (paint_beaded_door == "14") {
+                total += 14;
+            } else if (paint_beaded_door == "0") {
+                total -= 14;
+            }
         });
     </script>
 @endsection
