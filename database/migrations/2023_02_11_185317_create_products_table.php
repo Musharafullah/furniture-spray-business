@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('sale_net_sqm')->nullable();
             $table->double('price')->nullable();
             $table->double('matt_finish')->nullable();
-            $table->double('min_charges')->nullable();
+            //$table->double('min_charges')->nullable();
             $table->double('spraying_edges')->nullable();
             $table->double('metallic_paint')->nullable();
             $table->double('wood_stain')->nullable();
