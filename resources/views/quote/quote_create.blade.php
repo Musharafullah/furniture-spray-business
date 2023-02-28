@@ -3,9 +3,6 @@
     <title>Create quote</title>
 @endsection
 @section('content')
-    <!----------------------- Header ------------------------------->
-    <!----------------------- End Header ------------------------------->
-
 
     <div class="create-quote py-3">
         <div class="container">
@@ -24,6 +21,7 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <select class="form-select" onchange="client_info()">
+                                <option value="">-- Select Customer --</option>
                                 @foreach ($data as $client)
                                     <option value='{{ $client->id }}'>{{ $client->name }}
                                     </option>
@@ -38,14 +36,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="cust-name">Name</label>
+                                <label for="cust_name">Name</label>
                                 <input id="cust_name" name="cust-name" class="form-control" type="text"
                                     placeholder="Enter Name" value="" readonly="">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="cust-phone">Telephone</label>
+                                <label for="cust_phone">Telephone</label>
                                 <input id="cust_phone" name="cust-phone" class="form-control" type="number"
                                     placeholder="Enter Number" readonly="">
                             </div>
@@ -70,8 +68,6 @@
                                 <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
                             </div>
                         </div>
-
-
                     </div>
                     <!----------------------------------- End Customer Info -------------------------------------->
 
@@ -554,20 +550,28 @@
         role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="" action="">
-                    <div class="modal-header">
+                <form action="{{ route('client_store') }}" method="post" id="add_client_form">
+                    @csrf
+                    <div class="modal-header">  
                         <h5 class="modal-title">Add Customer</h5>
                         <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <h6><span id="form_output" class="text-info"></span></h6>
+                        <h6><span id="errors" class="text-danger"></span></h6>
                         <div class="row">
                             <div class="col-sm-6 mt-3">
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input id="name" name="name" class="form-control" type="text"
                                         placeholder="Enter Name" value="">
+                                        @if ($errors->any())
+                                            @if ($errors->has('name'))
+                                                <strong class="text-danger">{{ $errors->first('name') }}</strong>
+                                            @endif
+                                        @endif
                                 </div>
                             </div>
                             <div class="col-sm-6 mt-3">
@@ -575,6 +579,11 @@
                                     <label for="phone">Telephone</label>
                                     <input id="phone" name="phone" class="form-control" type="number"
                                         placeholder="Enter Number" value="">
+                                    @if ($errors->any())
+                                        @if ($errors->has('phone'))
+                                            <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -584,6 +593,11 @@
                                     <label for="email">Email</label>
                                     <input id="email" name="email" class="form-control" type="email"
                                         placeholder="Enter Email" value="">
+                                        @if ($errors->any())
+                                            @if ($errors->has('email'))
+                                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                            @endif
+                                        @endif
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-3">
@@ -591,6 +605,11 @@
                                     <label for="postal_code">Billing Postcode</label>
                                     <input id="postal_code" name="postal_code" class="form-control" type="text"
                                         placeholder="Postcode" value="">
+                                        @if ($errors->any())
+                                            @if ($errors->has('postal_code'))
+                                                <strong class="text-danger">{{ $errors->first('postal_code') }}</strong>
+                                            @endif
+                                        @endif
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-3">
@@ -609,6 +628,11 @@
                                         <option value="45">45%</option>
                                         <option value="50">50%</option>
                                     </select>
+                                    @if ($errors->any())
+                                        @if ($errors->has('trade_discount'))
+                                            <strong class="text-danger">{{ $errors->first('trade_discount') }}</strong>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -617,7 +641,12 @@
                                 <div class="form-group">
                                     <label for="address">Address</label>
                                     <textarea id="address" class="form-control" rows="3" placeholder="Enter Address" name="address"></textarea>
-                                </div>
+                                    @if ($errors->any())
+                                        @if ($errors->has('address'))
+                                            <strong class="text-danger">{{ $errors->first('address') }}</strong>
+                                        @endif
+                                    @endif
+                                </div>   
                             </div>
                         </div>
                     </div>
@@ -631,59 +660,6 @@
     </div>
     <!----------------------- End Add Customer Modal ------------------------------->
 
-
-    <!----------------- Update Profile Modal ------------------>
-    <div aria-hidden="true" aria-labelledby="EditProfile" class="modal modal-lg fade in" id="updateprofile"
-        role="dialog" tabindex="-1">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="" action="">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Profile</h5>
-                        <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input id="name" name="name" class="form-control" type="text"
-                                        placeholder="Enter Name" value="Admin">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 mt-3">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email" name="email" class="form-control" type="email"
-                                        placeholder="Enter Email" value="majidfazal@gmail.com">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 mt-3">
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input id="password" name="password" class="form-control" type="password"
-                                        placeholder="Enter Password">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 mt-3">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <textarea id="address" class="form-control" name="address" rows="5">london</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                        <button class="btn btn-primary" type="submit" id="edit">Update</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!----------------- End Update Profile Modal ------------------>
 @endsection
 @section('scripts')
     <script>
@@ -708,7 +684,38 @@
                 }
             });
         }
-        //
+        
+        // get client data from database through ajax
+        $("#clients").change(function () {
+            var id = $(this).val();
+            $.ajax
+            ({
+                type: "GET",
+                url: "{{route('get_data','id')}}",
+                data: {id: id},
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    //geting value from database
+                    var name = data.name;
+                    var phone = data.phone;
+                    var email = data.email;
+                    var postal = data.postal_code;
+                    var distance = data.distance;
+                    var address = data.address;
+                    var trade_discount = data.trade_discount;
+                    //display value in input fields
+                    $('#cust_name').val(name);
+                    $('#cust_phone').val(phone);
+                    $('#cust_email').val(email);
+                    $('#cust_postcode').val(postal);
+                    $('#cust_address').val(address);
+                    $('#delivery_distance').val(distance);
+                    $('#trade_discount').val(trade_discount);
+                }
+            });
+        });
+
         function addon_selectboxes(selectbox_id, mul) {
             var options = '';
             options += '<option value="0">NO</option>';
