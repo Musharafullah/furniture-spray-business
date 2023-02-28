@@ -71,7 +71,7 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="sale_net_sqm">Sale Net Per SQM(Min price)</label>
+            <label for="sale_net_sqm">Sale Net Per SQM (Min price)</label>
             <input id="sale_net_sqm" name="sale_net_sqm" class="form-control" type="number" placeholder="Enter Number"
                 value="{{ $product->sale_net_sqm ?? old('sale_net_sqm') }}" step="any">
             @if ($errors->any())
@@ -183,7 +183,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-6 full_wood">
+    <div class="col-sm-6 full_paint full_wood">
         <div class="form-group">
             <label>Burnished Finish (SQM)</label>
             <input id="burnished_finish" name="burnished_finish" class="form-control" type="number"
@@ -191,6 +191,18 @@
             @if ($errors->any())
                 @if ($errors->has('burnished_finish'))
                     <strong class="text-danger">{{ $errors->first('burnished_finish') }}</strong>
+                @endif
+            @endif
+        </div>
+    </div>
+    <div class="col-sm-6 full_wood">
+        <div class="form-group">
+            <label>Barrier Coat (SQM)</label>
+            <input id="barrier_coat" name="barrier_coat" class="form-control" type="number"
+                placeholder="Enter Number" value="{{ $product->barrier_coat ?? old('barrier_coat') }}">
+            @if ($errors->any())
+                @if ($errors->has('barrier_coat'))
+                    <strong class="text-danger">{{ $errors->first('barrier_coat') }}</strong>
                 @endif
             @endif
         </div>
