@@ -20,14 +20,15 @@
                             <h4>Customer Info</h4>
                         </div>
                         <div class="col-12 col-md-8">
-                            <select class="form-select" onchange="client_info()">
+                            <select class="form-select" id="clients" onchange="client_info()"></select>
+                        {{-- <select class="form-select" onchange="client_info()" id="clients">
                                 <option value="">-- Select Customer --</option>
                                 @foreach ($data as $client)
                                     <option value='{{ $client->id }}'>{{ $client->name }}
                                     </option>
                                 @endforeach
-                            </select>
-                        </div>
+                            </select>--}}
+                        </div> 
                         <div class="col-12 col-md-4">
                             <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                 data-bs-target="#addcustomer">
@@ -665,6 +666,17 @@
     <script>
         var total = 0;
 
+        $(document).ready(function() {
+            $.ajax({
+                type: "get",
+                url: "{{ route('allclient') }}",
+                success: function(response) {
+                    console.log(response.client);
+                    $("#clients").html(response.client);
+                }
+            });
+        });
+
         function client_info() {
             var selectElement = document.querySelector('.form-select');
             var selectedValue = selectElement.value;
@@ -676,7 +688,7 @@
                     console.log(response.client);
                     $("#client_data").html(response.client);
                     $('#cust_name').val(response.client.name);
-                    $('#cust_phone').val(response.client.phonr);
+                    $('#cust_phone').val(response.client.phone);
                     $('#cust_email').val(response.client.email);
                     $('#cust_postcode').val(response.client.postal_code);
                     $('#cust_address').val(response.client.address);
@@ -684,37 +696,41 @@
                 }
             });
         }
-        
-        // get client data from database through ajax
-        $("#clients").change(function () {
-            var id = $(this).val();
-            $.ajax
-            ({
-                type: "GET",
-                url: "{{route('get_data','id')}}",
-                data: {id: id},
-                dataType: 'json',
-                cache: false,
+
+        //client insert data
+        $("#add_client_form").on('submit', function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "post",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
                 success: function (data) {
-                    //geting value from database
-                    var name = data.name;
-                    var phone = data.phone;
-                    var email = data.email;
-                    var postal = data.postal_code;
-                    var distance = data.distance;
-                    var address = data.address;
-                    var trade_discount = data.trade_discount;
-                    //display value in input fields
-                    $('#cust_name').val(name);
-                    $('#cust_phone').val(phone);
-                    $('#cust_email').val(email);
-                    $('#cust_postcode').val(postal);
-                    $('#cust_address').val(address);
-                    $('#delivery_distance').val(distance);
-                    $('#trade_discount').val(trade_discount);
+                    
+                    $('#addcustomer').modal('hide');
+                    $('.fade').hide();
+
+                    $('#clients').val(data.id);
+                    $('#cust_name').val(data.name);
+                    $('#cust_phone').val(data.phone);
+                    $('#cust_email').val(data.email);
+                    $('#cust_postcode').val(data.postal_code);
+                    $('#cust_address').val(data.address);
+                    $('#trade_discount').val(data.trade_discount);
+                    //$('#delivery_distance').val(distance);
+                },
+                error: function (data) {
+                    console.log("Error");
+                    var errors = '';
+                    $.each(data.responseJSON.errors, function (key, value) {
+                        errors += value + '<br />';
+                    });
+                    $('#errors').html(errors);
                 }
             });
         });
+
+       
 
         function addon_selectboxes(selectbox_id, mul) {
             var options = '';
