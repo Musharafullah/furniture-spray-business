@@ -125,7 +125,7 @@ class ProductController extends Controller
             // this rate will fixed sel net per square 30
             $product['sale_net_sqm'] = $this->_request->sale_net_sqm * 30;
             //
-            $product['min_charges'] = '0';
+            //$product['min_charges'] = '0';
             $product['matt_finish'] = '0';
             $product['spraying_edges'] = '0';
             $product['metallic_paint'] = '0';
@@ -150,7 +150,7 @@ class ProductController extends Controller
             }
             $product['matt_finish'] = $mat_finish_rate;
 
-            $product['min_charges'] = $this->_request->min_charges * 35;
+            //$product['min_charges'] = $this->_request->min_charges * 35;
             $product['spraying_edges'] = '5';
             if($this->_request->matt_finish =="yes")
             {
@@ -178,7 +178,7 @@ class ProductController extends Controller
         if($this->_request->type == "full_wood")
         {
             // this rate will fixed sel net per square 30
-            $product['min_charges'] = $this->_request->min_charges * 30;
+            //$product['min_charges'] = $this->_request->min_charges * 30;
             if($this->_request->matt_finish =="yes")
             {
                 $mat_finish_rate = '40';

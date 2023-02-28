@@ -99,20 +99,6 @@
     </div>
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
-            <label>Min Charges</label>
-            <input class="form-control" type="number" name="min_charges" id="min_charges" placeholder="Enter Number"
-                value="{{ $product->min_charges ?? old('min_charges') }}">
-            @if ($errors->any())
-                @if ($errors->has('min_charges'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong class="text-danger">{{ $errors->first('min_charges') }}</strong>
-                    </span>
-                @endif
-            @endif
-        </div>
-    </div>
-    <div class="col-sm-6 full_wood full_paint">
-        <div class="form-group">
             <label>Spraying Edges - Rate per L/M</label>
             <input id="spraying_edges" name="spraying_edges" class="form-control" type="number"
                 placeholder="Enter Number" value="{{ $product->spraying_edges ?? old('spraying_edges') }}">
