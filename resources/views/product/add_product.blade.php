@@ -23,6 +23,7 @@
 
                     <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="quote_create" value="0">
                         @include('product/_form')
 
                     </form>

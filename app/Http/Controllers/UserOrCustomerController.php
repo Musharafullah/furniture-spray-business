@@ -149,18 +149,21 @@ class UserOrCustomerController extends Controller
             'trade_discount',
             );
         $customer = $this->_request->except('_token');
+        //we use UB6 8JN  zip code for starting point
+        $lati1= $this->_request->latitude;
+        $long1 = $this->_request->longitude;
+        $final_distance = $this->find_distance($lati1,$long1);
 
-            //we use UB6 8JN  zip code for starting point
-            $lati1= $this->_request->latitude;
-            $long1 = $this->_request->longitude;
-            $final_distance = $this->find_distance($lati1,$long1);
-
-            $customer['user_id'] = Auth::user()->id;
-            $customer['password'] = Hash::make('123456');
-            $customer['distance'] = $final_distance;
-            $var = $this->add($this->_modal, $customer);
-            $var->assignRole('client');
-        return redirect()->route('customer.index')->with('success','Customer added successfully!');
+        $customer['user_id'] = Auth::user()->id;
+        $customer['password'] = Hash::make('123456');
+        $customer['distance'] = $final_distance;
+        $var = $this->add($this->_modal, $customer);
+        $var->assignRole('client');
+        if($this->_request->quote_create != 1)
+        {
+            return redirect()->route('customer.index')->with('success','Customer added successfully!');
+        }
+        return redirect()->route('quote.create')->with('success','Customer added successfully!');
     }
 
     /**
