@@ -33,4 +33,9 @@ class Product extends Model
         'beaded_door',
         'barrier_coat',
     ];
+    // relation with quote
+    public function Quotes()
+    {
+        return $this->hasMany(Quotes::class);
+    }
 }

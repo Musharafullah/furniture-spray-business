@@ -12,35 +12,65 @@ class Quote extends Model
     protected $fillable = [
         'client_id',
         'user_id',
-        'delivery_distance',
-        'delivery_option',
-        'delivery_charges',
-        'collected',
-        'delivered',
-        'survey',
-        'bevel_edges',
-        'comment',
-        'status',
-        //
+        'product_id',
+        'width',
+        'height',
+        'sqm',
+        'product_price',
         'matt_finish',
         'spraying_edges',
-        'paint_metallic_paint',
+        'metallic_paint',
         'wood_stain',
-        'paint_80_Gloss',
-        'paint_100_Gloss',
-        'Gloss_100_acrylic_lacquer',
+        'gloss_80',
+        'gloss_100_paint',
+        'gloss_100_acrylic_lacquer',
         'polyester',
-        'burnished',
+        'burnished_finish',
         'barrier_coat',
-        'edgebanding_rate',
-        'paint_micro_bevel',
-        'routed_j',
+        'edgebanding',
+        'micro_bevel',
+        'routed_handle_spraying',
         'beaded_door',
+        'quantity',
+        'net_price',
+        'vat',
+        'trade_discount',
+        'total_gross',
+
+        // old fields
+        // 'delivery_distance',
+        // 'delivery_option',
+        // 'delivery_charges',
+        // 'collected',
+        // 'delivered',
+        // 'survey',
+        // 'bevel_edges',
+        // 'comment',
+        // 'status',
+        // //
+        // 'matt_finish',
+        // 'spraying_edges',
+        // 'paint_metallic_paint',
+        // 'wood_stain',
+        // 'paint_80_Gloss',
+        // 'paint_100_Gloss',
+        // 'Gloss_100_acrylic_lacquer',
+        // 'polyester',
+        // 'burnished',
+        // 'barrier_coat',
+        // 'edgebanding_rate',
+        // 'paint_micro_bevel',
+        // 'routed_j',
+        // 'beaded_door',
 
     ];
     public function User()
     {
         return $this->belongsTo(User::class,'client_id');
+    }
+    public function Product()
+    {
+        return $this->belongsTo(User::class,'product_id');
     }
     // relation with
     // relation with quote

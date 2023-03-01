@@ -67,7 +67,7 @@ class QuotesController extends Controller
                         ->orWhere('status','paid-delivered')
                         ->orWhere('status','paid-installed-deposit')
                         ->count();
-   
+
             return view('reports.index_reports', compact('quotes', 'from', 'to', 'grouped', 'total_quotes', 'paid_quotes', 'all_quotes'));
 
         } else {
@@ -94,6 +94,43 @@ class QuotesController extends Controller
 
         $products = $this->get_all($this->_pmodal);
         return view('quote.quote_create', compact('products'));
+
+
+    }
+    // create quote
+    public function create_quote()
+    {
+        // dd($this->_request->all());
+        $data = $this->_request->only(
+            'client_id',
+            'user_id',
+            'product_id',
+            'width',
+            'height',
+            'sqm',
+            'product_price',
+            'matt_finish',
+            'spraying_edges',
+            'metallic_paint',
+            'wood_stain',
+            'gloss_80',
+            'gloss_100_paint',
+            'gloss_100_acrylic_lacquer',
+            'polyester',
+            'burnished_finish',
+            'barrier_coat',
+            'edgebanding',
+            'micro_bevel',
+            'routed_handle_spraying',
+            'beaded_door',
+            'quantity',
+            'net_price',
+            'vat',
+            'trade_discount',
+            'total_gross',
+        );
+        $var = $this->add($this->_modal, $data);
+        return redirect()->route('customer.index')->with('success','Quote created successfully!');
 
 
     }

@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <h4>Update Product</h4>
                         </div>
-                    </div>  
+                    </div>
                     {{-- @if ($errors->any())
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -23,6 +23,7 @@
                     <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <input type="hidden" name="quote_create" value="0">
                         @include('product/_form')
                     </form>
                 </div>
@@ -32,10 +33,11 @@
 
 
     <!----------------------- Help / Product-Detail Modal ------------------------------->
-    <div class="modal modal-lg fade" id="productdetail" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="ProductDetailModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" >
+    <div class="modal modal-lg fade" id="productdetail" role="dialog" tabindex="-1" aria-hidden="true"
+        aria-labelledby="ProductDetailModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">    
+                <div class="modal-header">
                     <h5 class="modal-title" id="ProductDetailModalLabel">Product Type Details</h5>
                     <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -46,14 +48,16 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Full Featured Products:</label>
-                                <p>Products which contains all of the attributes. In full featured product we have to fill all of the fields.</p>
+                                <p>Products which contains all of the attributes. In full featured product we have to fill
+                                    all of the fields.</p>
                             </div>
                         </div>
                         <div class="col-12 mt-3">
                             <div class="form-group">
                                 <label>Partial Featured Products:</label>
                                 <p>
-                                    Products which the Painted/ Printed Back attributes. In Partial featured products the fields for
+                                    Products which the Painted/ Printed Back attributes. In Partial featured products the
+                                    fields for
                                     <span style="color:red;">'Printed', 'Painted', 'Sparkle Finish'</span>
                                     and <span style="color:red;">'Metallic Finish'</span> are excluded.
                                 </p>
@@ -63,9 +67,11 @@
                             <div class="form-group">
                                 <label>Non Featured Products:</label>
                                 <p>
-                                    Products which contains only the Width and Height attributes. In Non featured products we have only these fields,
-                                    <span style="color:blue;">'Code', 'Title', 'Cost From Supplier', 'Sale Net Per SQM', ‘Width’</span>
-                                    and  <span style="color:blue;">‘Height’</span>.
+                                    Products which contains only the Width and Height attributes. In Non featured products
+                                    we have only these fields,
+                                    <span style="color:blue;">'Code', 'Title', 'Cost From Supplier', 'Sale Net Per SQM',
+                                        ‘Width’</span>
+                                    and <span style="color:blue;">‘Height’</span>.
                                 </p>
                             </div>
                         </div>
@@ -73,7 +79,8 @@
                             <div class="form-group">
                                 <label>Non Glass Products:</label>
                                 <p>
-                                    Products which are to be quoted based on quantity only. In Non glass products we only these fields,
+                                    Products which are to be quoted based on quantity only. In Non glass products we only
+                                    these fields,
                                     <span style="color:blue;">'Code', 'Title' , 'Cost From Supplier'</span> and
                                     <span style="color:blue;">'Sale Price’</span>.
 
@@ -89,7 +96,6 @@
         </div>
     </div>
     <!----------------------- End Help / Product-Detail Modal ------------------------------->
-
 @endsection
 @section('scripts')
     <script>
@@ -142,7 +148,7 @@
 
         });
 
-        function showFields(){
+        function showFields() {
             var type = $('#type').val();
             if (type == 'standard') {
                 $('.full_paint, .full_wood').hide();
@@ -153,11 +159,11 @@
             }
             if (type == 'full_paint') {
                 $('.full_wood').hide();
-                $('.full_paint').show(); 
+                $('.full_paint').show();
             }
             if (type == 'full_wood') {
                 $('.full_paint').hide();
-                $('.full_wood').show(); 
+                $('.full_wood').show();
             }
         }
     </script>
