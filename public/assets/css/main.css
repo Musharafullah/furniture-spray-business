@@ -595,8 +595,13 @@ input:checked + .slider:before {
 }
 
 .add-product .row > div  {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.add-product > div  {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .customer-info h4, .delivery-options h4 {

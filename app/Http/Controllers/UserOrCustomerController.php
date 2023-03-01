@@ -40,7 +40,20 @@ class UserOrCustomerController extends Controller
 
     }
 
+
     // here  get all client info by ajax
+    public function allclient()
+    {
+        $clients = $this->get_all_by_roll($this->_modal);
+        // return view('render_data.clients')->rendor('data');
+        $client  = view('render_data.clients', compact('clients'))->render();
+
+        return response()->json([
+            'client' =>$client
+        ]);
+    }
+
+
     public function clientinfo($id)
     {
 

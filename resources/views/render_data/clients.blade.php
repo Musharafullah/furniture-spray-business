@@ -1,5 +1,10 @@
+<option value="">-- Select Customer --</option>
+@foreach ($clients as $client)
+    <option value='{{ $client->id }}'>{{ $client->name }}</option>
+@endforeach
 
-<div class="col-12 col-md-6">
+
+{{-- <div class="col-12 col-md-6">
     <div class="form-group">
         <label for="cust-name">Name</label>
         <input id="cust-name" name="cust-name" class="form-control" type="text" placeholder="Enter Name" value=""
@@ -32,4 +37,4 @@
         <label for="cust-address">Address</label>
         <textarea id="cust-address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
     </div>
-</div>
+</div> --}}

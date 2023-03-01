@@ -1,4 +1,4 @@
-<div class="quotes mt-5">
+<div class="quotes py-5">
     <div class="container">
         <table class="table table-bordered nowrap no-footer w-100" id="example">
             <thead>
