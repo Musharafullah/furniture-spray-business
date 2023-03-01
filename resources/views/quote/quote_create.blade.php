@@ -105,7 +105,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 width">
                                     <div class="form-group">
                                         <label>Width</label>
                                         <input id="product_width" name="width" class="form-control" type="number"
@@ -117,7 +117,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 height">
                                     <div class="form-group">
                                         <label>Height</label>
                                         <input id="product_height" name="height" class="form-control" type="number"
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2 sqm">
                                     <div class="form-group">
                                         <label for="product_sqm">SQM</label>
                                         <input id="product_sqm" name="sqm" class="form-control" type="number"
@@ -633,6 +633,7 @@
         //set product data
         function set_product(row) {
             var type = row.type;
+           
             if (type == 'standard' || type == 'basic') {
                 $('.full_paint, .full_wood').hide(); 
             }
@@ -661,11 +662,17 @@
             set_selectbox('matt_finish', row.matt_finish);
             set_single_selectbox('spraying_edges', row.spraying_edges);
 
-            $('#note').val(row.note);
+            $('#note').text(row.product_note);
 
 
             var net_price = row.sale_net_sqm;
             $('#pro_price').val(net_price);
+
+            if (type == 'basic') {
+                $('.sqm, .width, .height').hide(); 
+                $('#product_sqm').val(1);
+                calculate_price();
+            }
         }
 
         //disabled remove from height attribute if width is given
