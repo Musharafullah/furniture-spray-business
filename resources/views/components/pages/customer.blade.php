@@ -1,4 +1,4 @@
-<div class="product mt-5">
+<div class="product py-5">
     <div class="container">
         <a href="{{ route('customer.create') }}" class="btn btn-primary pull-right">
             <i class="fa fa-plus"></i> Add New Customer

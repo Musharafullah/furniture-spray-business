@@ -17,7 +17,7 @@ class Product extends Model
         'cost_from_supplier',
         'sale_net_sqm',
         'matt_finish',
-        'min_charges',
+        //'min_charges',
         'spraying_edges',
         'metallic_paint',
         'wood_stain',
@@ -31,5 +31,6 @@ class Product extends Model
         'product_note',
         'routed_handle_spraying',
         'beaded_door',
+        'barrier_coat',
     ];
 }

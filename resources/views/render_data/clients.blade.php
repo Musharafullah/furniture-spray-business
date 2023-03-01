@@ -1,5 +1,5 @@
 <option value="">-- Select Customer --</option>
-@foreach ($data as $client)
+@foreach ($clients as $client)
     <option value='{{ $client->id }}'>{{ $client->name }}</option>
 @endforeach
 

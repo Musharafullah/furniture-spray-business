@@ -88,8 +88,41 @@ class ProductController extends Controller
             'beaded_door',
             'barrier_coat',
         );
-        // dd($product);
+        //dd($product);
         $product = $this->_request->except('_token');
+
+        if($this->_request->type == "standard" || $this->_request->type == "basic")
+        {
+            $product['matt_finish'] = 0;
+            $product['spraying_edges'] = 0;
+            $product['metallic_paint'] = 0;
+            $product['gloss_80'] = 0;
+            $product['gloss_100_paint'] = 0;
+            $product['gloss_100_acrylic_lacquer'] = 0;
+            $product['edgebanding'] = 0;
+            $product['micro_bevel'] = 0;
+            $product['routed_handle_spraying'] = 0;
+            $product['beaded_door'] = 0;
+            $product['burnished_finish'] = 0;
+            $product['polyester_or_full_grain'] = 0;
+            $product['wood_stain'] = 0;
+            $product['barrier_coat'] = 0;
+        }
+
+        if($this->_request->type == "full_paint")
+        {
+            $product['polyester_or_full_grain'] = 0;
+            $product['wood_stain'] = 0;
+            $product['barrier_coat'] = 0;
+        }
+
+        if($this->_request->type == "full_wood")
+        {
+            $product['gloss_100_paint'] = 0;
+            $product['metallic_paint'] = 0;
+            $product['gloss_80'] = 0;
+            $product['micro_bevel'] = 0;
+        }
 
 
         if ($this->_request->file('product_image'))
@@ -108,7 +141,6 @@ class ProductController extends Controller
     // get product type
     public function product_info($id)
     {
-
         $product_type = $this->get_by_id($this->_modal, $id);
         return response()->json([
             'product_type' =>$product_type->type
@@ -158,8 +190,8 @@ class ProductController extends Controller
         // dd($this->_request->all());
         $this->validate($this->_request,[
             'type'=> 'required',
-            'code' => 'required|unique:products,code',
-            'product_name' => 'required|unique:products,product_name',
+            'code' => 'required',
+            'product_name' => 'required',
             'sale_net_sqm'=> 'required',
         ]);
 
@@ -188,6 +220,39 @@ class ProductController extends Controller
         // dd($product);
         $product = $this->_request->except('_token');
         $exist = $this->get_by_id($this->_modal, $id);
+
+        if($this->_request->type == "standard" || $this->_request->type == "basic")
+        {
+            $product['matt_finish'] = 0;
+            $product['spraying_edges'] = 0;
+            $product['metallic_paint'] = 0;
+            $product['gloss_80'] = 0;
+            $product['gloss_100_paint'] = 0;
+            $product['gloss_100_acrylic_lacquer'] = 0;
+            $product['edgebanding'] = 0;
+            $product['micro_bevel'] = 0;
+            $product['routed_handle_spraying'] = 0;
+            $product['beaded_door'] = 0;
+            $product['burnished_finish'] = 0;
+            $product['polyester_or_full_grain'] = 0;
+            $product['wood_stain'] = 0;
+            $product['barrier_coat'] = 0;
+        }
+
+        if($this->_request->type == "full_paint")
+        {
+            $product['polyester_or_full_grain'] = 0;
+            $product['wood_stain'] = 0;
+            $product['barrier_coat'] = 0;
+        }
+
+        if($this->_request->type == "full_wood")
+        {
+            $product['gloss_100_paint'] = 0;
+            $product['metallic_paint'] = 0;
+            $product['gloss_80'] = 0;
+            $product['micro_bevel'] = 0;
+        }
 
         if ($this->_request->file('product_image'))
         {
@@ -238,5 +303,6 @@ class ProductController extends Controller
     //     $product = $this->get_by_id($this->_modal, $id);
     //     //dd($product);
     //     return response()->json($product);
+    
     // }
 }
