@@ -518,6 +518,9 @@
                     $("#clients").html(response.client);
                 }
             });
+
+            $('.full_wood').hide();
+            $('.full_paint').show();
         });
 
         function client_info() {
@@ -820,7 +823,7 @@
                         total += value;
                 });
 
-                routed_handle_spraying = Number($(routed_handle_spraying).val());
+                var routed_handle_spraying = Number($('#routed_handle_spraying').val());
                 total += routed_handle_spraying;
 
                 $('#net_price').val(total.toFixed(2));
