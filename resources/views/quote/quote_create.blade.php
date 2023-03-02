@@ -137,9 +137,10 @@
                                             <label for="product_sqm">SQM</label>
                                             <input id="product_sqm" name="sqm" class="form-control" type="number"
                                                 placeholder="" readonly value="">
-                                            <input id="pro_price" class="form-control" type="hidden" placeholder=" ">
+                                            <input id="product_lm" class="form-control" type="hidden" placeholder="">
+                                            <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                             <input id="product_price" name="product_price" class="form-control"
-                                                type="hidden" placeholder=" ">
+                                                type="hidden" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -150,11 +151,13 @@
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Rate / Sqm (1 sided) - Matt Finish</label>
-                                            <select name="matt_finish" id="matt_finish" class="form-select">
+                                            <select name="matt_finish_option" id="matt_finish_option" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="1">Single Side</option>
                                                 <option value="2">Double Side</option>
                                             </select>
+                                            <input name="matt_finish" id="matt_finish" class="form-control"
+                                                type="hidden" placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
@@ -622,17 +625,15 @@
 
         function addon_selectboxes(selectbox_id, mul) {
             var options = '';
-            options += '<option value="0" >--Select One--</option>';
-            options += '<option value="' + mul + '">YES</option>';
             options += '<option value="0" >NO</option>';
+            options += '<option value="' + mul + '">YES</option>';
             $('#' + selectbox_id).html(options);
         }
 
-        function set_selectbox(selectbox_id, mul) {
+        function set_selectbox(selectbox_id) {
             var options = '';
-            options += '<option value="0" >--Select One--</option>';
-            options += '<option value="' + mul + '">Single Side</option>';
-            options += '<option value="' + (2 * mul) + '">Double Side</option>';
+            options += '<option value="1">Single Side</option>';
+            options += '<option value="2">Double Side</option>';
             $('#' + selectbox_id).html(options);
         }
 
@@ -645,18 +646,6 @@
         //set product data
         function set_product(row) {
             var type = row.type;
-
-            if (type == 'standard' || type == 'basic') {
-                $('.full_paint, .full_wood').hide();
-            }
-            if (type == 'full_paint') {
-                $('.full_wood').hide();
-                $('.full_paint').show();
-            }
-            if (type == 'full_wood') {
-                $('.full_paint').hide();
-                $('.full_wood').show();
-            }
 
             addon_selectboxes('gloss_100_paint', row.gloss_100_paint);
             addon_selectboxes('gloss_100_acrylic_lacquer', row.gloss_100_acrylic_lacquer);
@@ -671,14 +660,48 @@
             addon_selectboxes('wood_stain', row.wood_stain);
             addon_selectboxes('metallic_paint', row.metallic_paint);
 
-            set_selectbox('matt_finish', row.matt_finish);
+            set_selectbox('matt_finish_option');
+            $('#matt_finish').val(row.matt_finish);
+
             set_single_selectbox('spraying_edges', row.spraying_edges);
 
             $('#note').text(row.product_note);
 
-
             var net_price = row.sale_net_sqm;
             $('#pro_price').val(net_price);
+
+            if (type == 'standard' || type == 'basic') {
+                $('.full_paint, .full_wood').hide();
+                $('.sqm, .width, .height').show();
+
+                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                    $('#product_sqm').val(0.30);
+                    $('#product_lm').val(1);
+                    calculate_price();
+                }  
+            }
+            if (type == 'full_paint') {
+                $('.full_wood').hide();
+                $('.full_paint').show();
+                $('.sqm, .width, .height').show();
+
+                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                    $('#product_sqm').val(0.30);
+                    $('#product_lm').val(1);
+                    calculate_price();
+                }  
+            }
+            if (type == 'full_wood') {
+                $('.full_paint').hide();
+                $('.full_wood').show();
+                $('.sqm, .width, .height').show();
+
+                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                    $('#product_sqm').val(0.30);
+                    $('#product_lm').val(1);
+                    calculate_price();
+                }  
+            }
 
             if (type == 'basic') {
                 $('.sqm, .width, .height').hide();
@@ -698,21 +721,27 @@
             }
         });
 
-        //calculate sqm
+        //calculate sqm and lm
         $('#product_width, #product_height').on('keyup', function(event) {
-            var height = $('#product_height').val();
-            var width = $('#product_width').val();
+            var height =  $('#product_height').val();
+            var width =  $('#product_width').val();
             if (height.length > 0 && width.length > 0) {
                 var mul = width * height;
                 var sqm = mul / 1000000;
 
-                if (sqm < 0.25) {
-                    $('#product_sqm').val(0.25);
+                if (sqm < 0.30) {
+                    $('#product_sqm').val(0.30);
                 } else {
                     $('#product_sqm').val(sqm);
                 }
+
+                var lm = ( 2 * Number(height) ) + ( 2 * Number(width));
+                $('#product_lm').val(lm);
+                //alert(lm);
+
             } else {
-                $('#product_sqm').val(0.25);
+                $('#product_sqm').val(0.30);
+                $('#product_lm').val(1);
             }
         });
 
@@ -726,31 +755,26 @@
 
         $('#product_width').on('keyup', function() {
             var height = $('#product_height').val();
-            if (height != null && height > 0) {
+            if (height != '' && height > 0) {
                 calculate_price();
             }
         });
 
-        $('#matt_finish, #spraying_edges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
+        $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
             .on('keyup keydown change', function() {
                 calculate_price();
-            });
+        });
 
 
         function calculate_price() {
             if ($('#code_id').val() != '') {
                 var total = 0;
 
-                $('#matt_finish, #spraying_edges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
-                    .each(function() {
-                        total += Number($(this).val());
-                    });
-
                 // product price per sqm
                 var input_sqm = Number($('#product_sqm').val());
-                if (input_sqm < 0.25 || $('#product_sqm').val() == '') {
-                    input_sqm = 0.25;
-                    $('#product_sqm').val(0.25);
+                if (input_sqm < 0.30 || $('#product_sqm').val() == '') {
+                    input_sqm = 0.30;
+                    $('#product_sqm').val(0.30);
                 }
 
                 var sqm_product = Number($('#pro_price').val());
@@ -759,6 +783,29 @@
                 $('#product_price').val(sqm_price);
 
                 total += sqm_price;
+
+                
+                $('#matt_finish, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #routed_handle_spraying')
+                    .each(function() {
+
+                        if( $('#matt_finish_option').val()== 2 )
+                        {
+                            var value = Number($(this).val()) * input_sqm * 2;
+                            total += value;
+                        }
+                        else {
+                            var value = Number($(this).val()) * input_sqm;
+                            total += value;
+                        }
+                });
+
+
+                var lm = Number($('#product_lm').val());
+                $('#spraying_edges, #edgebanding, #beaded_door, #micro_bevel')
+                    .each(function() {
+                        var value = Number($(this).val()) * lm;
+                        total += value;
+                });
 
                 $('#net_price').val(total.toFixed(2));
                 $('#basic_net').val(total.toFixed(2));
