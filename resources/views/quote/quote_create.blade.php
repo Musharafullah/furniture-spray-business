@@ -190,28 +190,18 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_paint">
                                         <div class="form-group">
-                                            <label>80% Gloss - Add on / Sqm (1 sided)</label>
-                                            <select name="gloss_80" id="gloss_80" class="form-select">
+                                            <label>Gloss Percentage</label>
+                                            <select name="gloss_percentage" id="gloss_percentage" class="form-select">
                                                 <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
+                                                <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
+                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-2 full_paint">
+                                    <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>100% Gloss / Wet Look PU Paint (SQM)</label>
-                                            <select name="gloss_100_paint" id="gloss_100_paint" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-2 full_wood full_paint">
-                                        <div class="form-group">
-                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer
-                                                (SQM)</label>
+                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
                                                 <option value="">-- Select option --</option>
@@ -351,7 +341,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 pull-right mt-4">
                                 <button class="btn btn-primary-rounded">
                                     Add another item <span><i class="fa fa-save"></i></span>
                                 </button>
@@ -394,7 +384,7 @@
 
                 </div>
             </div>
-            <div class="text-center my-5">Please Filled the Billing Postcode field first and click the search button for
+            <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button for
                 house average price</div>
         </div>
     </div>
@@ -637,6 +627,15 @@
             $('#' + selectbox_id).html(options);
         }
 
+        function set_gloss_percent(selectbox_id, gloss_80, gloss_100_paint, gloss_100_acrylic_lacquer) {
+            var options = '';
+            options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
+            options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
+            options += '<option value="' + gloss_100_acrylic_lacquer + '">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</option>';
+
+            $('#' + selectbox_id).html(options);
+        }
+
         function set_single_selectbox(selectbox_id, mul) {
             var options = '';
             options += '<option value="' + mul + '">YES</option>';
@@ -647,8 +646,15 @@
         function set_product(row) {
             var type = row.type;
 
-            addon_selectboxes('gloss_100_paint', row.gloss_100_paint);
-            addon_selectboxes('gloss_100_acrylic_lacquer', row.gloss_100_acrylic_lacquer);
+            if (type == 'full_wood') {
+                addon_selectboxes('gloss_100_acrylic_lacquer', row.gloss_100_acrylic_lacquer);
+                set_gloss_percent('gloss_percentage', 0, 0, 0);
+            }
+            if (type == 'full_paint') {
+                addon_selectboxes('gloss_100_acrylic_lacquer', 0);
+                set_gloss_percent('gloss_percentage', row.gloss_80, row.gloss_100_paint, row.gloss_100_acrylic_lacquer);
+            }
+            
             addon_selectboxes('polyester', row.polyester_or_full_grain);
             addon_selectboxes('burnished_finish', row.burnished_finish);
             addon_selectboxes('barrier_coat', row.barrier_coat);
@@ -656,7 +662,6 @@
             addon_selectboxes('micro_bevel', row.micro_bevel);
             addon_selectboxes('routed_handle_spraying', row.routed_handle_spraying);
             addon_selectboxes('beaded_door', row.beaded_door);
-            addon_selectboxes('gloss_80', row.gloss_80);
             addon_selectboxes('wood_stain', row.wood_stain);
             addon_selectboxes('metallic_paint', row.metallic_paint);
 
@@ -736,6 +741,7 @@
                 }
 
                 var lm = ( 2 * Number(height) ) + ( 2 * Number(width));
+                lm = lm/1000;
                 $('#product_lm').val(lm);
                 //alert(lm);
 
@@ -760,7 +766,7 @@
             }
         });
 
-        $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
+        $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
             .on('keyup keydown change', function() {
                 calculate_price();
         });
@@ -779,13 +785,20 @@
 
                 var sqm_product = Number($('#pro_price').val());
 
-                var sqm_price = input_sqm * sqm_product;
-                $('#product_price').val(sqm_price);
-
-                total += sqm_price;
+                if( $('#matt_finish_option').val()== 2 )
+                {
+                    var sqm_price = input_sqm * sqm_product * 2;
+                    $('#product_price').val(sqm_price);
+                    total += sqm_price;
+                }
+                else {
+                    var sqm_price = input_sqm * sqm_product;
+                    $('#product_price').val(sqm_price);
+                    total += sqm_price;
+                }
 
                 
-                $('#matt_finish, #metallic_paint, #wood_stain, #gloss_80, #gloss_100_paint, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #routed_handle_spraying')
+                $('#matt_finish, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat')
                     .each(function() {
 
                         if( $('#matt_finish_option').val()== 2 )
@@ -806,6 +819,9 @@
                         var value = Number($(this).val()) * lm;
                         total += value;
                 });
+
+                routed_handle_spraying = Number($(routed_handle_spraying).val());
+                total += routed_handle_spraying;
 
                 $('#net_price').val(total.toFixed(2));
                 $('#basic_net').val(total.toFixed(2));
