@@ -59,7 +59,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="cust-postcode">Billing Postcode</label>
-                                <input id="cust_postcode" name="cust-postcode" class="form-control" type="text"
+                                <input id="cust_postcode" name="billing_postal_code" class="form-control" type="text"
                                     placeholder="Postcode" readonly="">
                             </div>
                         </div>
@@ -341,26 +341,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 pull-right mt-4">
-                                <button class="btn btn-primary-rounded">
-                                    Add another item <span><i class="fa fa-save"></i></span>
-                                </button>
-                            </div>
                         </form>
                     </div>
                     <!----------------------------------- End Add Products -------------------------------------->
 
                     <!----------------------------------- Delivery Options -------------------------------------->
-                    {{-- <div class="row delivery-options">
+                    <div class="row delivery-options">
                         <div class="col-12">
                             <h4>Delivery Options</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="delivery-distance">Distance From Our Location (In Miles)</label>
-                                <input id="delivery-distance" name="delivery-distance" class="form-control"
-                                    type="text" placeholder="">
-                            </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
@@ -379,15 +367,15 @@
                                 Add another item <span><i class="fa fa-save"></i></span>
                             </button>
                         </div>
-                    </div> --}}
+                    </div> 
                     <!----------------------------------- End Delivery Options -------------------------------------->
 
                 </div>
             </div>
             <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button for
-                house average price</div>
+                house average price
+            </div>
         </div>
-    </div>
     </div>
 
 
