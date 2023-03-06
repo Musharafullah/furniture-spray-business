@@ -34,8 +34,12 @@ class Deals extends Model
     // ];
     // relation with
 
-    public function Quotes()
+    public function quotes()
     {
-        return $this->belongsTo(Quotes::class,'client_id');
+        return $this->belongsTo(Quote::class,'quote_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

@@ -84,20 +84,21 @@ class QuotesController extends Controller
     public function create(Request $request , $id = null)
     {
 
-        if($id){
-            dd($id,'if');
+        if($id != null){
+            $quote = $this->get_by_id($this->_modal,$id);
+            // dd($quote);
+            // get previous user id
+            $previous = $this->_modal::where('id', '<', $quote->id)->max('id');
+            // get next user id
+            $next = $this->_modal::where('id', '>', $quote->id)->min('id');
         }else{
-            $quote = $this->get_all(new Quote);
+
+            $quote = new $this->_modal;
         }
         $data = $this->get_all_by_roll(new User);
         $products = $this->get_all(new Product);
+        // dd(Deals::where('quote_id'));
         return view('quote.quote_create',compact('data','products','quote'));
-
-
-        $products = $this->get_all($this->_pmodal);
-        return view('quote.quote_create', compact('products'));
-
-
     }
     // create quote
     public function create_quote()
@@ -112,37 +113,36 @@ class QuotesController extends Controller
 
             //  Deals
             $data = $this->_request->only(
-                'product_id' ,
-                'width' ,
+                'product_id',
+                'width',
                 'height',
-                'sqm' ,
-                'product_price' ,
-                'matt_finish_option' ,
-                'matt_finish' ,
-                'spraying_edges' ,
-                'metallic_paint' ,
-                'wood_stain' ,
-                'gloss_percentage' ,
-                'gloss_100_acrylic_lacquer' ,
-                'polyester' ,
-                'burnished_finish' ,
-                'barrier_coat' ,
-                'edgebanding' ,
-                'micro_bevel' ,
-                'routed_handle_spraying' ,
-                'beaded_door' ,
-                'quantity' ,
+                'sqm',
+                'product_price',
+                'matt_finish_option',
+                'matt_finish',
+                'spraying_edges',
+                'metallic_paint',
+                'wood_stain',
+                'gloss_percentage',
+                'gloss_100_acrylic_lacquer',
+                'polyester',
+                'burnished_finish',
+                'barrier_coat',
+                'edgebanding',
+                'micro_bevel',
+                'routed_handle_spraying',
+                'beaded_door',
+                'quantity',
                 'net_price' ,
                 'vat',
-                'trade_discount' ,
+                'trade_discount',
                 'total_gross');
                 $data['quote_id'] = $var->id;
 
             // create Deals
             $var2 = $this->add(new Deals,$data);
-            return redirect()->route('quote.create', [$var]);
+            return redirect()->route('quote.create', compact('var'));
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
-
 
     }
 
@@ -196,8 +196,16 @@ class QuotesController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->get_by_id($this->_modal, $id);
-        return view('{{view_name}}', compact('data'));
+
+        $deal = Deals::findorFail($id);
+        $client = $deal->quotes->client_id;
+        $quote_id = $deal->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+        $products = Product::all();
+        return view('quote.quote_edit', compact( 'products','quote','deal','client'));
+
+        // $data = $this->get_by_id($this->_modal, $id);
+        // return view('{{view_name}}', compact('data'));
     }
 
     /**
@@ -228,8 +236,9 @@ class QuotesController extends Controller
      */
     public function destroy($id)
     {
+        dd($id,'delete');
         $this->delete($this->_modal, $id);
-        return redirect()->route('{{ routeName }}');
+        return redirect()->back()->with('success','Quote deleted successfully!');
     }
 
 }

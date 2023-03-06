@@ -34,8 +34,9 @@ class Product extends Model
         'barrier_coat',
     ];
     // relation with quote
-    public function Quotes()
+    public function deals()
     {
-        return $this->hasMany(Quotes::class);
+        return $this->hasMany(Deals::class);
     }
+
 }
