@@ -12,12 +12,6 @@ class Quote extends Model
 
     protected $guarded = [];
     // client realtion with user
-    public function client()
-
-    public function User()
-    {
-        return $this->belongsTo(User::class,'client_id');
-    }
     // store the id of this user whos create the quote
     public function User()
     {
