@@ -61,45 +61,41 @@
                                 <div id="daily-data-chart"></div>
                             </div>
                             <div class="col-6 col-md-4 col-lg-3 order-md-2 order-1">
+                                @php
+                                    $highest_quote = 0;
+                                    $quote_total = 0;
+                                    $total_items = 0;
+                                @endphp
+                                @foreach($quotes as $quote)
+                                    @if($quote->deals->sum('total_gross') > $highest_quote)
+                                        @php
+                                            $highest_quote = $quote->deals->sum('total_gross');
+                                        @endphp
+                                    @endif
+                                    @php
+                                        $quote_total += $quote->deals->sum('total_gross');
+                                        $total_items++;
+                                    @endphp
+                                @endforeach
+                                @if ($total_items > 0 )
+                                    @php
+                                        $average_quote = $quote_total/$total_items;
+                                    @endphp
+                                @else
+                                    @php
+                                        $average_quote = 0;
+                                    @endphp
+                                @endif
                                 <div class="stat">
                                     <h2>{{ $total_quotes }}</h2>
                                     <h6>Total Quotes</h6>
                                 </div>
                                 <div class="stat">
-                                    <h2>
-                                        @php
-                                            $highest_quote = 0;
-                                        @endphp
-                                        @foreach($all_quotes as $quote)
-                                            @if($quote->deals->sum('total_gross') > $highest_quote)
-                                                @php
-                                                    $highest_quote = $quote->deals->sum('total_gross');
-                                                @endphp
-                                            @endif
-                                        @endforeach
-
-                                        £{{ $highest_quote }}
-                                    </h2>
+                                    <h2>£{{ $highest_quote }}</h2>
                                     <h6>Highest Quote</h6>
                                 </div>
                                 <div class="stat">
-                                    <h2>
-                                        @php
-                                            $quote_total = 0;
-                                            $total_items = 0;
-                                        @endphp
-                                        @foreach($all_quotes as $quote)
-                                            @php
-                                                $quote_total += $quote->deals->sum('total_gross');
-                                                $total_items++;
-                                            @endphp
-                                        @endforeach
-                                        @php
-                                            $average_quote = $quote_total/$total_items;
-                                        @endphp
-
-                                        £{{ $average_quote }}
-                                    </h2>
+                                    <h2>£{{ $average_quote }}</h2>
                                     <h6>Average Quote</h6>
                                 </div>
                                 <div class="stat">

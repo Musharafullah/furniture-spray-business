@@ -83,7 +83,6 @@
                                     these fields,
                                     <span style="color:blue;">'Code', 'Title' , 'Cost From Supplier'</span> and
                                     <span style="color:blue;">'Sale Price’</span>.
-
                                 </p>
                             </div>
                         </div>
