@@ -13,17 +13,12 @@ class Quote extends Model
     protected $guarded = [];
     // client realtion with user
     // store the id of this user whos create the quote
-    public function User()
+    public function client()
     {
         return $this->belongsTo(User::class,'user_id');
     }
-    public function Product()
-    {
-        return $this->belongsTo(User::class,'product_id');
-    }
-    // relation with
     // relation with quote
-    public function Deals()
+    public function deals()
     {
         return $this->hasMany(Deals::class);
     }

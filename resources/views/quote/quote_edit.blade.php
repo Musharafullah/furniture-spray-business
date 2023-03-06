@@ -1,6 +1,6 @@
 @extends('dashboardlayouts.master')
 @section('title')
-    <title>Create quote</title>
+    <title>Editquote</title>
 @endsection
 @section('content')
 
@@ -19,449 +19,58 @@
                         <div class="col-12">
                             <h4>Customer Info</h4>
                         </div>
-                        @if ($quote->id)
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="product_type_id">Name</label>
-                                        <input class="form-control" type="text" placeholder="Enter Name"
-                                            value="{{ $quote->id ? $quote->client->name : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="product_type_id">Billing Postcode</label>
-                                        <input class="form-control" type="text" placeholder="Enter Name"
-                                            value="{{ $quote->id ? $quote->client->postal_code : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="product_type_id">Project Postcode</label>
-                                        @if (!empty($quote->billing_postal_code))
-                                            <input class="form-control" type="text" placeholder="Enter Name"
-                                                value="{{ $quote->id ? $quote->billing_postal_code : '' }}"
-                                                {{ $quote->id ? 'readonly' : '' }}>
-                                        @else
-                                            <input class="form-control" type="text" placeholder="Enter Name"
-                                                value="{{ $quote->id ? $quote->client->postal_code : '' }}"
-                                                {{ $quote->id ? 'readonly' : '' }}>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-sm-1">
-                                    <div style="margin-top:35px; margin-left:-23px;"><a href="#" data-toggle="modal"
-                                            data-target="#editpostal" id="edit_postal">(Edit)</a></div>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="product_type_id">Email</label>
-                                        <input class="form-control" type="text" placeholder=""
-                                            value="{{ $quote->id ? $quote->client->email : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="product_type_id">Phone No</label>
-                                        <input class="form-control" type="text" placeholder=""
-                                            value="{{ $quote->id ? $quote->client->phone : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <td colspan="7">
-                                                            <select class="form-control" id="hidden_option">
-                                                                @php
-                                                                    $types = ['Option_1(display_all_price_fields)', 'Option_2(hide_net_price_column_and_discount_column)', 'Option_3(hide_all_price_column_and_discount_including_gross_total,vat,total net)'];
-                                                                @endphp
-                                                                @foreach ($types as $type)
-                                                                    @php
-                                                                        $select = old('hidden_price', $quote->hidden_price) == $type ? 'selected' : '';
-                                                                    @endphp
-                                                                    <option
-                                                                        value="{{ $type . '/' . $quote->id ?? old('type') }}"
-                                                                        {{ $select }}>
-                                                                        @php
-                                                                            // $role_name= $role->name;
-                                                                            $type = str_replace('_', ' ', $type);
-                                                                            //$type = ucwords($type);
-                                                                        @endphp
-                                                                        {{ $type }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td colspan="5"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th colspan="11">Item details</th>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>Code</td>
-                                                        <td>Product</td>
-                                                        <td>Width(mm)</td>
-                                                        <td>Height(mm)</td>
-                                                        <td>SQM(m)</td>
-                                                        <td>Quantity</td>
-                                                        <td>Net Price</td>
-                                                        <td>VAT</td>
-                                                        <td>Discount Applied (%)</td>
-                                                        <td>Gross Price</td>
-                                                        <td>Action</td>
-
-                                                    <tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    @foreach ($quote->deals as $deal)
-                                                        <tr>
-                                                            <td>{{ 'Item: ' . $loop->iteration }}</td>
-                                                            <td>{{ $deal->product->code }}</td>
-                                                            <td>{{ $deal->product->product_name }}</td>
-                                                            <td>{{ $deal->width }}</td>
-                                                            <td>{{ $deal->height }}</td>
-                                                            <td>
-                                                                @if ($deal->product->type == 'non_glass')
-                                                                @else
-                                                                    {{ $deal->sqm }}
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ $deal->quantity }}</td>
-                                                            <td>
-                                                                @php
-                                                                    if ($deal->product->type == 'non_glass') {
-                                                                        $disc = ($deal->net_price * $deal->trade_discount) / 100;
-                                                                        $net_price = $deal->net_price - $disc;
-                                                                    } else {
-                                                                        $net_price = $deal->net_price;
-                                                                    }
-                                                                @endphp
-                                                                {{ $net_price }}
-                                                            </td>
-                                                            <td>
-                                                                @php
-                                                                    if ($deal->product->type == 'non_glass') {
-                                                                        $pro_disc = ($deal->net_price * $deal->trade_discount) / 100;
-                                                                        $pro_net_price = $deal->net_price - $pro_disc;
-                                                                        $pro_vat = ($pro_net_price * 20) / 100;
-                                                                    } else {
-                                                                        $pro_vat = $deal->vat;
-                                                                    }
-                                                                @endphp
-                                                                {{ $pro_vat }}
-                                                            </td>
-                                                            <td>{{ $deal->trade_discount }}</td>
-                                                            <td>{{ $deal->total_gross }}</td>
-                                                            <td>
-                                                                <ul class="list-inline">
-
-                                                                    <li>
-                                                                        <a href="#" data-toggle="tooltip"
-                                                                            title="Duplicate Item"><i
-                                                                                class="fa fa-copy"></i></a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <a href="{{ route('quote.edit', $deal->id) }}"
-                                                                            data-toggle="tooltip" title="Edit Item"><i
-                                                                                class="fa fa-pencil"></i></a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <a href="{{ route('quote.destroy', $deal->id) }}"
-                                                                            data-toggle="tooltip" title="Delete Item"><i
-                                                                                class="fa fa-times-circle"></i></a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <label class="switch ">
-                                                                            <input type="checkbox" name="image_status"
-                                                                                class="primary" value="{{ $deal->id }}"
-                                                                                {{ $deal->image_status == 1 ? 'checked' : '' }}>
-                                                                            <span class="slider round"></span>
-                                                                        </label>
-                                                                    </li>
-                                                                </ul>
-
-                                                            </td>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td colspan="10">
-                                                                @php
-                                                                    $pro = App\Models\Product::find($deal->product_id);
-                                                                    //  dd($pro);
-                                                                @endphp
-                                                                @if ($deal->cutout > 0)
-                                                                    @php
-                                                                        $coutout = $deal->cutout / $pro->cut_out;
-                                                                    @endphp
-                                                                    Cut Out X {{ $coutout }} |
-                                                                @endif
-
-                                                                @if ($deal->notch > 0)
-                                                                    @php
-                                                                        $notch = $deal->notch / $pro->notch;
-                                                                    @endphp
-                                                                    Notch X {{ $notch }} |
-                                                                @endif
-                                                                @if ($deal->hole > 0)
-                                                                    @php
-                                                                        $hole = $deal->hole / $pro->hole;
-                                                                    @endphp
-                                                                    Hole X {{ $hole }} |
-                                                                @endif
-                                                                @if ($deal->rake > 0)
-                                                                    @php
-                                                                        $rake = $deal->rake / $pro->rake;
-                                                                    @endphp
-                                                                    Rake X {{ $rake }} |
-                                                                @endif
-                                                                @if ($deal->radius_corners > 0)
-                                                                    @php
-                                                                        $radius_corners = $deal->radius_corners / $pro->radius_corners;
-                                                                    @endphp
-                                                                    Radius Corners X {{ $radius_corners }} |
-                                                                @endif
-                                                                @if ($deal->back_select == $pro->painted && $pro->painted > 0)
-                                                                    Painted |
-                                                                @endif
-                                                                @if ($deal->finish == $pro->sparkle_finish && $pro->sparkle_finish > 0)
-                                                                    Sparkle Finish |
-                                                                @endif
-                                                                @if ($deal->finish == $pro->metallic_finish && $pro->metallic_finish > 0)
-                                                                    Metallic Finish,
-                                                                @endif
-                                                                @if ($deal->back_select == $pro->printed && $pro->printed > 0)
-                                                                    Printed |
-                                                                @endif
-                                                                @if ($deal->cnc > 0)
-                                                                    CNC |
-                                                                @endif
-                                                                @if ($deal->sandblasted > 0)
-                                                                    Sandblasted |
-                                                                @endif
-                                                                @if ($deal->ritec > 0)
-                                                                    Ritec |
-                                                                @endif
-                                                                @if ($deal->bevel_edges > 0)
-                                                                    Bavel Edges
-                                                                @endif
-                                                            <td>
-                                                        </tr>
-                                                        @if ($deal->note)
-                                                            <tr>
-                                                                <td></td>
-                                                                <td colspan="10">
-
-                                                                    <b>Note:</b>{{ $deal->note }}
-
-
-                                                                <td>
-                                                            </tr>
-                                                        @endif
-                                                        </tr>
-                                                    @endforeach
-                                                    <tr>
-                                                        <td></td>
-                                                        <td colspan="6">
-                                                            @php
-                                                                $product_sum_total = round($quote->deals->sum('total_gross'), 2);
-                                                                $delivery_charges = $quote->delivery_charges;
-                                                                $grand_total = $product_sum_total + $delivery_charges;
-                                                                
-                                                                // calculation for net discount
-                                                                $net = $product_sum_total / 1.2;
-                                                                $discount_vat = $product_sum_total - $net;
-                                                            @endphp
-                                                            <h4>Total</h4>
-                                                        </td>
-                                                        <td colspan="3">
-                                                            <h4>Net price: £{{ round($net, 2) }}
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="total_net_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->total_net_status == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </h4>
-                                                        </td>
-                                                        <td>
-                                                            <h4> Vat : £{{ round($discount_vat, 2) }}<br />
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="total_vat_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->total_vat_status == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </h4>
-                                                        </td>
-
-                                                        <td colspan="2">
-                                                            <h4> Gross total :
-                                                                £{{ $product_sum_total }}<br />
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="gross_total_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->gross_total_status == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </h4>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <td class="pull-right">
-                                                            <h4>
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="collect_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->hide_collect == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                                Grand Total (Collected) : £{{ $quote->collected }}
-                                                            </h4>
-
-                                                            <h4>
-
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="delivered_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->hide_delivered == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-
-                                                                Grand Total (Delivered) :
-                                                                @if ($quote->delivered == 'N/A')
-                                                                    N/A
-                                                                    <small><a href="#" data-toggle="modal"
-                                                                            data-target="#editdelivery"
-                                                                            id="edit_delivered">(Edit)</a></small><br />
-                                                                    <small>Client distance exceed 60 miles</small>
-                                                                @else
-                                                                    £{{ $quote->delivered + $product_sum_total }}
-                                                                    <small><a href="#" data-toggle="modal"
-                                                                            data-target="#editdelivery"
-                                                                            id="edit_delivered">(Edit)</a></small>
-                                                                @endif
-                                                            </h4>
-
-                                                            {{-- <h4>
-
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="survey_status"
-                                                                        class="primary" value="{{ $quote->id }}"
-                                                                        {{ $quote->hide_survey == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                                Grand Total (Survey & Fit) :
-                                                                @if ($quote->survey == 'N/A')
-                                                                    N/A
-                                                                    <small><a href="#" data-toggle="modal"
-                                                                            data-target="#editsurvey"
-                                                                            id="edit_survey">(Edit)</a>
-                                                                    </small><br />
-                                                                    <small>Client distance exceed 40 miles</small><br />
-                                                                    <p style="font-size: 12px;">Survey & Fit Charges
-                                                                        ({{ $quote->survey }})</p>
-                                                                    <p style="font-size: 12px;">Total SQM
-                                                                        ({{ round($quote->deals->sum('sqm_qty'), 2) }})</p>
-                                                                @else
-                                                                    £{{ $quote->survey + $product_sum_total }}
-                                                                    <small><a href="#" data-toggle="modal"
-                                                                            data-target="#editsurvey"
-                                                                            id="edit_survey">(Edit)</a>
-                                                                    </small><br /><br />
-                                                                    <p style="font-size: 12px;">Survey & Fit Charges
-                                                                        (£{{ $quote->survey }})</p>
-                                                                    <p style="font-size: 12px;">Total SQM
-                                                                        ({{ round($quote->deals->sum('sqm_qty'), 2) }})</p>
-                                                                @endif
-                                                            </h4> --}}
-                                                        </td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="col-sm-offset-6 col-sm-6">
-                                            <a href="#" class="btn btn-rounded btn-primary btn-block form-group"
-                                                target="_blank">Review
-                                                Quote
-                                                <span><i class="fa fa-save"></i></span></a>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="col-12 col-md-8">
-                                        <select class="form-select" id="clients" onchange="client_info()"></select>
-                                        {{-- <select class="form-select" onchange="client_info()" id="clients">
-                                <option value="">-- Select Customer --</option>
-                                @foreach ($data as $client)
-                                    <option value='{{ $client->id }}'>{{ $client->name }}
-                                    </option>
-                                @endforeach
-                                </select> --}}
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#addcustomer">
-                                            Add Customer <i class="fa fa-plus-circle"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="cust_name">Name</label>
-                                            <input id="cust_name" name="cust-name" class="form-control" type="text"
-                                                placeholder="Enter Name" value="" readonly="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="cust_phone">Telephone</label>
-                                            <input id="cust_phone" name="cust-phone" class="form-control" type="number"
-                                                placeholder="Enter Number" readonly="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="cust-email">Email</label>
-                                            <input id="cust_email" name="cust-email" class="form-control" type="email"
-                                                placeholder="Enter Email" readonly="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="cust-postcode">Billing Postcode</label>
-                                            <input id="cust_postcode" name="billing_postal_code" class="form-control"
-                                                type="text" placeholder="Postcode" readonly="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label for="cust-address">Address</label>
-                                            <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
-                                        </div>
-                                    </div>
-                        @endif
+                        {{-- <div class="col-12 col-md-8">
+                            <select class="form-select" id="clients" onchange="client_info()"></select>
+                             <select class="form-select" onchange="client_info()" id="clients">
+                                    <option value="">-- Select Customer --</option>
+                                    @foreach ($data as $client)
+                                        <option value='{{ $client->id }}'>{{ $client->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                        </div> --}}
+                        {{-- <div class="col-12 col-md-4">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                data-bs-target="#addcustomer">
+                                Add Customer <i class="fa fa-plus-circle"></i>
+                            </button>
+                        </div> --}}
+                        <input type="hidden" value="{{ $client }}" id="clients" />
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust_name">Name</label>
+                                <input id="cust_name" name="cust-name" class="form-control" type="text"
+                                    placeholder="Enter Name" value="" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust_phone">Telephone</label>
+                                <input id="cust_phone" name="cust-phone" class="form-control" type="number"
+                                    placeholder="Enter Number" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust-email">Email</label>
+                                <input id="cust_email" name="cust-email" class="form-control" type="email"
+                                    placeholder="Enter Email" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust-postcode">Billing Postcode</label>
+                                <input id="cust_postcode" name="billing_postal_code" class="form-control" type="text"
+                                    placeholder="Postcode" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cust-address">Address</label>
+                                <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
+                            </div>
+                        </div>
                     </div>
                     <!----------------------------------- End Customer Info -------------------------------------->
 
@@ -516,8 +125,8 @@
                                     <div class="col-md-2 height">
                                         <div class="form-group">
                                             <label>Height</label>
-                                            <input id="product_height" name="height" class="form-control"
-                                                type="number" placeholder="" readonly>
+                                            <input id="product_height" name="height" class="form-control" type="number"
+                                                placeholder="" readonly>
                                             @if ($errors->has('height'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong class="text-danger">{{ $errors->first('height') }}</strong>
@@ -737,47 +346,22 @@
                         <!----------------------------------- End Add Products -------------------------------------->
 
                         <!----------------------------------- Delivery Options -------------------------------------->
-                        <div class="row delivery-options">
-                            {{-- <div class="col-12">
-                                <h4>Delivery Options</h4>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="delivery-distance">Distance From Our Location (In Miles)</label>
-                                    <input id="delivery-distance" name="delivery-distance" class="form-control"
-                                        type="text" placeholder="">
-                                </div>
-                            </div> --}}
-                            <div class="col-12">
-                                <h4>Delivery Options</h4>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="comment">Comment</label>
-                                    <textarea id="comment" name="comment" class="form-control" rows="3" placeholder=""></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="internal-comment">Internal comment</label>
-                                    <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" placeholder=""></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 pull-right mt-4">
-                                <button type="submit" class="btn btn-primary-rounded">
-                                    Add another item <span><i class="fa fa-save"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!----------------------------------- End Delivery Options -------------------------------------->
 
+                        <div class="col-sm-6 pull-right mt-4">
+                            <button type="submit" class="btn btn-primary-rounded">
+                                Add another item <span><i class="fa fa-save"></i></span>
+                            </button>
+                        </div>
+                </div>
+                </form>
             </div>
+            <!----------------------------------- End Delivery Options -------------------------------------->
+
         </div>
-        <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
-            for
-            house average price</div>
+    </div>
+    <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
+        for
+        house average price</div>
     </div>
     </div>
 
@@ -900,27 +484,11 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
+        function client_info($id) {
+
             $.ajax({
                 type: "get",
-                url: "{{ route('allclient') }}",
-                success: function(response) {
-                    console.log(response.client);
-                    $("#clients").html(response.client);
-                }
-            });
-
-            $('.full_wood').hide();
-            $('.full_paint').show();
-        });
-
-        function client_info() {
-            var selectElement = document.querySelector('.form-select');
-            var selectedValue = selectElement.value;
-            // alert(selectedValue);
-            $.ajax({
-                type: "get",
-                url: "{{ route('clientinfo') }}/" + selectedValue,
+                url: "{{ route('clientinfo') }}/" + $id,
                 success: function(response) {
                     console.log(response.client);
                     //$("#clients").html(response.client);
@@ -934,6 +502,15 @@
                 }
             });
         }
+        $(document).ready(function() {
+            $id = $("#clients").val();
+            client_info($id);
+
+            $('.full_wood').hide();
+            $('.full_paint').show();
+        });
+
+
 
         //client insert data
         $("#add_client_form").on('submit', function(event) {

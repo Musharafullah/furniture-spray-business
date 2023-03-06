@@ -26,8 +26,9 @@ return new class extends Migration
             $table->integer('height')->nullable();
             $table->double('sqm')->nullable();
 
-            $table->double('product_price');
+            $table->double('product_price')->nullable();
 
+            $table->string('matt_finish_option')->nullable();
             $table->double('matt_finish')->nullable();
             $table->double('spraying_edges')->nullable();
             $table->double('metallic_paint')->nullable();
