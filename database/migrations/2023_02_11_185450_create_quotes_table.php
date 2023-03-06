@@ -17,7 +17,24 @@ return new class extends Migration
             $table->UUID('id')->primary();
 
             $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('user_id');
+
             $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->double('collected')->nullable();
+            $table->double('delivered')->nullable();
+            // status
+            $table->string('hide_collect')->default(1)->comment('1: show, 0:hide');
+            $table->string('hide_delivered')->default(1)->comment('1: show, 0:hide');
+            $table->string('total_net_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('total_vat_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('gross_total_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('net_price_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('discount_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('product_price_status')->default(1)->comment('1: show, 0:hide');
+
+            // end status
 
             $table->string('delivery_option')->default('-');
             $table->double('collected')->nullable();
@@ -35,6 +52,7 @@ return new class extends Migration
             $table->string('hidden_price')->default('Option_3(hide_all_price_column_and_discount_including_gross_total,vat,total net)');
             $table->string('billing_postal_code')->nullable();
             $table->string('status')->default('draft');
+
 
             $table->timestamps();
         });

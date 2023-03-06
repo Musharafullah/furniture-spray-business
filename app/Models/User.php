@@ -56,7 +56,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     // relation with quote
-    public function Quotes()
+    public function quotewithclient()
+    {
+        return $this->hasMany(Quotes::class);
+    }
+    public function quotewithuser()
     {
         return $this->hasMany(Quotes::class);
     }

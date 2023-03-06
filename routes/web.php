@@ -51,6 +51,7 @@ Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class
 
 // Quote Controller
 Route::resource('/quote', App\Http\Controllers\QuotesController::class);
+Route::post('/quote-create/{id?}',[App\Http\Controllers\QuotesController::class,'create']);
 Route::get('/reports/',[App\Http\Controllers\QuotesController::class,'reports'])->name('reports');// reports bwtween dates
 Route::post('/create-quote/',[App\Http\Controllers\QuotesController::class,'create_quote'])->name('create_quote');// reports bwtween dates
 // Delievery Charges

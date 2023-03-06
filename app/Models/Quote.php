@@ -9,28 +9,19 @@ class Quote extends Model
 {
     use HasFactory,HasUuids;
 
-    protected $fillable = [
-        'client_id',
-        'delivery_option',
-        'collected',
-        'delivered',
-        'comment',
-        'internal_comment',
-        'hide_collect',
-        'hide_delivered',
-        'total_net_status',
-        'total_vat_status',
-        'gross_total_status',
-        'net_price_status',
-        'discount_status',
-        'product_price_status',
-        'hidden_price',
-        'billing_postal_code',
-        'status',
-    ];
+
+    protected $guarded = [];
+    // client realtion with user
+    public function client()
+
     public function User()
     {
         return $this->belongsTo(User::class,'client_id');
+    }
+    // store the id of this user whos create the quote
+    public function User()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
     public function Product()
     {

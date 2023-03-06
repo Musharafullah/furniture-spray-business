@@ -151,7 +151,8 @@
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
                                             <label>Rate / Sqm (1 sided) - Matt Finish</label>
-                                            <select name="matt_finish_option" id="matt_finish_option" class="form-select">
+                                            <select name="matt_finish_option" id="matt_finish_option"
+                                                class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="1">Single Side</option>
                                                 <option value="2">Double Side</option>
@@ -195,7 +196,8 @@
                                                 <option value="">-- Select option --</option>
                                                 <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
                                                 <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
-                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</option>
+                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -347,34 +349,46 @@
 
                     <!----------------------------------- Delivery Options -------------------------------------->
                     <div class="row delivery-options">
+                        {{-- <div class="col-12">
+                                <h4>Delivery Options</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="delivery-distance">Distance From Our Location (In Miles)</label>
+                                    <input id="delivery-distance" name="delivery-distance" class="form-control"
+                                        type="text" placeholder="">
+                                </div>
+                            </div> --}}
                         <div class="col-12">
                             <h4>Delivery Options</h4>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="comment">Comment</label>
-                                <textarea id="comment" class="form-control" rows="3" placeholder=""></textarea>
+                                <textarea id="comment" name="comment" class="form-control" rows="3" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="internal-comment">Internal comment</label>
-                                <textarea id="internal-comment" class="form-control" rows="3" placeholder=""></textarea>
+                                <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" placeholder=""></textarea>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-primary-rounded">
+                        <div class="col-sm-6 pull-right mt-4">
+                            <button type="submit" class="btn btn-primary-rounded">
                                 Add another item <span><i class="fa fa-save"></i></span>
                             </button>
                         </div>
+                    </div>
+                    </form>
                     </div> 
                     <!----------------------------------- End Delivery Options -------------------------------------->
 
                 </div>
             </div>
-            <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button for
-                house average price
-            </div>
+            <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
+                for
+                house average price</div>
         </div>
     </div>
 
@@ -622,7 +636,8 @@
             var options = '';
             options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
             options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
-            options += '<option value="' + gloss_100_acrylic_lacquer + '">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</option>';
+            options += '<option value="' + gloss_100_acrylic_lacquer +
+                '">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</option>';
 
             $('#' + selectbox_id).html(options);
         }
@@ -645,7 +660,7 @@
                 addon_selectboxes('gloss_100_acrylic_lacquer', 0);
                 set_gloss_percent('gloss_percentage', row.gloss_80, row.gloss_100_paint, row.gloss_100_acrylic_lacquer);
             }
-            
+
             addon_selectboxes('polyester', row.polyester_or_full_grain);
             addon_selectboxes('burnished_finish', row.burnished_finish);
             addon_selectboxes('barrier_coat', row.barrier_coat);
@@ -670,33 +685,33 @@
                 $('.full_paint, .full_wood').hide();
                 $('.sqm, .width, .height').show();
 
-                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                if ($('#product_height').val() == '' || $('#product_width').val() == '') {
                     $('#product_sqm').val(0.30);
                     $('#product_lm').val(1);
                     calculate_price();
-                }  
+                }
             }
             if (type == 'full_paint') {
                 $('.full_wood').hide();
                 $('.full_paint').show();
                 $('.sqm, .width, .height').show();
 
-                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                if ($('#product_height').val() == '' || $('#product_width').val() == '') {
                     $('#product_sqm').val(0.30);
                     $('#product_lm').val(1);
                     calculate_price();
-                }  
+                }
             }
             if (type == 'full_wood') {
                 $('.full_paint').hide();
                 $('.full_wood').show();
                 $('.sqm, .width, .height').show();
 
-                if($('#product_height').val()=='' || $('#product_width').val()=='') {
+                if ($('#product_height').val() == '' || $('#product_width').val() == '') {
                     $('#product_sqm').val(0.30);
                     $('#product_lm').val(1);
                     calculate_price();
-                }  
+                }
             }
 
             if (type == 'basic') {
@@ -719,8 +734,8 @@
 
         //calculate sqm and lm
         $('#product_width, #product_height').on('keyup', function(event) {
-            var height =  $('#product_height').val();
-            var width =  $('#product_width').val();
+            var height = $('#product_height').val();
+            var width = $('#product_width').val();
             if (height.length > 0 && width.length > 0) {
                 var mul = width * height;
                 var sqm = mul / 1000000;
@@ -731,8 +746,8 @@
                     $('#product_sqm').val(sqm);
                 }
 
-                var lm = ( 2 * Number(height) ) + ( 2 * Number(width));
-                lm = lm/1000;
+                var lm = (2 * Number(height)) + (2 * Number(width));
+                lm = lm / 1000;
                 $('#product_lm').val(lm);
                 //alert(lm);
 
@@ -760,7 +775,7 @@
         $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
             .on('keyup keydown change', function() {
                 calculate_price();
-        });
+            });
 
 
         function calculate_price() {
@@ -776,32 +791,28 @@
 
                 var sqm_product = Number($('#pro_price').val());
 
-                if( $('#matt_finish_option').val()== 2 )
-                {
+                if ($('#matt_finish_option').val() == 2) {
                     var sqm_price = input_sqm * sqm_product * 2;
                     $('#product_price').val(sqm_price);
                     total += sqm_price;
-                }
-                else {
+                } else {
                     var sqm_price = input_sqm * sqm_product;
                     $('#product_price').val(sqm_price);
                     total += sqm_price;
                 }
 
-                
+
                 $('#matt_finish, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat')
                     .each(function() {
 
-                        if( $('#matt_finish_option').val()== 2 )
-                        {
+                        if ($('#matt_finish_option').val() == 2) {
                             var value = Number($(this).val()) * input_sqm * 2;
                             total += value;
-                        }
-                        else {
+                        } else {
                             var value = Number($(this).val()) * input_sqm;
                             total += value;
                         }
-                });
+                    });
 
 
                 var lm = Number($('#product_lm').val());
@@ -809,7 +820,7 @@
                     .each(function() {
                         var value = Number($(this).val()) * lm;
                         total += value;
-                });
+                    });
 
                 var routed_handle_spraying = Number($('#routed_handle_spraying').val());
                 total += routed_handle_spraying;

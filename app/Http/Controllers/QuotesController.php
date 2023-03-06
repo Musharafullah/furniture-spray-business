@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quote;
+use App\Models\Deals;
 use App\Models\User;
 use App\Models\Product;
 use Carbon\Carbon;
+use Auth;
 class QuotesController extends Controller
 {
     private $_request = null;
@@ -79,7 +81,7 @@ class QuotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id = null)
+    public function create(Request $request , $id = null)
     {
 
         if($id){
@@ -101,36 +103,45 @@ class QuotesController extends Controller
     public function create_quote()
     {
         // dd($this->_request->all());
-        $data = $this->_request->only(
-            'client_id',
-            'user_id',
-            'product_id',
-            'width',
-            'height',
-            'sqm',
-            'product_price',
-            'matt_finish',
-            'spraying_edges',
-            'metallic_paint',
-            'wood_stain',
-            'gloss_80',
-            'gloss_100_paint',
-            'gloss_100_acrylic_lacquer',
-            'polyester',
-            'burnished_finish',
-            'barrier_coat',
-            'edgebanding',
-            'micro_bevel',
-            'routed_handle_spraying',
-            'beaded_door',
-            'quantity',
-            'net_price',
-            'vat',
-            'trade_discount',
-            'total_gross',
-        );
-        $var = $this->add($this->_modal, $data);
-        return redirect()->route('customer.index')->with('success','Quote created successfully!');
+            $quote = $this->_request->only('client_id','comment', 'internal_comment');
+            $quote['user_id'] = Auth::user()->id;
+            $quote['collected'] = $this->_request->total_gross;
+            $quote['delivered'] = 60;
+
+            $var = $this->add($this->_modal, $quote);
+
+            //  Deals
+            $data = $this->_request->only(
+                'product_id' ,
+                'width' ,
+                'height',
+                'sqm' ,
+                'product_price' ,
+                'matt_finish_option' ,
+                'matt_finish' ,
+                'spraying_edges' ,
+                'metallic_paint' ,
+                'wood_stain' ,
+                'gloss_percentage' ,
+                'gloss_100_acrylic_lacquer' ,
+                'polyester' ,
+                'burnished_finish' ,
+                'barrier_coat' ,
+                'edgebanding' ,
+                'micro_bevel' ,
+                'routed_handle_spraying' ,
+                'beaded_door' ,
+                'quantity' ,
+                'net_price' ,
+                'vat',
+                'trade_discount' ,
+                'total_gross');
+                $data['quote_id'] = $var->id;
+
+            // create Deals
+            $var2 = $this->add(new Deals,$data);
+            return redirect()->route('quote.create', [$var]);
+        // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
 
 
     }
