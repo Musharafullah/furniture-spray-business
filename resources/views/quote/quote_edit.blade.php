@@ -356,7 +356,6 @@
                 </form>
             </div>
             <!----------------------------------- End Delivery Options -------------------------------------->
-
         </div>
     </div>
     <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button

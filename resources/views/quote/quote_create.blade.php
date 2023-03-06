@@ -414,12 +414,12 @@
                                     <div class="col-12 col-md-8">
                                         <select class="form-select" id="clients" onchange="client_info()"></select>
                                         {{-- <select class="form-select" onchange="client_info()" id="clients">
-                                <option value="">-- Select Customer --</option>
-                                @foreach ($data as $client)
-                                    <option value='{{ $client->id }}'>{{ $client->name }}
-                                    </option>
-                                @endforeach
-                                </select> --}}
+                                        <option value="">-- Select Customer --</option>
+                                        @foreach ($data as $client)
+                                            <option value='{{ $client->id }}'>{{ $client->name }}
+                                            </option>
+                                        @endforeach
+                                        </select> --}}
                                     </div>
                                     <div class="col-12 col-md-4">
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
@@ -735,7 +735,6 @@
                             </div>
                         </div>
                         <!----------------------------------- End Add Products -------------------------------------->
-
                         <!----------------------------------- Delivery Options -------------------------------------->
                         <div class="row delivery-options">
                             {{-- <div class="col-12">
@@ -895,6 +894,61 @@
             </div>
         </div>
     </div>
+    {{-- edit delievry model --}}
+
+    <!--start Modal for edit delivered-->
+    <div aria-hidden="true" aria-labelledby="EditdeliveryModal" class="modal fade" id="editdelivery" role="dialog"
+        tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="#" id="edit_delivered">
+                        @csrf
+                        @method('put')
+                        <div class="modal-header">
+                            <h3><span id="form_output" class="alert-info"></span></h3>
+                            <h6><span id="errors" class="alert-danger"></span></h6>
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <h3 class="modal-title">Update Delivered</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="delivered">Delivery Charges</label>
+                                        <input id="delivered" name="delivered" class="form-control" type="text"
+                                            placeholder="Enter Number" value="{{ $quote->delivered }}">
+                                        @if ($errors->has('delivered'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong class="text-danger">{{ $errors->first('delivered') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- End endedit modal for delivered -->
+
+
     <!----------------------- End Add Customer Modal ------------------------------->
 
 @endsection

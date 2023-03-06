@@ -14,7 +14,8 @@
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!---------------------------- DROPIFY -------------------------------->
 <script src="{{ asset('assets/dist/js/dropify.min.js') }}"></script>
@@ -32,61 +33,65 @@
                 searchPlaceholder: "Search Keyword"
             }
         });
-            
-            //----------------------------------------------------------------------------------------------------------
 
-            Highcharts.chart('daily-data-chart', {
-                chart: {
-                    type: 'column'
-                },
-                title: false,
-                xAxis: {
-                    type: 'category',
-                    labels: {
-                        step: 2,
-                        rotation: -45,
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
+        //----------------------------------------------------------------------------------------------------------
+
+        Highcharts.chart('daily-data-chart', {
+            chart: {
+                type: 'column'
+            },
+            title: false,
+            xAxis: {
+                type: 'category',
+                labels: {
+                    step: 2,
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
                     }
-                },
-                yAxis: {
-                    min: 0,
-                    title: false
-                },
-                legend: {
-                    enabled: false
-                },
-                tooltip: {
-                    pointFormat: 'Quote in day: <b>{point.y:.1f}</b>'
-                },
-                series: [{
-                    name: 'Population',
-                    data: [
-                        @if(!empty($from))
-                            @php
-                              //  $from = Carbon\Carbon::now();
-                                //dd($from);
-                             //   $to = Carbon\Carbon::now()->addDays(-10);
-                                if(!empty($from))
-                                $grouped = \App\Models\Quote::whereBetween('created_at', [$from,$to])->get()->groupby(function ($q){
-                                    return $q->created_at->format('d m Y');
-                                });
-
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: false
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Quote in day: <b>{point.y:.1f}</b>'
+            },
+            series: [{
+                name: 'Population',
+                data: [
+                    @if (!empty($from))
+                        @php
+                            //  $from = Carbon\Carbon::now();
+                            //dd($from);
+                            //   $to = Carbon\Carbon::now()->addDays(-10);
+                            if (!empty($from)) {
+                                $grouped = \App\Models\Quote::whereBetween('created_at', [$from, $to])
+                                    ->get()
+                                    ->groupby(function ($q) {
+                                        return $q->created_at->format('d m Y');
+                                    });
+                            }
+                            
                             //dd($grouped);
-                            @endphp
-                            @foreach($grouped as $key => $group)
-                            @if($loop->last)
-                        ['{{ $key }}', {{ $group->count() }}]
-                                @else
-                            ['{{ $key }}', {{ $group->count() }}],
-                        @endif
+                            
+                        @endphp
+                        @foreach ($grouped as $key => $group)
+                            @if ($loop->last)
+                                ['{{ $key }}', {{ $group->count() }}]
+                            @else
+                                ['{{ $key }}', {{ $group->count() }}],
+                            @endif
                         @endforeach
-                        @endif
-                    ]
-                }]
-            });
+                    @endif
+                ]
+            }]
+        });
 
     });
     //
