@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deals extends Model
 {
     use HasFactory,HasUuids;
+
     protected $guarded = [];
     // protected $fillable =
     // [
@@ -32,6 +33,7 @@ class Deals extends Model
     //     'total_gross',
     // ];
     // relation with
+
     public function Quotes()
     {
         return $this->belongsTo(Quotes::class,'client_id');

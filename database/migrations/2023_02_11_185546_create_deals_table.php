@@ -25,8 +25,9 @@ return new class extends Migration
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
             $table->double('sqm')->nullable();
-            $table->double('product_price')->nullable();
-            $table->double('matt_finish_option')->nullable();
+
+            $table->double('product_price');
+
             $table->double('matt_finish')->nullable();
             $table->double('spraying_edges')->nullable();
             $table->double('metallic_paint')->nullable();
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->double('gloss_percentage')->nullable();
             $table->double('gloss_100_acrylic_lacquer')->nullable();
             $table->double('polyester')->nullable();
+
             $table->integer('burnished_finish')->nullable();
             $table->double('barrier_coat')->nullable();
             $table->double('edgebanding')->nullable();
@@ -48,6 +50,7 @@ return new class extends Migration
 
             $table->string('status')->nullable();
             $table->timestamps();
+
         });
     }
 

@@ -59,7 +59,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="cust-postcode">Billing Postcode</label>
-                                <input id="cust_postcode" name="cust-postcode" class="form-control" type="text"
+                                <input id="cust_postcode" name="billing_postal_code" class="form-control" type="text"
                                     placeholder="Postcode" readonly="">
                             </div>
                         </div>
@@ -343,7 +343,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </form>
                     </div>
                     <!----------------------------------- End Add Products -------------------------------------->
 
@@ -359,6 +359,9 @@
                                         type="text" placeholder="">
                                 </div>
                             </div> --}}
+                        <div class="col-12">
+                            <h4>Delivery Options</h4>
+                        </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="comment">Comment</label>
@@ -376,9 +379,9 @@
                                 Add another item <span><i class="fa fa-save"></i></span>
                             </button>
                         </div>
-
                     </div>
                     </form>
+                    </div> 
                     <!----------------------------------- End Delivery Options -------------------------------------->
 
                 </div>
@@ -387,7 +390,6 @@
                 for
                 house average price</div>
         </div>
-    </div>
     </div>
 
 
