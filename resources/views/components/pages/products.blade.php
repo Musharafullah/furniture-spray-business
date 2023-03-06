@@ -10,7 +10,6 @@
                     <th>Code</th>
                     <th>Title</th>
                     <th width="100">Image</th>
-                    <th>Cost From Supplier</th>
                     <th>Sale Net SQM</th>
                     <th>Type</th>
                     <th>Action</th>
@@ -32,7 +31,6 @@
                             <td class="text-center">
                                 <img src="{{ asset('product_image/product/' . $product->product_image_path) }}">
                             </td>
-                            <td>{{ $product->cost_from_supplier }}</td>
                             <td>{{ $product->sale_net_sqm }}</td>
                             <td>{{ $pro_type }}</td>
                             <td>
