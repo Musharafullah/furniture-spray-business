@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->double('collected')->nullable();
             $table->double('delivered')->nullable();
+            $table->longText('comment')->nullable();
+            $table->longText('internal_comment')->nullable();
             // status
             $table->string('hide_collect')->default(1)->comment('1: show, 0:hide');
             $table->string('hide_delivered')->default(1)->comment('1: show, 0:hide');

@@ -73,13 +73,13 @@
                     <!----------------------------------- End Customer Info -------------------------------------->
 
                     <!----------------------------------- Add Products -------------------------------------->
-                    <div class="row add-product">
-                        <div class="col-12">
-                            <h4>Add Product</h4>
-                        </div>
-                        <form action="{{ route('create_quote') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="client_id" id="client_id" />
+                    <form action="{{ route('create_quote') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="client_id" id="client_id" />
+                        <div class="row add-product">
+                            <div class="col-12">
+                                <h4>Add Product</h4>
+                            </div>
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-2">
@@ -343,53 +343,52 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <!----------------------------------- End Add Products -------------------------------------->
-
-                    <!----------------------------------- Delivery Options -------------------------------------->
-                    <div class="row delivery-options">
-                        {{-- <div class="col-12">
+                        </div>
+                        <!----------------------------------- End Add Products -------------------------------------->
+                        <!----------------------------------- Delivery Options -------------------------------------->
+                        <div class="row delivery-options">
+                            {{-- <div class="col-12">
+                                    <h4>Delivery Options</h4>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="delivery-distance">Distance From Our Location (In Miles)</label>
+                                        <input id="delivery-distance" name="delivery-distance" class="form-control"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div> --}}
+                            <div class="col-12">
                                 <h4>Delivery Options</h4>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="delivery-distance">Distance From Our Location (In Miles)</label>
-                                    <input id="delivery-distance" name="delivery-distance" class="form-control"
-                                        type="text" placeholder="">
+                                    <label for="comment">Comment</label>
+                                    <textarea id="comment" name="comment" class="form-control" rows="3" placeholder=""></textarea>
                                 </div>
-                            </div> --}}
-                        <div class="col-12">
-                            <h4>Delivery Options</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="comment">Comment</label>
-                                <textarea id="comment" name="comment" class="form-control" rows="3" placeholder=""></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="internal-comment">Internal comment</label>
+                                    <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" placeholder=""></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pull-right mt-4">
+                                <button type="submit" class="btn btn-primary-rounded">
+                                    Add another item <span><i class="fa fa-save"></i></span>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="internal-comment">Internal comment</label>
-                                <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" placeholder=""></textarea>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 pull-right mt-4">
-                            <button type="submit" class="btn btn-primary-rounded">
-                                Add another item <span><i class="fa fa-save"></i></span>
-                            </button>
-                        </div>
-                    </div>
                     </form>
-                    </div> 
-                    <!----------------------------------- End Delivery Options -------------------------------------->
-
                 </div>
+
+                <!----------------------------------- End Delivery Options -------------------------------------->
+
             </div>
-            <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
-                for
-                house average price</div>
         </div>
+        <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
+            for
+            house average price</div>
+    </div>
     </div>
 
 
