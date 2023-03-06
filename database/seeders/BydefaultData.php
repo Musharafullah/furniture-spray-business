@@ -59,9 +59,9 @@ class BydefaultData extends Seeder
         $user1->save();
 
         $user2 = new User;
-        $user2->name = 'bajwa';
+        $user2->name = 'user1';
         $user2->phone = '123456789';
-        $user2->email = 'bajwa@gmail.com';
+        $user2->email = 'user1@gmail.com';
         $user2->postal_code = 'EC2A 4NE';
         $user2->address = 'london';
         $user2->latitude = 51.523220;
