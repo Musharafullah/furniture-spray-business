@@ -150,7 +150,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Rate / Sqm (1 sided) - Matt Finish</label>
+                                            <label>Sides</label>
                                             <select name="matt_finish_option" id="matt_finish_option"
                                                 class="form-select">
                                                 <option value="">-- Select option --</option>
@@ -163,7 +163,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Spraying Edges - Rate per L/M</label>
+                                            <label>Sprayed Edges</label>
                                             <select name="spraying_edges" id="spraying_edges" class="form-select">
                                                 <option value="1">YES</option>
                                             </select>
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_paint">
                                         <div class="form-group">
-                                            <label>Metallic Paint - Add on / Sqm (1 sided)s</label>
+                                            <label>Metallic</label>
                                             <select name="metallic_paint" id="metallic_paint" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label for="wood_stain">Wood stain - Add on / Sqm (1 sided)s</label>
+                                            <label for="wood_stain">Wood stain</label>
                                             <select name="wood_stain" id="wood_stain" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
+                                            <label>100% Gloss / Wet Look</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
                                                 <option value="">-- Select option --</option>
@@ -214,7 +214,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>Polyester / Full Grain (SQM)</label>
+                                            <label>Polyester / Full Grain</label>
                                             <select name="polyester" id="polyester" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -224,7 +224,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Burnished Finish (SQM)</label>
+                                            <label>Burnished Finish</label>
                                             <select name="burnished_finish" id="burnished_finish" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -234,7 +234,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label for="barrier_coat">Barrier Coat (SQM)</label>
+                                            <label for="barrier_coat">Barrier Coat</label>
                                             <select name="barrier_coat" id="barrier_coat" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Edgebanding - Rate Per L/M</label>
+                                            <label>Edge banding</label>
                                             <select name="edgebanding" id="edgebanding" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -254,7 +254,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_paint">
                                         <div class="form-group">
-                                            <label>Micro bevel - Rate Per L/M</label>
+                                            <label>Micro bevel</label>
                                             <select name="micro_bevel" id="micro_bevel" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Routed / J Handle Spraying</label>
+                                            <label>Routed / J Handle</label>
                                             <select name="routed_handle_spraying" id="routed_handle_spraying"
                                                 class="form-select">
                                                 <option value="">-- Select option --</option>
@@ -275,7 +275,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Beaded Door - Rate Per L/M</label>
+                                            <label>Beaded Door</label>
                                             <select name="beaded_door" id="beaded_door" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -627,13 +627,14 @@
 
         function set_selectbox(selectbox_id) {
             var options = '';
-            options += '<option value="1">Single Side</option>';
-            options += '<option value="2">Double Side</option>';
+            options += '<option value="1">Single</option>';
+            options += '<option value="2">Double</option>';
             $('#' + selectbox_id).html(options);
         }
 
         function set_gloss_percent(selectbox_id, gloss_80, gloss_100_paint, gloss_100_acrylic_lacquer) {
             var options = '';
+            options += '<option value="0" >No Gloss</option>';
             options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
             options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
             options += '<option value="' + gloss_100_acrylic_lacquer +
