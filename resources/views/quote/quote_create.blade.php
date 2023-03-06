@@ -595,7 +595,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>100% Gloss / Wet Look </label>
+                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
                                                 <option value="">-- Select option --</option>
@@ -606,7 +606,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>Polyester / Full Grain (SQM)</label>
+                                            <label>Polyester / Full Grain</label>
                                             <select name="polyester" id="polyester" class="form-select">
                                                 <option value="">-- Select option --</option>
                                                 <option value="">YES</option>
@@ -1016,14 +1016,13 @@
 
         function set_selectbox(selectbox_id) {
             var options = '';
-            options += '<option value="1">Single Side</option>';
-            options += '<option value="2">Double Side</option>';
+            options += '<option value="1">Single</option>';
+            options += '<option value="2">Double</option>';
             $('#' + selectbox_id).html(options);
         }
 
         function set_gloss_percent(selectbox_id, gloss_80, gloss_100_paint, gloss_100_acrylic_lacquer) {
             var options = '';
-            <option value="0">No Gloss</option>
             options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
             options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
             options += '<option value="' + gloss_100_acrylic_lacquer +
