@@ -27,7 +27,7 @@
                                 @php
                                     $gross_total = 0;
                                 @endphp
-                                @foreach( $datadetail['all_quotes'] as $quote )
+                                @foreach ($datadetail['all_quotes'] as $quote)
                                     @php
                                         $gross_total += $quote->deals->sum('total_gross');
                                     @endphp
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <div class="container pb-4">
         <div class="card mt-3">
@@ -50,7 +50,8 @@
                         <h5>QUOTES</h5>
                     </div>
                     <div class="col-sm-8">
-                        <h5 class="text-dark">{{ $datadetail['from']->format('d M Y') }} - {{ $datadetail['to']->format('d M Y') }}</h5>
+                        <h5 class="text-dark">{{ $datadetail['from']->format('d M Y') }} -
+                            {{ $datadetail['to']->format('d M Y') }}</h5>
                     </div>
                 </div>
 
@@ -64,9 +65,8 @@
                             $total_items = 0;
                             $highest_quote = 0;
                         @endphp
-                        @foreach( $datadetail['grouped_quotes'] as $quote )
-
-                            @if($quote->deals->sum('total_gross') > $highest_quote)
+                        @foreach ($datadetail['grouped_quotes'] as $quote)
+                            @if ($quote->deals->sum('total_gross') > $highest_quote)
                                 @php
                                     $highest_quote = $quote->deals->sum('total_gross');
                                 @endphp
@@ -76,16 +76,16 @@
                                 $total_items++;
                             @endphp
                         @endforeach
-                        @if ($total_items > 0 )
+                        @if ($total_items > 0)
                             @php
-                                $average_quote = $quote_total/$total_items;
+                                $average_quote = $quote_total / $total_items;
                             @endphp
                         @else
                             @php
                                 $average_quote = 0;
                             @endphp
                         @endif
-                                       
+
                         <div class="stat">
                             <h2>{{ $total_items }}</h2>
                             <h6>Total Quotes</h6>
@@ -131,9 +131,9 @@
                                         <td>{{ date('d-m-Y', strtotime($quote->created_at)) }}</td>
                                         <td>
                                             @php
-                                               $quote_total = $quote->deals->sum('total_gross')
+                                                $quote_total = $quote->deals->sum('total_gross');
                                             @endphp
-                                           {{ $quote_total }}
+                                            {{ $quote_total }}
                                         </td>
                                         <td>
                                             <div>

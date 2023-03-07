@@ -147,7 +147,41 @@ class QuotesController extends Controller
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
 
     }
+    //duplicate the Item
+    public function duplicate($id){
 
+        $quote = $this->get_by_id($this->_modal, $id);
+        $duplicate_quote = $quote->replicate();
+        $duplicate_quote->save();
+
+        $item_duplicate = Deals::where('quote_id',$quote->id)->first();
+        $duplicate = $item_duplicate->replicate();
+        $duplicate->save();
+        $update_id = Deals::where('quote_id', $quote->id)->latest('created_at')->first();
+        $update_id->quote_id =$duplicate_quote->id;
+        $update_id->save();
+        //
+        return redirect()->back()->with('success','Record duplicted successfull!');
+    }
+    // change the status
+    public function status(Request $request)
+    {
+        // dd($this->_request->all());
+
+        $id = $this->_request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $id);
+        if($quote)
+        {
+            $data['status'] = $this->_request->status;
+            $quote->update($data);
+            return response()->json(['status'=>200]);
+        }
+        else{
+            return response()->json(['status'=>404]);
+        }
+
+
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('net_price_status')->default(1)->comment('1: show, 0:hide');
             $table->string('discount_status')->default(1)->comment('1: show, 0:hide');
             $table->string('product_price_status')->default(1)->comment('1: show, 0:hide');
+            $table->string('status')->default('draft');
 
             // end status
 
