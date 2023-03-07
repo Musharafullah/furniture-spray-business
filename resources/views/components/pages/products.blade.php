@@ -11,6 +11,7 @@
                     <th>Title</th>
                     <th width="100">Image</th>
                     <th>Sale Net SQM</th>
+                    <th>Matt Finish</th>
                     <th>Type</th>
                     <th>Action</th>
                 </tr>
@@ -32,6 +33,7 @@
                                 <img src="{{ asset('product_image/product/' . $product->product_image_path) }}">
                             </td>
                             <td>{{ $product->sale_net_sqm }}</td>
+                            <td>{{ $product->matt_finish }}</td>
                             <td>{{ $pro_type }}</td>
                             <td>
                                 <div>
