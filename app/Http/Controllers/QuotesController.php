@@ -15,17 +15,19 @@ class QuotesController extends Controller
     private $_request = null;
     private $_modal = null;
     private $_pmodal = null;
+    private $_dmodal = null;
 
     /**
      * Create a new controller instance.
      *
      * @return $reauest, $modal
      */
-    public function __construct(Request $request, Quote $modal, Product $pmodal)
+    public function __construct(Request $request, Quote $modal, Product $pmodal, Deals $dmodal)
     {
         $this->_request = $request;
         $this->_modal = $modal;
         $this->_pmodal = $pmodal;
+        $this->_dmodal = $dmodal;
     }
 
     /**
@@ -218,14 +220,25 @@ class QuotesController extends Controller
     public function update($id)
     {
         $this->validate($this->_request, [
-            'name' => 'required',
+            'product_id'  => 'required',
+            'quantity' => 'required',
+            'net_price' => 'required',
+            'vat' => 'required',
+            'total_gross' => 'required',
         ]);
 
         $data = $this->_request->except('_token', '_method');
 
-        $data = $this->get_by_id($this->_modal, $id)->update($data);
+        //dd($data);
 
-        return redirect()->route('{{routeName}}.index');
+        $data = $this->get_by_id($this->_dmodal, $id)->update($data);
+        
+        $quote['collected'] = $this->_request->total_gross;
+        $data = $this->get_by_id($this->_modal, $this->_request->quote_id)->update($quote); 
+
+        $var = $this->get_by_id($this->_modal, $this->_request->quote_id);
+
+        return redirect()->route('quote.create', compact('var'))->with('success','Updated successfully!');
     }
 
     /**

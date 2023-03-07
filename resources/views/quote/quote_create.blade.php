@@ -1077,6 +1077,7 @@
 
         function set_gloss_percent(selectbox_id, gloss_80, gloss_100_paint, gloss_100_acrylic_lacquer) {
             var options = '';
+            options += '<option value="0">No Gloss</option>';
             options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
             options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
             options += '<option value="' + gloss_100_acrylic_lacquer +
