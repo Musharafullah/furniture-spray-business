@@ -124,9 +124,9 @@
                         @foreach($quotes as $quote)
                             <tr>
                                 <td>{{ $quote->id }}</td>
-                                <td>{{ $quote->user->name }}</td>
-                                <td>{{ $quote->user->phone }}</td>
-                                <td>{{ $quote->user->postal_code }}</td>
+                                <td>{{ $quote->client->name }}</td>
+                                <td>{{ $quote->client->phone }}</td>
+                                <td>{{ $quote->client->postal_code }}</td>
                                 <td>{{ date('d-m-Y', strtotime($quote->created_at)) }}</td>
                                 <td>
                                     @php

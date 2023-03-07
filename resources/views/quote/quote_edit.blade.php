@@ -75,22 +75,26 @@
                     <!----------------------------------- End Customer Info -------------------------------------->
 
                     <!----------------------------------- Add Products -------------------------------------->
-                    <form action="{{ route('create_quote') }}" method="POST">
+                    <form action="{{ route('quote.update', $deal->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="client_id" id="client_id" />
+                        @method('put')
+                        <input type="hidden" name="quote_id" id="quote_id" value="{{ $deal->quote_id ?? old('quote_id') }}"/>
                         <div class="row add-product">
                             <div class="col-12">
-                                <h4>Add Product</h4>
+                                <h4>Product Info</h4>
                             </div>
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="code_id">Code</label>
-                                            <select name="code_id" id="code_id" class="form-select">
+                                            <select id="code_id" class="form-select">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">
+                                                    @php
+                                                        $select = ($product->id == old('product_id')) || ($product->id == $deal->product_id) ? 'selected' : '';
+                                                    @endphp
+                                                    <option value="{{ $product->id }}" {{ $select }}>
                                                         {{ $product->code }}
                                                     </option>
                                                 @endforeach
@@ -103,7 +107,10 @@
                                             <select name="product_id" id="product_id" class="form-select">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">
+                                                    @php
+                                                        $select = ($product->id == old('product_id')) || ($product->id == $deal->product_id) ? 'selected' : '';
+                                                    @endphp
+                                                    <option value="{{ $product->id }}" {{ $select }}>
                                                         {{ $product->product_name }}
                                                     </option>
                                                 @endforeach
@@ -114,7 +121,7 @@
                                         <div class="form-group">
                                             <label>Width</label>
                                             <input id="product_width" name="width" class="form-control" type="number"
-                                                placeholder=" ">
+                                                placeholder="" value="{{ $deal->width ?? old('width') }}">
                                         </div>
                                         @if ($errors->has('width'))
                                             <span class="invalid-feedback" role="alert">
@@ -126,7 +133,7 @@
                                         <div class="form-group">
                                             <label>Height</label>
                                             <input id="product_height" name="height" class="form-control" type="number"
-                                                placeholder="" readonly>
+                                                placeholder="" value="{{ $deal->height ?? old('height') }}" readonly>
                                             @if ($errors->has('height'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong class="text-danger">{{ $errors->first('height') }}</strong>
@@ -138,11 +145,11 @@
                                         <div class="form-group">
                                             <label for="product_sqm">SQM</label>
                                             <input id="product_sqm" name="sqm" class="form-control" type="number"
-                                                placeholder="" readonly value="">
+                                                placeholder="" readonly value="{{ $deal->sqm ?? old('sqm') }}">
                                             <input id="product_lm" class="form-control" type="hidden" placeholder="">
                                             <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                             <input id="product_price" name="product_price" class="form-control"
-                                                type="hidden" placeholder="">
+                                                type="hidden" placeholder="" value="{{ $deal->product_price ?? old('product_price') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -151,42 +158,39 @@
                                 <div class="row">
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Rate / Sqm (1 sided) - Matt Finish</label>
+                                            <label>Sides</label>
                                             <select name="matt_finish_option" id="matt_finish_option"
                                                 class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="1">Single Side</option>
-                                                <option value="2">Double Side</option>
+                                                <option value="1">Single</option>
+                                                <option value="2">Double</option>
                                             </select>
                                             <input name="matt_finish" id="matt_finish" class="form-control"
-                                                type="hidden" placeholder="">
+                                                type="hidden" placeholder="" value="{{ $deal->matt_finish }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Spraying Edges - Rate per L/M</label>
+                                            <label>Sprayed Edges</label>
                                             <select name="spraying_edges" id="spraying_edges" class="form-select">
-                                                <option value="1">YES</option>
+                                                <option>YES</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_paint">
                                         <div class="form-group">
-                                            <label>Metallic Paint - Add on / Sqm (1 sided)s</label>
+                                            <label>Metallic</label>
                                             <select name="metallic_paint" id="metallic_paint" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label for="wood_stain">Wood stain - Add on / Sqm (1 sided)s</label>
+                                            <label for="wood_stain">Wood stain</label>
                                             <select name="wood_stain" id="wood_stain" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -194,93 +198,85 @@
                                         <div class="form-group">
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
-                                                <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
-                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
+                                                <option>No Gloss</option>
+                                                <option>80% Gloss - Add on / Sqm (1 sided)</option>
+                                                <option>100% Gloss / Wet Look PU Paint (SQM)</option>
+                                                <option>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
+                                            <label>100% Gloss / Wet Look</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>Polyester / Full Grain (SQM)</label>
+                                            <label>Polyester / Full Grain</label>
                                             <select name="polyester" id="polyester" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Burnished Finish (SQM)</label>
+                                            <label>Burnished Finish</label>
                                             <select name="burnished_finish" id="burnished_finish" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label for="barrier_coat">Barrier Coat (SQM)</label>
+                                            <label for="barrier_coat">Barrier Coat</label>
                                             <select name="barrier_coat" id="barrier_coat" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Edgebanding - Rate Per L/M</label>
+                                            <label>Edge banding</label>
                                             <select name="edgebanding" id="edgebanding" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_paint">
                                         <div class="form-group">
-                                            <label>Micro bevel - Rate Per L/M</label>
+                                            <label>Micro bevel</label>
                                             <select name="micro_bevel" id="micro_bevel" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Routed / J Handle Spraying</label>
+                                            <label>Routed / J Handle</label>
                                             <select name="routed_handle_spraying" id="routed_handle_spraying"
                                                 class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood full_paint">
                                         <div class="form-group">
-                                            <label>Beaded Door - Rate Per L/M</label>
+                                            <label>Beaded Door</label>
                                             <select name="beaded_door" id="beaded_door" class="form-select">
-                                                <option value="">-- Select option --</option>
-                                                <option value="">YES</option>
-                                                <option value="">NO</option>
+                                                <option>YES</option>
+                                                <option>NO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -292,14 +288,14 @@
                                         <div class="form-group">
                                             <label for="quantity">Quantity</label>
                                             <input id="quantity" name="quantity" class="form-control" type="number"
-                                                placeholder="Please enter quantity" value="1">
+                                                placeholder="Please enter quantity" value="{{ $deal->quantity ?? old('quantity') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="net_price">Net Price</label>
                                             <input id="net_price" name="net_price" class="form-control" type="number"
-                                                placeholder="" readonly="">
+                                                placeholder="" readonly="" value="{{ $deal->net_price ?? old('net_price') }}">
                                             <input type="hidden" id="basic_net">
                                         </div>
                                     </div>
@@ -307,39 +303,39 @@
                                         <div class="form-group">
                                             <label for="vat">VAT</label>
                                             <input id="vat" name="vat" class="form-control" type="number"
-                                                placeholder="" readonly="">
+                                                placeholder="" readonly="" value="{{ $deal->vat ?? old('vat') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="trade_discount">Trade_discount (%)</label>
                                             <input id="trade_discount" name="trade_discount" class="form-control"
-                                                type="number" placeholder="" value="" min="0">
+                                                type="number" placeholder="" value="{{ $deal->trade_discount ?? old('trade_discount') }}" min="0">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="total_gross">Gross Total</label>
                                             <input id="total_gross" name="total_gross" class="form-control"
-                                                type="number" placeholder="" readonly="">
+                                                type="number" placeholder="" readonly="" value="{{ $deal->total_gross ?? old('total_gross') }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-12">
+                                {{--<div class="col-12">
                                         <div class="form-group">
                                             <label for="note">Note</label>
                                             <textarea id="note" class="form-control" rows="3" placeholder="" readonly=""></textarea>
                                         </div>
-                                    </div>
-                                    {{-- <div class="col-12">
+                                    </div> --}}
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <label for="product-note">Product Note</label>
                                             <textarea id="product-note" class="form-control" rows="3" placeholder="Please Add Product Note"></textarea>
                                         </div>
-                                    </div> --}}
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -347,139 +343,31 @@
 
                         <!----------------------------------- Delivery Options -------------------------------------->
 
-                        <div class="col-sm-6 pull-right mt-4">
-                            <button type="submit" class="btn btn-primary-rounded">
-                                Add another item <span><i class="fa fa-save"></i></span>
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-6 mt-4">
+                                <button type="submit" class="btn btn-primary-rounded">
+                                    Cancel <span><i class="fa fa-times"></i></span>
+                                </button>
+                            </div>
+
+                            <div class="col-sm-6 mt-4">
+                                <button type="submit" class="btn btn-primary-rounded">
+                                    Update Item <span><i class="fa fa-save"></i></span>
+                                </button>
+                            </div>
                         </div>
+
+                    </form>
                 </div>
-                </form>
             </div>
             <!----------------------------------- End Delivery Options -------------------------------------->
 
-        </div>
-    </div>
-    <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
-        for
-        house average price</div>
-    </div>
-    </div>
-
-
-    <!----------------------- Add Customer Modal ------------------------------->
-    <div aria-hidden="true" aria-labelledby="AddCustomerModal" class="modal modal-lg fade in" id="addcustomer"
-        role="dialog" tabindex="-1">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="{{ route('customer.store') }}" method="post" id="">
-                    @csrf
-                    <input type="hidden" name="quote_create" value="1">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add Customer</h5>
-                        <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h6><span id="form_output" class="text-info"></span></h6>
-                        <h6><span id="errors" class="text-danger"></span></h6>
-                        <div class="row">
-                            <div class="col-sm-6 mt-3">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input id="name" name="name" class="form-control" type="text"
-                                        placeholder="Enter Name" value="">
-                                    @if ($errors->any())
-                                        @if ($errors->has('name'))
-                                            <strong class="text-danger">{{ $errors->first('name') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-sm-6 mt-3">
-                                <div class="form-group">
-                                    <label for="phone">Telephone</label>
-                                    <input id="phone" name="phone" class="form-control" type="number"
-                                        placeholder="Enter Number" value="">
-                                    @if ($errors->any())
-                                        @if ($errors->has('phone'))
-                                            <strong class="text-danger">{{ $errors->first('phone') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 mt-3">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email" name="email" class="form-control" type="email"
-                                        placeholder="Enter Email" value="">
-                                    @if ($errors->any())
-                                        @if ($errors->has('email'))
-                                            <strong class="text-danger">{{ $errors->first('email') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-3">
-                                <div class="form-group">
-                                    <label for="postal_code">Billing Postcode</label>
-                                    <input id="postal_code" name="postal_code" class="form-control" type="text"
-                                        placeholder="Postcode" value="">
-                                    @if ($errors->any())
-                                        @if ($errors->has('postal_code'))
-                                            <strong class="text-danger">{{ $errors->first('postal_code') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-3">
-                                <div class="form-group">
-                                    <label for="trade_discount">Trade Discount</label>
-                                    <select name="trade_discount" id="trade_discount" class="form-select">
-                                        @php
-                                            $discount = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-                                        @endphp
-                                        <option value=""> -- Select Product Type --</option>
-                                        @foreach ($discount as $type)
-                                            <option value="{{ $type }}">
-                                                {{ $type }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->any())
-                                        @if ($errors->has('trade_discount'))
-                                            <strong class="text-danger">{{ $errors->first('trade_discount') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mt-3">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <textarea id="address" class="form-control" rows="3" placeholder="Enter Address" name="address"></textarea>
-                                    @if ($errors->any())
-                                        @if ($errors->has('address'))
-                                            <strong class="text-danger">{{ $errors->first('address') }}</strong>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                        {{-- <button class="btn-primary" type="submit" id="add">Add Customer</button> --}}
-                        <button class="btn-primary" type="submit" id="">Add Customer</button>
-                    </div>
-                </form>
+            <div class="text-center pt-5 pb-4">
+                Please Filled the Billing Postcode field first and click the search button for house average price
             </div>
+
         </div>
     </div>
-    <!----------------------- End Add Customer Modal ------------------------------->
 
 @endsection
 @section('scripts')
@@ -508,6 +396,43 @@
 
             $('.full_wood').hide();
             $('.full_paint').show();
+
+            var val = $('#product_id').val();
+
+            var height = $('#product_height').val();
+            var width = $('#product_width').val();
+            if (height.length > 0 && width.length > 0) {
+                var lm = (2 * Number(height)) + (2 * Number(width));
+                lm = lm / 1000;
+                $('#product_lm').val(lm);
+                //alert(lm);
+
+            } else {
+                $('#product_lm').val(1);
+            }
+
+            //This is simple Get ajax request
+            var url = '{{ url('get-product-data') }}' + '/' + val;
+
+            $.get(url, function(result) {
+                set_product(result);
+
+                //selected addons
+                $("#matt_finish_option option[value={{$deal->matt_finish_option}}]").attr("selected","selected");
+                $("#metallic_paint option[value={{$deal->metallic_paint}}]").attr("selected","selected");
+                $("#wood_stain option[value={{$deal->wood_stain}}]").attr("selected","selected");
+                $("#gloss_percentage option[value={{$deal->gloss_percentage}}]").attr("selected","selected");
+                $("#gloss_100_acrylic_lacquer option[value={{$deal->gloss_100_acrylic_lacquer}}]").attr("selected","selected");
+                $("#polyester option[value={{$deal->polyester}}]").attr("selected","selected");
+                $("#burnished_finish option[value={{$deal->burnished_finish}}]").attr("selected","selected");
+                $("#barrier_coatoption[value={{$deal->barrier_coat}}]").attr("selected","selected");
+                $("#edgebanding option[value={{$deal->edgebanding}}]").attr("selected","selected");
+                $("#micro_bevel option[value={{$deal->micro_bevel}}]").attr("selected","selected");
+                $("#routed_handle_spraying option[value={{$deal->routed_handle_spraying}}]").attr("selected","selected");
+                $("#beaded_door option[value={{$deal->beaded_door}}]").attr("selected","selected");
+            });
+           
+
         });
 
 
@@ -600,6 +525,7 @@
 
         function set_gloss_percent(selectbox_id, gloss_80, gloss_100_paint, gloss_100_acrylic_lacquer) {
             var options = '';
+            options += '<option value="0">No Gloss</option>';
             options += '<option value="' + gloss_80 + '">80% Gloss - Add on / Sqm (1 sided)</option>';
             options += '<option value="' + gloss_100_paint + '">100% Gloss / Wet Look PU Paint (SQM)</option>';
             options += '<option value="' + gloss_100_acrylic_lacquer +
@@ -741,7 +667,7 @@
         $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
             .on('keyup keydown change', function() {
                 calculate_price();
-            });
+        });
 
 
         function calculate_price() {
