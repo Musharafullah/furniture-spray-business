@@ -14,83 +14,95 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>MCG-00001494</td>
-                    <td>Paul Fernandes</td>
-                    <td>03432156540</td>
-                    <td>W1W 6YQ</td>
-                    <td>2-12-2022</td>
-                    <td>1578.65</td>
-                    <td>
-                        <select class="form-select">
-                            <option value=""> -- Select Product Type --</option>
-                            <option value="draft" selected="">draft</option>
-                            <option value="sent">sent</option>
-                            <option value="reminder">reminder</option>
-                            <option value="paid-collected">paid-collected</option>
-                            <option value="paid-delivered">paid-delivered</option>
-                            <option value="paid-installed-deposit">paid-installed-deposit</option>
-                            <option value="collect">collect</option>
-                            <option value="delivered">delivered</option>
-                            <option value="installed">installed</option>
-                            <option value="expired">expired</option>
-                        </select>
-                    </td>
-                    <td>
-                        <div>
-                            <a href="" data-toggle="tooltip" title="View Quote">
-                                <i class="fa fa-eye"></i>
-                            </a>
+                @if ($datadetail)
+                    @foreach ($datadetail as $quote)
+                        <tr>
+                            <td>MCG-0000{{ $quote->id }}</td>
+                            <td>{{ $quote->client->name }}</td>
+                            <td>{{ $quote->client->phone }}</td>
+                            <td>{{ $quote->client->postal_code }}</td>
+                            <td>{{ date('d-m-Y', strtotime($quote->created_at)) }}</td>
+                            <td>
+                                @php
+                                    $quote_total = $quote->deals->sum('total_gross');
+                                @endphp
+                                {{ $quote_total }}</td>
 
-                            <a href="" data-toggle="tooltip" title="Send & Download Quote">
-                                <i class="fa fa-location-arrow"></i>
-                            </a>
+                            <td>
 
-                            <a href="" data-toggle="tooltip" title="Duplicate Quote">
-                                <i class="fa fa-copy"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>MCG-00001494</td>
-                    <td>Paul Fernandes</td>
-                    <td>03432156540</td>
-                    <td>W1W 6YQ</td>
-                    <td>2-12-2022</td>
-                    <td>178.65</td>
-                    <td>
-                        <select class="form-select">
-                            <option value=""> -- Select Product Type --</option>
-                            <option value="draft" selected="">draft</option>
-                            <option value="sent">sent</option>
-                            <option value="reminder">reminder</option>
-                            <option value="paid-collected">paid-collected</option>
-                            <option value="paid-delivered">paid-delivered</option>
-                            <option value="paid-installed-deposit">paid-installed-deposit</option>
-                            <option value="collect">collect</option>
-                            <option value="delivered">delivered</option>
-                            <option value="installed">installed</option>
-                            <option value="expired">expired</option>
-                        </select>
-                    </td>
-                    <td>
-                        <div>
-                            <a href="" data-toggle="tooltip" title="View Quote">
-                                <i class="fa fa-eye"></i>
-                            </a>
+                                <select name="status" id="quote-status"
+                                    onchange="quoteStatus('{{ $quote->id ?? '' }}', this)" class="form-control"
+                                    data-live-search="true" tabindex="-1" aria-hidden="true">
+                                    @php
+                                        $quote_status = ['draft', 'sent', 'reminder', 'paid-collected', 'paid-delivered', 'collect', 'delivered', 'expired'];
+                                    @endphp
+                                    <option value=""> -- Select Product Type --</option>
+                                    @foreach ($quote_status as $status)
+                                        @php
+                                            $select = old('status', $quote->status) == $status ? 'selected' : '';
+                                        @endphp
+                                        <option value="{{ $status }}" {{ $select }}>{{ $status }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
-                            <a href="" data-toggle="tooltip" title="Send & Download Quote">
-                                <i class="fa fa-location-arrow"></i>
-                            </a>
+                            </td>
 
-                            <a href="" data-toggle="tooltip" title="Duplicate Quote">
-                                <i class="fa fa-copy"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                            <td class="text-center">
+                                <ul class="list-inline">
+
+                                    <li>
+                                        <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip"
+                                            title="View Quote"><i class="fa fa-eye"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-toggle="tooltip" title="Send & Download Quote"><i
+                                                class="fa fa-location-arrow"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip"
+                                            title="Duplicate Quote"><i class="fa fa-copy"></i></a>
+                                    </li>
+
+
+                                </ul>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
 </div>
+@section('scripts')
+    <script>
+        // function quoteStatus(id) {
+        //     var selectedValue = $('#quote-status').val();
+        //     alert(selectedValue);
+
+        //     // any other code you want to execute based on the selected value
+        // }
+
+        function quoteStatus(quoteId, select) {
+            var quote_id = quoteId;
+            var status = $(select).val();
+            $.ajax({
+                type: "GET",
+                url: " {{ route('quote_status') }}",
+                data: {
+                    status: status,
+                    quote_id: quote_id
+                },
+                success: function(data) {
+                    console.log(data);
+                    //console.log(data);
+                    // console.log('ok')
+                    // location.reload();
+                }
+
+            });
+
+        }
+    </script>
+@endsection
