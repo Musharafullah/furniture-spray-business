@@ -19,4 +19,5 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <!---------------------------- DROPIFY -------------------------------->
-<link rel="stylesheet" type="text/css" href="{{  asset('assets/dist/css/dropify.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dist/css/dropify.min.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
