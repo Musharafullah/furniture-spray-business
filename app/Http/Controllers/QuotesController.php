@@ -147,7 +147,29 @@ class QuotesController extends Controller
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
 
     }
-    //duplicate the Item
+    // duplicate item
+    public function duplicate_item($id)
+    {
+        // dd($id);
+        $item_duplicate = $this->get_by_id(new Deals, $id);
+        $quote_id = $item_duplicate->quote_id;
+        $duplicate = $item_duplicate->replicate();
+        $duplicate->save();
+        //
+        $quote= $this->get_by_id($this->_modal, $quote_id);
+
+        $deal = Deals::where('quote_id',$quote_id)->get();
+        $sqm = $deal->sum('sqm_qty');
+
+
+        $collected = $deal->sum('total_gross');
+        $collected = round($collected, 2);
+        $quote->collected = $collected;
+        $quote->delivered = 60;
+        $quote->save();
+        return redirect()->back()->with('success','Record duplicted successfull!');
+    }
+    //duplicate quote
     public function duplicate($id){
 
         $quote = $this->get_by_id($this->_modal, $id);
@@ -157,6 +179,7 @@ class QuotesController extends Controller
         $item_duplicate = Deals::where('quote_id',$quote->id)->first();
         $duplicate = $item_duplicate->replicate();
         $duplicate->save();
+
         $update_id = Deals::where('quote_id', $quote->id)->latest('created_at')->first();
         $update_id->quote_id =$duplicate_quote->id;
         $update_id->save();
@@ -181,23 +204,6 @@ class QuotesController extends Controller
         }
 
 
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
-    {
-        $this->validate($this->_request, [
-            'name' => 'required',
-        ]);
-
-        $data = $this->_request->except('_token');
-        $var = $this->add($this->_modal, $data);
-
-        return redirect()->route('{{routeName}}');
     }
 
     /**
@@ -266,15 +272,14 @@ class QuotesController extends Controller
         //dd($data);
 
         $data = $this->get_by_id($this->_dmodal, $id)->update($data);
-        
+
         $quote['collected'] = $this->_request->total_gross;
-        $data = $this->get_by_id($this->_modal, $this->_request->quote_id)->update($quote); 
+        $data = $this->get_by_id($this->_modal, $this->_request->quote_id)->update($quote);
 
         $var = $this->get_by_id($this->_modal, $this->_request->quote_id);
 
         return redirect()->route('quote.create', compact('var'))->with('success','Updated successfully!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -283,9 +288,23 @@ class QuotesController extends Controller
      */
     public function destroy($id)
     {
-        dd($id,'delete');
-        $this->delete($this->_modal, $id);
-        return redirect()->back()->with('success','Quote deleted successfully!');
+        // dd($id,'delete');
+
+        $delete_item_row = Deals::findOrFail($id);
+        $quote_id = $delete_item_row->quote_id;
+        $delete_item_row->delete();
+
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+        // dd($quote);
+        $deal = Deals::where('quote_id', $quote_id)->get();
+        $collected = $deal->sum('total_gross');
+        $collected = round($collected, 2);
+
+        $quote->collected = $collected;
+        $quote->delivered = 60;
+        $quote->save();
+        return back()->with('error','Quote deal deleted!');
+        // return redirect()->route('quote.create', compact('quote'))->with('success','Quote deleted successfully!');
     }
 
 }

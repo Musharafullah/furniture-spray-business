@@ -51,6 +51,8 @@ Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class
 
 // Quote Controller
 Route::resource('/quote', App\Http\Controllers\QuotesController::class);
+Route::get('destroy/{var?}', [App\Http\Controllers\QuotesController::class,'destroy'])->name('destroy_item');
+Route::get('duplicate-item/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate_item'])->name('duplicate_item');
 Route::get('/quote-duplicate/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate'])->name('quote_riplicate');
 Route::get('/quote-status', [App\Http\Controllers\QuotesController::class,'status'])->name('quote_status');
 Route::get('/quote/create/{var?}', [App\Http\Controllers\QuotesController::class,'create'])->name('quote.create');
