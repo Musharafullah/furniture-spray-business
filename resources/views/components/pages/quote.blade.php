@@ -15,9 +15,9 @@
             </thead>
             <tbody>
                 @if ($datadetail)
-                    @foreach ($datadetail as $quote)
+                    @foreach ($datadetail as $key => $quote)
                         <tr>
-                            <td>MCG-0000{{ $quote->id }}</td>
+                            <td>MCG-0000{{ $key + 1 }}</td>
                             <td>{{ $quote->client->name }}</td>
                             <td>{{ $quote->client->phone }}</td>
                             <td>{{ $quote->client->postal_code }}</td>

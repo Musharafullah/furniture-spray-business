@@ -51,10 +51,10 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                {{-- <div class="col-sm-1">
                                     <div style="margin-top:35px; margin-left:-23px;"><a href="#" data-toggle="modal"
                                             data-target="#editpostal" id="edit_postal">(Edit)</a></div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -133,7 +133,7 @@
                                                             <td>{{ $deal->width }}</td>
                                                             <td>{{ $deal->height }}</td>
                                                             <td>
-                                                                @if ($deal->product->type == 'non_glass')
+                                                                @if ($deal->product)
                                                                 @else
                                                                     {{ $deal->sqm }}
                                                                 @endif
@@ -141,7 +141,7 @@
                                                             <td>{{ $deal->quantity }}</td>
                                                             <td>
                                                                 @php
-                                                                    if ($deal->product->type == 'non_glass') {
+                                                                    if ($deal->product) {
                                                                         $disc = ($deal->net_price * $deal->trade_discount) / 100;
                                                                         $net_price = $deal->net_price - $disc;
                                                                     } else {
@@ -152,7 +152,7 @@
                                                             </td>
                                                             <td>
                                                                 @php
-                                                                    if ($deal->product->type == 'non_glass') {
+                                                                    if ($deal->product) {
                                                                         $pro_disc = ($deal->net_price * $deal->trade_discount) / 100;
                                                                         $pro_net_price = $deal->net_price - $pro_disc;
                                                                         $pro_vat = ($pro_net_price * 20) / 100;
@@ -168,8 +168,8 @@
                                                                 <ul class="list-inline">
 
                                                                     <li>
-                                                                        <a href="#" data-toggle="tooltip"
-                                                                            title="Duplicate Item"><i
+                                                                        <a href="{{ route('duplicate_item', $deal->id) }}"
+                                                                            data-toggle="tooltip" title="Duplicate Item"><i
                                                                                 class="fa fa-copy"></i></a>
                                                                     </li>
 
@@ -180,7 +180,7 @@
                                                                     </li>
 
                                                                     <li>
-                                                                        <a href="{{ route('quote.destroy', $deal->id) }}"
+                                                                        <a href="{{ route('destroy_item', $deal->id) }}"
                                                                             data-toggle="tooltip" title="Delete Item"><i
                                                                                 class="fa fa-times-circle"></i></a>
                                                                     </li>
@@ -280,7 +280,7 @@
                                                                 $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                                 $delivery_charges = $quote->delivery_charges;
                                                                 $grand_total = $product_sum_total + $delivery_charges;
-                                                                
+
                                                                 // calculation for net discount
                                                                 $net = $product_sum_total / 1.2;
                                                                 $discount_vat = $product_sum_total - $net;
