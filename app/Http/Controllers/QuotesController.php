@@ -9,6 +9,7 @@ use App\Models\Deals;
 use App\Models\User;
 use App\Models\Product;
 use Carbon\Carbon;
+use PDF;
 use Auth;
 class QuotesController extends Controller
 {
@@ -307,4 +308,13 @@ class QuotesController extends Controller
         // return redirect()->route('quote.create', compact('quote'))->with('success','Quote deleted successfully!');
     }
 
+
+    public function pdf($id)
+    {
+
+        $quotes = $this->get_by_id($this->_modal, $id);
+        $pdf = PDF::loadView('pdf.pdf', compact('quotes'));
+
+        return $pdf->stream();
+    }
 }
