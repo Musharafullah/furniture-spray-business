@@ -127,7 +127,13 @@
                 <thead>
                     <tr>
                         <td><b>Item </b></td>
-                        <td>Product</td>
+                        @if( $discount > 0 && $quotes->net_price_status == 1)
+                            <td>Product</td>
+                        @elseif( $discount > 0 || $quotes->net_price_status == 1)
+                            <td colspan="2">Product</td>
+                        @else
+                            <td colspan="3">Product</td>
+                        @endif
                         <td>Width(mm)</td>
                         <td>Height(mm)</td>
                         <td>SQM</td>
@@ -154,7 +160,15 @@
                                 $gross_total += $quote->total_gross;
                             @endphp
                             <td>{{$loop->iteration }}</td>
-                            <td>{{ $quote->product->product_name }}</td>
+
+                            @if( $discount > 0 && $quotes->net_price_status == 1)
+                                <td>{{ $quote->product->product_name }}</td>
+                            @elseif( $discount > 0 || $quotes->net_price_status == 1)
+                                <td colspan="2">{{ $quote->product->product_name }}</td>
+                            @else
+                                <td colspan="3">{{ $quote->product->product_name }}</td>
+                            @endif
+                            
                             <td>{{ $quote->width }}</td>
                             <td>{{ $quote->height }}</td>
                             <td>{{ $quote->sqm }}</td>
@@ -215,15 +229,9 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        @if( $discount > 0 || $quotes->net_price_status == 1 )
-                            <td colspan="5">
-                                <b>Comment : {{ $quotes->comment }}</b>
-                            </td>
-                        @elseif( $discount < 0 || $quotes->net_price_status == 0 )
-                            <td colspan="4">
-                                <b>Comment : {{ $quotes->comment }}</b>
-                            </td>
-                        @endif
+                        <td colspan="5">
+                            <b>Comment : {{ $quotes->comment }}</b>
+                        </td>
                         <td colspan="2">
                             <span>
                                 @if($quotes->total_net_status == 1)
