@@ -93,56 +93,75 @@ class QuotesController extends Controller
             $previous = $this->_modal::where('id', '<', $quote->id)->max('id');
             // get next user id
             $next = $this->_modal::where('id', '>', $quote->id)->min('id');
+            $clint_id = $id;
         }else{
 
             $quote = new $this->_modal;
+            $clint_id = null;
         }
         $data = $this->get_all_by_roll(new User);
         $products = $this->get_all(new Product);
         // dd(Deals::where('quote_id'));
-        return view('quote.quote_create',compact('data','products','quote'));
+        return view('quote.quote_create',compact('data','products','quote','clint_id'));
     }
     // create quote
     public function create_quote()
     {
-        // dd($this->_request->all());
+        // dd($this->_request->all());,
+        if($this->_request->quote_id != null)
+        {
+            $id = $this->_request->quote_id;
+            $var = $this->get_by_id($this->_modal, $id);
+
+            $deal = Deals::where('quote_id', $id)->get();
+            $collected = $deal->sum('total_gross');
+            $collected = round($collected, 2);
+
+            $data['client_id'] = $var->client_id;
+            $data['user_id'] = Auth::user()->id;
+            $data['collected'] = $collected;
+            $data['delivered'] = 60;
+            $var->update($data);
+        }else{
             $quote = $this->_request->only('client_id','comment', 'internal_comment');
             $quote['user_id'] = Auth::user()->id;
             $quote['collected'] = $this->_request->total_gross;
             $quote['delivered'] = 60;
 
             $var = $this->add($this->_modal, $quote);
+        }
+         //  Deals
+         $data = $this->_request->only(
+            'product_id',
+            'width',
+            'height',
+            'sqm',
+            'product_price',
+            'matt_finish_option',
+            'matt_finish',
+            'spraying_edges',
+            'metallic_paint',
+            'wood_stain',
+            'gloss_percentage',
+            'gloss_100_acrylic_lacquer',
+            'polyester',
+            'burnished_finish',
+            'barrier_coat',
+            'edgebanding',
+            'micro_bevel',
+            'routed_handle_spraying',
+            'beaded_door',
+            'quantity',
+            'net_price' ,
+            'vat',
+            'trade_discount',
+            'total_gross');
+            // dd($var);
+            $data['quote_id'] = $var->id;
 
-            //  Deals
-            $data = $this->_request->only(
-                'product_id',
-                'width',
-                'height',
-                'sqm',
-                'product_price',
-                'matt_finish_option',
-                'matt_finish',
-                'spraying_edges',
-                'metallic_paint',
-                'wood_stain',
-                'gloss_percentage',
-                'gloss_100_acrylic_lacquer',
-                'polyester',
-                'burnished_finish',
-                'barrier_coat',
-                'edgebanding',
-                'micro_bevel',
-                'routed_handle_spraying',
-                'beaded_door',
-                'quantity',
-                'net_price' ,
-                'vat',
-                'trade_discount',
-                'total_gross');
-                $data['quote_id'] = $var->id;
+        // create Deals
+        $var2 = $this->add(new Deals,$data);
 
-            // create Deals
-            $var2 = $this->add(new Deals,$data);
             return redirect()->route('quote.create', compact('var'));
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
 
@@ -279,6 +298,83 @@ class QuotesController extends Controller
         $var = $this->get_by_id($this->_modal, $this->_request->quote_id);
 
         return redirect()->route('quote.create', compact('var'))->with('success','Updated successfully!');
+    }
+    // ------------status section
+    public function image_status(Request $request)
+    {
+        $deal_id = $request->deal_id;
+        // $deal = Deals::findOrFail($deal_id);
+        $deal = $this->get_by_id(new Deals, $deal_id);
+
+        $deal->image_status = $request->status;
+
+        $deal->save();
+       // return response()->json('image status change');
+    }
+    // total vat status
+    public function total_vat_status(Request $request)
+    {
+        // dd($request->all());
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+
+        $quote->total_vat_status = $request->total_vat_status;
+        $quote->save();
+        return response()->json('Delivered ststus change');
+    }
+    // total gross total status
+    public function gross_total_status(Request $request)
+    {
+        //dd($request->all());
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->gross_total_status = $request->gross_total_status;
+        $quote->save();
+        return response()->json('Delivered ststus change');
+    }
+    // net price status
+    public function net_price_status(Request $request)
+    {
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->net_price_status = $request->net_price_status;
+        $quote->save();
+        return response()->json('Delivered ststus change');
+    }
+    // total net price status
+    public function total_net_status(Request $request)
+    {
+        //dd($request->all());
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->total_net_status = $request->total_net_status;
+        $quote->save();
+        return response()->json('Delivered ststus change');
+    }
+    // collect status
+    public function collect_status(Request $request)
+    {
+        //dd($request->all());
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+            $quote->hide_collect = $request->collect_status;
+            $quote->save();
+       // return response()->json('done collect');
+    }
+    // delivered status
+    public function delivered_status(Request $request)
+    {
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->hide_delivered = $request->delivered_status;
+        $quote->save();
+       return response()->json('Delivered ststus change');
     }
     /**
      * Remove the specified resource from storage.

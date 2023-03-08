@@ -54,6 +54,16 @@ Route::resource('/quote', App\Http\Controllers\QuotesController::class);
 Route::get('destroy/{var?}', [App\Http\Controllers\QuotesController::class,'destroy'])->name('destroy_item');
 Route::get('duplicate-item/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate_item'])->name('duplicate_item');
 Route::get('/quote-duplicate/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate'])->name('quote_riplicate');
+// status change
+Route::get('/image-status', [App\Http\Controllers\QuotesController::class,'image_status'])->name('image_status');
+Route::get('/total-vat', [App\Http\Controllers\QuotesController::class,'total_vat_status'])->name('total_vat_status');
+Route::get('/total-net', [App\Http\Controllers\QuotesController::class,'total_net_status'])->name('total_net_status');
+Route::get('/gross-total', [App\Http\Controllers\QuotesController::class,'gross_total_status'])->name('gross_total_status');
+Route::get('/net-price', [App\Http\Controllers\QuotesController::class,'net_price_status'])->name('net_price_status');
+Route::get('/collect-status', [App\Http\Controllers\QuotesController::class,'collect_status'])->name('collect_status');
+Route::get('/delivered-status', [App\Http\Controllers\QuotesController::class,'delivered_status'])->name('delivered_status');
+
+
 Route::get('/quote-status', [App\Http\Controllers\QuotesController::class,'status'])->name('quote_status');
 Route::get('/quote/create/{var?}', [App\Http\Controllers\QuotesController::class,'create'])->name('quote.create');
 Route::get('/reports/',[App\Http\Controllers\QuotesController::class,'reports'])->name('reports');// reports bwtween dates
