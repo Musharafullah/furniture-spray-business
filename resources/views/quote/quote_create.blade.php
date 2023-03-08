@@ -143,9 +143,10 @@
                                                                 @php
                                                                     if ($deal->product) {
                                                                         $disc = ($deal->net_price * $deal->trade_discount) / 100;
-                                                                        $net_price = $deal->net_price - $disc;
+                                                                        $net_price1 = $deal->net_price - $disc;
+                                                                        $net_price = round($net_price1, 2);
                                                                     } else {
-                                                                        $net_price = $deal->net_price;
+                                                                        $net_price = round($deal->net_price, 2);
                                                                     }
                                                                 @endphp
                                                                 {{ $net_price }}
@@ -155,9 +156,10 @@
                                                                     if ($deal->product) {
                                                                         $pro_disc = ($deal->net_price * $deal->trade_discount) / 100;
                                                                         $pro_net_price = $deal->net_price - $pro_disc;
-                                                                        $pro_vat = ($pro_net_price * 20) / 100;
+                                                                        $pro_vat1 = ($pro_net_price * 20) / 100;
+                                                                        $pro_vat = round($pro_vat1, 2);
                                                                     } else {
-                                                                        $pro_vat = $deal->vat;
+                                                                        $pro_vat = round($deal->vat, 2);
                                                                     }
                                                                 @endphp
                                                                 {{ $pro_vat }}
@@ -280,7 +282,7 @@
                                                                 $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                                 $delivery_charges = $quote->delivery_charges;
                                                                 $grand_total = $product_sum_total + $delivery_charges;
-
+                                                                
                                                                 // calculation for net discount
                                                                 $net = $product_sum_total / 1.2;
                                                                 $discount_vat = $product_sum_total - $net;
@@ -468,7 +470,12 @@
                     <!----------------------------------- Add Products -------------------------------------->
                     <form action="{{ route('create_quote') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="client_id" id="client_id" />
+                        @if ($clint_id)
+                            <input type="hidden" name="quote_id" id="" value="{{ $clint_id }}" />
+                        @else
+                            <input type="hidden" name="client_id" id="client_id" />
+                        @endif
+
                         <div class="row add-product">
                             <div class="col-12">
                                 <h4>Add Product</h4>
@@ -966,6 +973,167 @@
 
             $('.full_wood').hide();
             $('.full_paint').show();
+
+            //Product image hide/show
+            $('input[name="image_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var deal_id = $(this).val();
+                var status = 0;
+                console.log(event.target.checked);
+                if (event.target.checked) {
+                    status = 1;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('image_status') }}",
+                    data: {
+                        status: status,
+                        deal_id: deal_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                    }
+
+                });
+            });
+            //total vat status change
+            $('input[name="total_vat_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var total_vat_status = 0;
+                if (event.target.checked) {
+                    total_vat_status = 1;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('total_vat_status') }}",
+                    data: {
+                        total_vat_status: total_vat_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        // console.log('ok')
+                    }
+
+                });
+            });
+            // total net price status
+            //total net status change
+            $('input[name="total_net_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var total_net_status = 0;
+                if (event.target.checked) {
+                    total_net_status = 1;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('total_net_status') }}",
+                    data: {
+                        total_net_status: total_net_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        // console.log('ok')
+                    }
+
+                });
+            });
+
+            //gross total status change
+            $('input[name="gross_total_status"]').on('change', function(event,
+                state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var gross_total_status = 0;
+                if (event.target.checked) {
+                    gross_total_status = 1;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('gross_total_status') }}",
+                    data: {
+                        gross_total_status: gross_total_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        // console.log('ok')
+                    }
+
+                });
+            });
+            //net price status change
+            $('input[name="net_price_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var net_price_status = 0;
+                if (event.target.checked) {
+                    net_price_status = 1;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('net_price_status') }}",
+                    data: {
+                        net_price_status: net_price_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        // console.log('ok')
+                    }
+
+                });
+            });
+            //collect status change
+            $('input[name="collect_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var collect_status = 0;
+                //console.log(event.target.checked);
+                if (event.target.checked) {
+                    collect_status = 1;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('collect_status') }}",
+                    data: {
+                        collect_status: collect_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                    }
+
+                });
+            });
+
+            //delivered status change
+            $('input[name="delivered_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var delivered_status = 0;
+                //console.log(event.target.checked);
+                if (event.target.checked) {
+                    delivered_status = 1;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('delivered_status') }}",
+                    data: {
+                        delivered_status: delivered_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                    }
+
+                });
+            });
+
         });
 
         function client_info() {
