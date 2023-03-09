@@ -68,5 +68,7 @@ Route::get('/quote-status', [App\Http\Controllers\QuotesController::class,'statu
 Route::get('/quote/create/{var?}', [App\Http\Controllers\QuotesController::class,'create'])->name('quote.create');
 Route::get('/reports/',[App\Http\Controllers\QuotesController::class,'reports'])->name('reports');// reports bwtween dates
 Route::post('/create-quote/',[App\Http\Controllers\QuotesController::class,'create_quote'])->name('create_quote');// reports bwtween dates
+Route::get('preview-pdf/{id}', [App\Http\Controllers\QuotesController::class,'pdf'])->name('quote.pdf');
+
 // Delievery Charges
 Route::resource('/deliverycharges', App\Http\Controllers\DeliveryChargesController::class);

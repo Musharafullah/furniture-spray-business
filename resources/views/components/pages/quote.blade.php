@@ -29,9 +29,8 @@
                                 {{ $quote_total }}</td>
 
                             <td>
-
                                 <select name="status" id="quote-status"
-                                    onchange="quoteStatus('{{ $quote->id ?? '' }}', this)" class="form-control"
+                                    onchange="quoteStatus('{{ $quote->id ?? '' }}', this)" class="form-select"
                                     data-live-search="true" tabindex="-1" aria-hidden="true">
                                     @php
                                         $quote_status = ['draft', 'sent', 'reminder', 'paid-collected', 'paid-delivered', 'collect', 'delivered', 'expired'];
@@ -45,28 +44,21 @@
                                         </option>
                                     @endforeach
                                 </select>
-
                             </td>
-
-                            <td class="text-center">
-                                <ul class="list-inline">
-
-                                    <li>
-                                        <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip"
-                                            title="View Quote"><i class="fa fa-eye"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" data-toggle="tooltip" title="Send & Download Quote"><i
-                                                class="fa fa-location-arrow"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip"
-                                            title="Duplicate Quote"><i class="fa fa-copy"></i></a>
-                                    </li>
-
-
-                                </ul>
-
+                            <td>
+                                <div>
+                                    <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip" title="View Quote">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                
+                                    <a href="{{ route('quote.pdf', $quote->id) }}" data-toggle="tooltip" title="Send & Download Quote">
+                                        <i class="fa fa-location-arrow"></i>
+                                    </a>
+                                
+                                    <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip" title="Duplicate Quote">
+                                        <i class="fa fa-copy"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
