@@ -206,6 +206,17 @@ class QuotesController extends Controller
         //
         return redirect()->back()->with('success','Record duplicted successfull!');
     }
+    // backup
+    public function edit_survey(Request $request,$id)
+    {
+        // dd($this->_request->all());
+        $data = $request->except('_token', '_method');
+        $delivery_charges = Quote::findOrFail($id)->update($data);
+        // $quote = $this->get_by_id($this->_modal,$id);
+        // dd($quote);
+        return back()->with('success','delievry added!');
+    }
+
     // change the status
     public function status(Request $request)
     {
