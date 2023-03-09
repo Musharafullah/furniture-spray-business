@@ -171,22 +171,25 @@ class QuotesController extends Controller
             if($this->_request->gloss_percentage_option == "80% Gloss - Add on / Sqm (1 sided)")
             {
                 $option = 1;
+                $data['gloss_percentage_option'] = $option;
             }
             else if($this->_request->gloss_percentage_option == "100% Gloss / Wet Look PU Paint (SQM)")
             {
                 $option = 2;
+                $data['gloss_percentage_option'] = $option;
             }
             else if($this->_request->gloss_percentage_option =="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)")
             {
                 $option = 3;
+                $data['gloss_percentage_option'] = $option;
             }
-            $data['gloss_percentage_option'] = $option;
+
 
             $data['quote_id'] = $var->id;
 
         // create Deals
         $var2 = $this->add(new Deals,$data);
-        dd($var2);
+        // dd($var2);
 
             return redirect()->route('quote.create', compact('var'));
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');
