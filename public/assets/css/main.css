@@ -589,6 +589,13 @@ input:checked + .slider:before {
     justify-content: end;
 }
 
+.customer-info table h5 {
+    color: #333333;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
 .customer-info > div, .add-product > div, .delivery-options > div {
     margin-top: 8px;
     margin-bottom: 8px;
