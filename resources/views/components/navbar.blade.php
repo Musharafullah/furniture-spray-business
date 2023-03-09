@@ -33,7 +33,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" class="btn" data-toggle="modal" data-target="#updateprofile"
+                    {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#updateprofile"
+                        id="edit_delivered">(Edit)</a> --}}
+                    <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#updateprofile"
                         id="update_profile">Update Profile</a>
                 </li>
                 <li>
