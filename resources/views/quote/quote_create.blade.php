@@ -205,60 +205,52 @@
                                                                     $pro = App\Models\Product::find($deal->product_id);
                                                                     //  dd($pro);
                                                                 @endphp
-                                                                @if ($deal->cutout > 0)
-                                                                    @php
-                                                                        $coutout = $deal->cutout / $pro->cut_out;
-                                                                    @endphp
-                                                                    Cut Out X {{ $coutout }} |
+                                                                @if ($deal->matt_finish_option == 1)
+                                                                    Matt Finish(Single) |
+                                                                @else
+                                                                    Matt Finish(Double) |
                                                                 @endif
 
-                                                                @if ($deal->notch > 0)
-                                                                    @php
-                                                                        $notch = $deal->notch / $pro->notch;
-                                                                    @endphp
-                                                                    Notch X {{ $notch }} |
+                                                                @if ($deal->spraying_edges > 0)
+                                                                    Spraying Edges |
                                                                 @endif
-                                                                @if ($deal->hole > 0)
-                                                                    @php
-                                                                        $hole = $deal->hole / $pro->hole;
-                                                                    @endphp
-                                                                    Hole X {{ $hole }} |
+                                                                @if ($deal->metallic_paint > 0)
+                                                                    Metallic Paint |
                                                                 @endif
-                                                                @if ($deal->rake > 0)
-                                                                    @php
-                                                                        $rake = $deal->rake / $pro->rake;
-                                                                    @endphp
-                                                                    Rake X {{ $rake }} |
+                                                                @if ($deal->wood_stain > 0)
+                                                                    Wood Stain |
                                                                 @endif
-                                                                @if ($deal->radius_corners > 0)
-                                                                    @php
-                                                                        $radius_corners = $deal->radius_corners / $pro->radius_corners;
-                                                                    @endphp
-                                                                    Radius Corners X {{ $radius_corners }} |
+                                                                @dd($deal->gloss_percentage_option)
+                                                                @if ($deal->gloss_percentage_option == 1)
+                                                                    80% Gloss - Add on / Sqm (1 sided) |
+                                                                @elseif($deal->gloss_percentage_option == 2)
+                                                                    100% Gloss / Wet Look PU Paint (SQM)|
+                                                                @elseif($deal->gloss_percentage_option == 3)
+                                                                    100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)|
                                                                 @endif
-                                                                @if ($deal->back_select == $pro->painted && $pro->painted > 0)
-                                                                    Painted |
+                                                                @if ($deal->gloss_100_acrylic_lacquer > 0)
+                                                                    gloss_100_acrylic_lacquer |
                                                                 @endif
-                                                                @if ($deal->finish == $pro->sparkle_finish && $pro->sparkle_finish > 0)
-                                                                    Sparkle Finish |
+                                                                @if ($deal->polyester > 0)
+                                                                    Polyester |
                                                                 @endif
-                                                                @if ($deal->finish == $pro->metallic_finish && $pro->metallic_finish > 0)
-                                                                    Metallic Finish,
+                                                                @if ($deal->burnished_finish > 0)
+                                                                    Burnished Finish |
                                                                 @endif
-                                                                @if ($deal->back_select == $pro->printed && $pro->printed > 0)
-                                                                    Printed |
+                                                                @if ($deal->barrier_coat > 0)
+                                                                    Barrier Coat |
                                                                 @endif
-                                                                @if ($deal->cnc > 0)
-                                                                    CNC |
+                                                                @if ($deal->edgebanding > 0)
+                                                                    Edgebanding |
                                                                 @endif
-                                                                @if ($deal->sandblasted > 0)
-                                                                    Sandblasted |
+                                                                @if ($deal->micro_bevel > 0)
+                                                                    Micro Bevel |
                                                                 @endif
-                                                                @if ($deal->ritec > 0)
-                                                                    Ritec |
+                                                                @if ($deal->routed_handle_spraying > 0)
+                                                                    Routed Handle Spraying |
                                                                 @endif
-                                                                @if ($deal->bevel_edges > 0)
-                                                                    Bavel Edges
+                                                                @if ($deal->beaded_door > 0)
+                                                                    Beaded Door
                                                                 @endif
                                                             <td>
                                                         </tr>
@@ -280,7 +272,7 @@
                                                                 $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                                 $delivery_charges = $quote->delivery_charges;
                                                                 $grand_total = $product_sum_total + $delivery_charges;
-                                                                
+
                                                                 // calculation for net discount
                                                                 $net = $product_sum_total / 1.2;
                                                                 $discount_vat = $product_sum_total - $net;
@@ -468,6 +460,7 @@
                     <!----------------------------------- Add Products -------------------------------------->
                     <form action="{{ route('create_quote') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option" />
                         @if ($clint_id)
                             <input type="hidden" name="quote_id" id="" value="{{ $clint_id }}" />
                         @else
@@ -591,9 +584,12 @@
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
                                                 <option value="">-- Select option --</option>
-                                                <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
-                                                <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
-                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
+                                                <option value="80% Gloss - Add on / Sqm (1 sided)">80% Gloss - Add on / Sqm
+                                                    (1 sided)</option>
+                                                <option value="100% Gloss / Wet Look PU Paint (SQM)">100% Gloss / Wet Look
+                                                    PU Paint (SQM)</option>
+                                                <option value="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)">100%
+                                                    Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
                                         </div>
@@ -776,7 +772,6 @@
                     </form>
                 </div>
                 <!----------------------------------- End Delivery Options -------------------------------------->
-
             </div>
         </div>
         <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button

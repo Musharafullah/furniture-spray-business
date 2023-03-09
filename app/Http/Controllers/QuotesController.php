@@ -108,7 +108,7 @@ class QuotesController extends Controller
     // create quote
     public function create_quote()
     {
-        // dd($this->_request->all());,
+        // dd($this->_request->all());
         if($this->_request->quote_id != null)
         {
             $id = $this->_request->quote_id;
@@ -124,6 +124,10 @@ class QuotesController extends Controller
             $data['delivered'] = 60;
             $var->update($data);
         }else{
+            if($this->_request->client_id == null)
+            {
+                return back()->with('error','select client first');
+            }
             $quote = $this->_request->only('client_id','comment', 'internal_comment');
             $quote['user_id'] = Auth::user()->id;
             $quote['collected'] = $this->_request->total_gross;
@@ -132,6 +136,11 @@ class QuotesController extends Controller
             $var = $this->add($this->_modal, $quote);
         }
          //  Deals
+        //  when product id is missing
+         if($this->_request->product_id == null)
+         {
+             return back()->with('error','something went wrong');
+         }
          $data = $this->_request->only(
             'product_id',
             'width',
@@ -158,10 +167,26 @@ class QuotesController extends Controller
             'trade_discount',
             'total_gross');
             // dd($var);
+            // dd($this->_request->gloss_percentage_option);
+            if($this->_request->gloss_percentage_option == "80% Gloss - Add on / Sqm (1 sided)")
+            {
+                $option = 1;
+            }
+            else if($this->_request->gloss_percentage_option == "100% Gloss / Wet Look PU Paint (SQM)")
+            {
+                $option = 2;
+            }
+            else if($this->_request->gloss_percentage_option =="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)")
+            {
+                $option = 3;
+            }
+            $data['gloss_percentage_option'] = $option;
+
             $data['quote_id'] = $var->id;
 
         // create Deals
         $var2 = $this->add(new Deals,$data);
+        dd($var2);
 
             return redirect()->route('quote.create', compact('var'));
         // return redirect()->route('quote.create',[$var])->with('success','Quote created successfully!');

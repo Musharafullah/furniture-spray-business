@@ -29,6 +29,7 @@ return new class extends Migration
             $table->double('product_price')->nullable();
 
             $table->string('matt_finish_option')->nullable();
+            $table->string('gloss_percentage_option')->default(0);
             $table->double('matt_finish')->nullable();
             $table->double('spraying_edges')->nullable();
             $table->double('metallic_paint')->nullable();
