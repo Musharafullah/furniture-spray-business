@@ -73,7 +73,7 @@
             color: black;
             text-align: center;
             font-size: 11.5px;
-            position: fixed; 
+            position: fixed;
             bottom: 0;
             left: 0;
         }
@@ -92,7 +92,7 @@
             padding: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
     </style>
 </head>
 <body>
@@ -107,7 +107,7 @@
                     Date: 13-02-2023<br />
                     Created By: {{ $quotes->user->name }}
                 </span>
-            </div> 
+            </div>
         </div>
 
         <div class="quote">
@@ -168,7 +168,7 @@
                             @else
                                 <td colspan="3">{{ $quote->product->product_name }}</td>
                             @endif
-                            
+
                             <td>{{ $quote->width }}</td>
                             <td>{{ $quote->height }}</td>
                             <td>{{ $quote->sqm }}</td>
@@ -184,8 +184,10 @@
                         <tr>
                             <td style="border: 0px;"></td>
                             <td colspan="8" style="border: 0px;">
-                                @if( $quote->matt_finish > 0 )
-                                    Sides X {{ $quote->matt_finish_option }} |
+                                @if( $quote->matt_finish_option == 1 )
+                                    Single Side |
+                                @elseif($quote->matt_finish_option == 2)
+                                    Double Side |
                                 @endif
                                 @if($quote->spraying_edges > 0 )
                                     Sprayed Edges |
@@ -193,9 +195,13 @@
                                 @if($quote->metallic_paint > 0 )
                                     Metallic |
                                 @endif
-                                @if($quote->gloss_percentage > 0 )
-                                    Gloss Percentage |
-                                @endif
+                                    @if($quote->gloss_percentage_option == 1 )
+                                        80% Gloss |
+                                    @elseif($quote->gloss_percentage_option == 2)
+                                        100% Gloss |
+                                    @elseif($quote->gloss_percentage_option == 3)
+                                        100% Gloss Acrylic Lacquer |
+                                    @endif
                                 @if($quote->wood_stain > 0 )
                                     Wood stain |
                                 @endif
@@ -283,43 +289,43 @@
                 <li><strong>All prices are inclusive of VAT at the applicable rate.</strong></li>
                 <li>All quotations are valid for 30 days from date of issue.</li>
                 <li>
-                    Full payment on pro forma invoice is normally required on order, however, we do provide 30 day monthly terms which is 
+                    Full payment on pro forma invoice is normally required on order, however, we do provide 30 day monthly terms which is
                     subject to approval of a submitted account application, unless otherwise stated.
                 </li>
                 <li>
-                    All glass will be loose loaded and tail board with delivery during normal working hours, Monday to Friday 8am- 5pm, 
+                    All glass will be loose loaded and tail board with delivery during normal working hours, Monday to Friday 8am- 5pm,
                     excluding weekends and public holidays unless otherwise stated.
                 </li>
                 <li>
-                    Any templates will be free issue to ourselves and must be full size rigid hardboard and clearly marked (paper is not acceptable 
-                    as templates). We retain templates for a period of 14 days before disposal or return and all manufacturing from templates will be 
+                    Any templates will be free issue to ourselves and must be full size rigid hardboard and clearly marked (paper is not acceptable
+                    as templates). We retain templates for a period of 14 days before disposal or return and all manufacturing from templates will be
                     within manufacturer tolerances.
                 </li>
                 <li>
-                    We subscribe to and adhere to that all our glass products are sold subject to GGF visual quality standards and standard glass 
+                    We subscribe to and adhere to that all our glass products are sold subject to GGF visual quality standards and standard glass
                     manufacturing and processing tolerances.
                 </li>
                 <li>
-                    Due to the nature and scope of matching decorated colour products such as paint, films, fabric and some glass materials etc 
-                    we cannot be held responsible for not providing an exact colour match even if samples have been provided. Unless otherwise stated all our quotations 
-                    are based on standard float glass. On closer inspection slight blemishes, imperfections and surface scratches can appear due to the processing, heating, 
-                    cooling of toughened glass. This is unavoidable but also minimal. Imperfections that are not clearly visible in a 500mm square at a distance of 3mtrs 
+                    Due to the nature and scope of matching decorated colour products such as paint, films, fabric and some glass materials etc
+                    we cannot be held responsible for not providing an exact colour match even if samples have been provided. Unless otherwise stated all our quotations
+                    are based on standard float glass. On closer inspection slight blemishes, imperfections and surface scratches can appear due to the processing, heating,
+                    cooling of toughened glass. This is unavoidable but also minimal. Imperfections that are not clearly visible in a 500mm square at a distance of 3mtrs
                     and in a natural light environment with all downlighters switched off are deemed acceptable.
                 </li>
                 <li>
-                    We provide lead times and delivery/collection dates in good faith and are based on all the relevant information we have at the 
-                    time. In most cases of technical and specialist works these can vary greatly and we will keep you informed of the progress of 
-                    your works but cannot be held responsible for delays outside our control and will not accept or agree to any contra charging or 
-                    provide any other compensation for your subsequent losses, unless otherwise stated. Any delivery date is otherwise, purely 
-                    indicative. Printed glass and toughened mirrors can take up to 3 weeks to be manufacured. 
+                    We provide lead times and delivery/collection dates in good faith and are based on all the relevant information we have at the
+                    time. In most cases of technical and specialist works these can vary greatly and we will keep you informed of the progress of
+                    your works but cannot be held responsible for delays outside our control and will not accept or agree to any contra charging or
+                    provide any other compensation for your subsequent losses, unless otherwise stated. Any delivery date is otherwise, purely
+                    indicative. Printed glass and toughened mirrors can take up to 3 weeks to be manufacured.
                 </li>
                 <li>
-                    We do not accept withholding of payments for any reason including retention payments, discounts and any kind of 
+                    We do not accept withholding of payments for any reason including retention payments, discounts and any kind of
                     performance bond etc, unless otherwise stated. All our products are subject to a full 12 month manufacturer defect warranty.
                 </li>
                 <li>
-                    We value quality and customer service, therefore, in the event that you are unhappy with any of our products due to defects 
-                    we will gladly replace the item, provided, you inform us in writing no later than 24h from delivery date and the faulty product 
+                    We value quality and customer service, therefore, in the event that you are unhappy with any of our products due to defects
+                    we will gladly replace the item, provided, you inform us in writing no later than 24h from delivery date and the faulty product
                     can be returned to our works for inspection as soon as possible, otherwise, any remake will be chargeable.
                 </li>
                 <li>
@@ -336,8 +342,8 @@
                         3) Maximum glass size for toughening is 3600mm x 2000mm.<br>
                         4) Minimum area charge for toughened laminated is 0.3m2.<br>
                         5) All circles are priced on application.<br>
-                        6) Holes and or cut outs on toughened glass must be within manufacturing tolerances and we reserve the right to refuse any 
-                        order that does not comply with our specifications. All internal cut outs will have a radius minimum of the thickness of the glass.<br>                      
+                        6) Holes and or cut outs on toughened glass must be within manufacturing tolerances and we reserve the right to refuse any
+                        order that does not comply with our specifications. All internal cut outs will have a radius minimum of the thickness of the glass.<br>
                     </div>
                 </li>
             </ol>
@@ -346,7 +352,7 @@
 
         <button class="btn-info">Send Quote</button>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-copyright">

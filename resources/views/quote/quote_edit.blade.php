@@ -204,6 +204,7 @@
                                                 <option>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
+                                            <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option" value="">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
@@ -335,7 +336,7 @@
                                             <label for="product-note">Product Note</label>
                                             <textarea id="product-note" class="form-control" rows="3" placeholder="Please Add Product Note"></textarea>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -430,8 +431,9 @@
                 $("#micro_bevel option[value={{$deal->micro_bevel}}]").attr("selected","selected");
                 $("#routed_handle_spraying option[value={{$deal->routed_handle_spraying}}]").attr("selected","selected");
                 $("#beaded_door option[value={{$deal->beaded_door}}]").attr("selected","selected");
+                $("#gloss_percentage_option").val({{$deal->gloss_percentage_option}});
             });
-           
+
 
         });
 
@@ -743,5 +745,18 @@
 
             $('#total_gross').val(total_gross.toFixed(2));
         }
+        $('#gloss_percentage').on('change', function(){
+            // alert(this.html());
+            var selected_gross = $('#gloss_percentage option:selected').text();
+            if( selected_gross == "80% Gloss - Add on / Sqm (1 sided)"){
+                $('#gloss_percentage_option').val(1);
+            }else if(selected_gross == "100% Gloss / Wet Look PU Paint (SQM)"){
+                $('#gloss_percentage_option').val(2);
+            }else if(selected_gross == "100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)"){
+                $('#gloss_percentage_option').val(3);
+            }else{
+                $('#gloss_percentage_option').val(0);
+            }
+        });
     </script>
 @endsection
