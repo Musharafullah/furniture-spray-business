@@ -593,7 +593,7 @@ input:checked + .slider:before {
     color: #333333;
     font-weight: 600;
     font-size: 18px;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 .customer-info > div, .add-product > div, .delivery-options > div {
