@@ -20,58 +20,58 @@
                             <h4>Customer Info</h4>
                         </div>
                         @if ($quote->id)
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="product_type_id">Name</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
-                                        value="{{ $quote->id ? $quote->client->name : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="product_type_id">Billing Postcode</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
-                                        value="{{ $quote->id ? $quote->client->postal_code : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="product_type_id">Project Postcode</label>
-                                    @if (!empty($quote->billing_postal_code))
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="product_type_id">Name</label>
                                         <input class="form-control" type="text" placeholder="Enter Name"
-                                            value="{{ $quote->id ? $quote->billing_postal_code : '' }}"
+                                            value="{{ $quote->id ? $quote->client->name : '' }}"
                                             {{ $quote->id ? 'readonly' : '' }}>
-                                    @else
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="product_type_id">Billing Postcode</label>
                                         <input class="form-control" type="text" placeholder="Enter Name"
                                             value="{{ $quote->id ? $quote->client->postal_code : '' }}"
                                             {{ $quote->id ? 'readonly' : '' }}>
-                                    @endif
+                                    </div>
                                 </div>
-                            </div>
-                            {{-- <div class="col-sm-1">
-                                <div style="margin-top:35px; margin-left:-23px;"><a href="#" data-toggle="modal"
-                                        data-target="#editpostal" id="edit_postal">(Edit)</a></div>
-                            </div> --}}
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="product_type_id">Project Postcode</label>
+                                        @if (!empty($quote->billing_postal_code))
+                                            <input class="form-control" type="text" placeholder="Enter Name"
+                                                value="{{ $quote->id ? $quote->billing_postal_code : '' }}"
+                                                {{ $quote->id ? 'readonly' : '' }}>
+                                        @else
+                                            <input class="form-control" type="text" placeholder="Enter Name"
+                                                value="{{ $quote->id ? $quote->client->postal_code : '' }}"
+                                                {{ $quote->id ? 'readonly' : '' }}>
+                                        @endif
+                                    </div>
+                                </div>
+                                {{-- <div class="col-sm-1">
+                                    <div style="margin-top:35px; margin-left:-23px;"><a href="#" data-toggle="modal"
+                                            data-target="#editpostal" id="edit_postal">(Edit)</a></div>
+                                </div> --}}
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="product_type_id">Email</label>
-                                    <input class="form-control" type="text" placeholder=""
-                                        value="{{ $quote->id ? $quote->client->email : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="product_type_id">Email</label>
+                                        <input class="form-control" type="text" placeholder=""
+                                            value="{{ $quote->id ? $quote->client->email : '' }}"
+                                            {{ $quote->id ? 'readonly' : '' }}>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="product_type_id">Phone No</label>
-                                    <input class="form-control" type="text" placeholder=""
-                                        value="{{ $quote->id ? $quote->client->phone : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="product_type_id">Phone No</label>
+                                        <input class="form-control" type="text" placeholder=""
+                                            value="{{ $quote->id ? $quote->client->phone : '' }}"
+                                            {{ $quote->id ? 'readonly' : '' }}>
+                                    </div>
                                 </div>
-                            </div>
-
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -205,52 +205,60 @@
                                                                     $pro = App\Models\Product::find($deal->product_id);
                                                                     //  dd($pro);
                                                                 @endphp
-                                                                @if ($deal->matt_finish_option == 1)
-                                                                    Matt Finish(Single) |
-                                                                @else
-                                                                    Matt Finish(Double) |
+                                                                @if ($deal->cutout > 0)
+                                                                    @php
+                                                                        $coutout = $deal->cutout / $pro->cut_out;
+                                                                    @endphp
+                                                                    Cut Out X {{ $coutout }} |
                                                                 @endif
 
-                                                                @if ($deal->spraying_edges > 0)
-                                                                    Spraying Edges |
+                                                                @if ($deal->notch > 0)
+                                                                    @php
+                                                                        $notch = $deal->notch / $pro->notch;
+                                                                    @endphp
+                                                                    Notch X {{ $notch }} |
                                                                 @endif
-                                                                @if ($deal->metallic_paint > 0)
-                                                                    Metallic Paint |
+                                                                @if ($deal->hole > 0)
+                                                                    @php
+                                                                        $hole = $deal->hole / $pro->hole;
+                                                                    @endphp
+                                                                    Hole X {{ $hole }} |
                                                                 @endif
-                                                                @if ($deal->wood_stain > 0)
-                                                                    Wood Stain |
+                                                                @if ($deal->rake > 0)
+                                                                    @php
+                                                                        $rake = $deal->rake / $pro->rake;
+                                                                    @endphp
+                                                                    Rake X {{ $rake }} |
                                                                 @endif
-                                                                @dd($deal->gloss_percentage_option)
-                                                                @if ($deal->gloss_percentage_option == 1)
-                                                                    80% Gloss - Add on / Sqm (1 sided) |
-                                                                @elseif($deal->gloss_percentage_option == 2)
-                                                                    100% Gloss / Wet Look PU Paint (SQM)|
-                                                                @elseif($deal->gloss_percentage_option == 3)
-                                                                    100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)|
+                                                                @if ($deal->radius_corners > 0)
+                                                                    @php
+                                                                        $radius_corners = $deal->radius_corners / $pro->radius_corners;
+                                                                    @endphp
+                                                                    Radius Corners X {{ $radius_corners }} |
                                                                 @endif
-                                                                @if ($deal->gloss_100_acrylic_lacquer > 0)
-                                                                    gloss_100_acrylic_lacquer |
+                                                                @if ($deal->back_select == $pro->painted && $pro->painted > 0)
+                                                                    Painted |
                                                                 @endif
-                                                                @if ($deal->polyester > 0)
-                                                                    Polyester |
+                                                                @if ($deal->finish == $pro->sparkle_finish && $pro->sparkle_finish > 0)
+                                                                    Sparkle Finish |
                                                                 @endif
-                                                                @if ($deal->burnished_finish > 0)
-                                                                    Burnished Finish |
+                                                                @if ($deal->finish == $pro->metallic_finish && $pro->metallic_finish > 0)
+                                                                    Metallic Finish,
                                                                 @endif
-                                                                @if ($deal->barrier_coat > 0)
-                                                                    Barrier Coat |
+                                                                @if ($deal->back_select == $pro->printed && $pro->printed > 0)
+                                                                    Printed |
                                                                 @endif
-                                                                @if ($deal->edgebanding > 0)
-                                                                    Edgebanding |
+                                                                @if ($deal->cnc > 0)
+                                                                    CNC |
                                                                 @endif
-                                                                @if ($deal->micro_bevel > 0)
-                                                                    Micro Bevel |
+                                                                @if ($deal->sandblasted > 0)
+                                                                    Sandblasted |
                                                                 @endif
-                                                                @if ($deal->routed_handle_spraying > 0)
-                                                                    Routed Handle Spraying |
+                                                                @if ($deal->ritec > 0)
+                                                                    Ritec |
                                                                 @endif
-                                                                @if ($deal->beaded_door > 0)
-                                                                    Beaded Door
+                                                                @if ($deal->bevel_edges > 0)
+                                                                    Bavel Edges
                                                                 @endif
                                                             <td>
                                                         </tr>
@@ -272,364 +280,187 @@
                                                                 $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                                 $delivery_charges = $quote->delivery_charges;
                                                                 $grand_total = $product_sum_total + $delivery_charges;
-
+                                                                
                                                                 // calculation for net discount
                                                                 $net = $product_sum_total / 1.2;
                                                                 $discount_vat = $product_sum_total - $net;
-                        <div class="col-sm-12">
-                            <div class="form-group table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td colspan="7">
-                                                <select class="form-select" id="hidden_option">
-                                                    @php
-                                                        $types = ['Option_1(display_all_price_fields)', 'Option_2(hide_net_price_column_and_discount_column)', 'Option_3(hide_all_price_column_and_discount_including_gross_total,vat,total net)'];
-                                                    @endphp
-                                                    @foreach ($types as $type)
-                                                        @php
-                                                            $select = old('hidden_price', $quote->hidden_price) == $type ? 'selected' : '';
-                                                        @endphp
-                                                        <option
-                                                            value="{{ $type . '/' . $quote->id ?? old('type') }}"
-                                                            {{ $select }}>
-                                                            @php
-                                                                // $role_name= $role->name;
-                                                                $type = str_replace('_', ' ', $type);
-                                                                //$type = ucwords($type);
                                                             @endphp
-                                                            {{ $type }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>#</th>
-                                            <th colspan="11">Item details</th>
+                                                            <h4>Total</h4>
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <h4>Net price: £{{ round($net, 2) }}
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="total_net_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->total_net_status == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4> Vat : £{{ round($discount_vat, 2) }}<br />
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="total_vat_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->total_vat_status == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </h4>
+                                                        </td>
 
-                                        </tr>
-                                        <tr>
-                                            <th></th>
-                                            <th>Code</th>
-                                            <th>Product</th>
-                                            <th>Width(mm)</th>
-                                            <th>Height(mm)</th>
-                                            <th>SQM(m)</th>
-                                            <th>Quantity</th>
-                                            <th>Net Price</th>
-                                            <th>VAT</th>
-                                            <th>Discount Applied (%)</th>
-                                            <th>Gross Price</th>
-                                            <th>Action</th>
+                                                        <td colspan="2">
+                                                            <h4> Gross total :
+                                                                £{{ $product_sum_total }}<br />
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="gross_total_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->gross_total_status == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </h4>
+                                                        </td>
 
-                                        <tr>
-                                    </thead>
-                                    <tbody>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
-                                        @foreach ($quote->deals as $deal)
-                                            <tr>
-                                                <td>{{ 'Item: ' . $loop->iteration }}</td>
-                                                <td>{{ $deal->product->code }}</td>
-                                                <td>{{ $deal->product->product_name }}</td>
-                                                <td>{{ $deal->width }}</td>
-                                                <td>{{ $deal->height }}</td>
-                                                <td>
-                                                    @if ($deal->product)
-                                                    @else
-                                                        {{ $deal->sqm }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $deal->quantity }}</td>
-                                                <td>
-                                                    @php
-                                                        if ($deal->product) {
-                                                            $disc = ($deal->net_price * $deal->trade_discount) / 100;
-                                                            $net_price1 = $deal->net_price - $disc;
-                                                            $net_price = round($net_price1, 2);
-                                                        } else {
-                                                            $net_price = round($deal->net_price, 2);
-                                                        }
-                                                    @endphp
-                                                    {{ $net_price }}
-                                                </td>
-                                                <td>
-                                                    @php
-                                                        if ($deal->product) {
-                                                            $pro_disc = ($deal->net_price * $deal->trade_discount) / 100;
-                                                            $pro_net_price = $deal->net_price - $pro_disc;
-                                                            $pro_vat1 = ($pro_net_price * 20) / 100;
-                                                            $pro_vat = round($pro_vat1, 2);
-                                                        } else {
-                                                            $pro_vat = round($deal->vat, 2);
-                                                        }
-                                                    @endphp
-                                                    {{ $pro_vat }}
-                                                </td>
-                                                <td>{{ $deal->trade_discount }}</td>
-                                                <td>{{ $deal->total_gross }}</td>
-                                                <td>
-                                                    <ul class="list-inline">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td class="pull-right">
+                                                            <h4>
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="collect_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->hide_collect == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                                Grand Total (Collected) : £{{ $quote->collected }}
+                                                            </h4>
 
-                                                        <li>
-                                                            <a href="{{ route('duplicate_item', $deal->id) }}"
-                                                                data-toggle="tooltip" title="Duplicate Item"><i
-                                                                    class="fa fa-copy"></i></a>
-                                                        </li>
+                                                            <h4>
 
-                                                        <li>
-                                                            <a href="{{ route('quote.edit', $deal->id) }}"
-                                                                data-toggle="tooltip" title="Edit Item"><i
-                                                                    class="fa fa-pencil"></i></a>
-                                                        </li>
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="delivered_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->hide_delivered == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
 
-                                                        <li>
-                                                            <a href="{{ route('destroy_item', $deal->id) }}"
-                                                                data-toggle="tooltip" title="Delete Item"><i
-                                                                    class="fa fa-times-circle"></i></a>
-                                                        </li>
+                                                                Grand Total (Delivered) :
+                                                                @if ($quote->delivered == 'N/A')
+                                                                    N/A
+                                                                    <small><a href="#" data-bs-toggle="modal"
+                                                                            data-bs-target="#myModal"
+                                                                            id="edit_delivered">(Edit)</a></small><br />
+                                                                    <small>Client distance exceed 60 miles</small>
+                                                                @else
+                                                                    £{{ $quote->delivered + $product_sum_total }}
+                                                                    <small><a href="#" data-bs-toggle="modal"
+                                                                            data-bs-target="#myModal"
+                                                                            id="edit_delivered">(Edit)</a></small>
+                                                                @endif
+                                                            </h4>
 
-                                                        <li>
-                                                            <label class="switch ">
-                                                                <input type="checkbox" name="image_status"
-                                                                    class="primary" value="{{ $deal->id }}"
-                                                                    {{ $deal->image_status == 1 ? 'checked' : '' }}>
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </li>
-                                                    </ul>
+                                                            {{-- <h4>
 
-                                                </td>
-                                            <tr>
-                                                <td></td>
-                                                <td colspan="10">
-                                                    @php
-                                                        $pro = App\Models\Product::find($deal->product_id);
-                                                        //  dd($pro);
-                                                    @endphp
-                                                    @if ($deal->cutout > 0)
-                                                        @php
-                                                            $coutout = $deal->cutout / $pro->cut_out;
-                                                        @endphp
-                                                        Cut Out X {{ $coutout }} |
-                                                    @endif
+                                                                <label class="switch ">
+                                                                    <input type="checkbox" name="survey_status"
+                                                                        class="primary" value="{{ $quote->id }}"
+                                                                        {{ $quote->hide_survey == 1 ? 'checked' : '' }}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                                Grand Total (Survey & Fit) :
+                                                                @if ($quote->survey == 'N/A')
+                                                                    N/A
+                                                                    <small><a href="#" data-toggle="modal"
+                                                                            data-target="#editsurvey"
+                                                                            id="edit_survey">(Edit)</a>
+                                                                    </small><br />
+                                                                    <small>Client distance exceed 40 miles</small><br />
+                                                                    <p style="font-size: 12px;">Survey & Fit Charges
+                                                                        ({{ $quote->survey }})</p>
+                                                                    <p style="font-size: 12px;">Total SQM
+                                                                        ({{ round($quote->deals->sum('sqm_qty'), 2) }})</p>
+                                                                @else
+                                                                    £{{ $quote->survey + $product_sum_total }}
+                                                                    <small><a href="#" data-toggle="modal"
+                                                                            data-target="#editsurvey"
+                                                                            id="edit_survey">(Edit)</a>
+                                                                    </small><br /><br />
+                                                                    <p style="font-size: 12px;">Survey & Fit Charges
+                                                                        (£{{ $quote->survey }})</p>
+                                                                    <p style="font-size: 12px;">Total SQM
+                                                                        ({{ round($quote->deals->sum('sqm_qty'), 2) }})</p>
+                                                                @endif
+                                                            </h4> --}}
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                    @if ($deal->notch > 0)
-                                                        @php
-                                                            $notch = $deal->notch / $pro->notch;
-                                                        @endphp
-                                                        Notch X {{ $notch }} |
-                                                    @endif
-                                                    @if ($deal->hole > 0)
-                                                        @php
-                                                            $hole = $deal->hole / $pro->hole;
-                                                        @endphp
-                                                        Hole X {{ $hole }} |
-                                                    @endif
-                                                    @if ($deal->rake > 0)
-                                                        @php
-                                                            $rake = $deal->rake / $pro->rake;
-                                                        @endphp
-                                                        Rake X {{ $rake }} |
-                                                    @endif
-                                                    @if ($deal->radius_corners > 0)
-                                                        @php
-                                                            $radius_corners = $deal->radius_corners / $pro->radius_corners;
-                                                        @endphp
-                                                        Radius Corners X {{ $radius_corners }} |
-                                                    @endif
-                                                    @if ($deal->back_select == $pro->painted && $pro->painted > 0)
-                                                        Painted |
-                                                    @endif
-                                                    @if ($deal->finish == $pro->sparkle_finish && $pro->sparkle_finish > 0)
-                                                        Sparkle Finish |
-                                                    @endif
-                                                    @if ($deal->finish == $pro->metallic_finish && $pro->metallic_finish > 0)
-                                                        Metallic Finish,
-                                                    @endif
-                                                    @if ($deal->back_select == $pro->printed && $pro->printed > 0)
-                                                        Printed |
-                                                    @endif
-                                                    @if ($deal->cnc > 0)
-                                                        CNC |
-                                                    @endif
-                                                    @if ($deal->sandblasted > 0)
-                                                        Sandblasted |
-                                                    @endif
-                                                    @if ($deal->ritec > 0)
-                                                        Ritec |
-                                                    @endif
-                                                    @if ($deal->bevel_edges > 0)
-                                                        Bavel Edges
-                                                    @endif
-                                                <td>
-                                            </tr>
-                                            @if ($deal->note)
-                                                <tr>
-                                                    <td></td>
-                                                    <td colspan="10">
+                                                </tbody>
+                                            </table>
+                                        </div>
 
-                                                        <b>Note:</b>{{ $deal->note }}
-                                                    <td>
-                                                </tr>
-                                            @endif
-                                            </tr>
+                                        <div class="col-sm-offset-6 col-sm-6">
+                                            <a href="#" class="btn btn-rounded btn-primary btn-block form-group"
+                                                target="_blank">Review
+                                                Quote
+                                                <span><i class="fa fa-save"></i></span></a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-12 col-md-8">
+                                        <select class="form-select" id="clients" onchange="client_info()"></select>
+                                        {{-- <select class="form-select" onchange="client_info()" id="clients">
+                                        <option value="">-- Select Customer --</option>
+                                        @foreach ($data as $client)
+                                            <option value='{{ $client->id }}'>{{ $client->name }}
+                                            </option>
                                         @endforeach
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="6">
-                                                @php
-                                                    $product_sum_total = round($quote->deals->sum('total_gross'), 2);
-                                                    $delivery_charges = $quote->delivery_charges;
-                                                    $grand_total = $product_sum_total + $delivery_charges;
-                                                    
-                                                    // calculation for net discount
-                                                    $net = $product_sum_total / 1.2;
-                                                    $discount_vat = $product_sum_total - $net;
-                                                @endphp
-                                                <h5>Total</h5>
-                                            </td>
-                                            <td colspan="3">
-                                                <h5>Net price: £{{ round($net, 2) }}
-                                                    <label class="switch ">
-                                                        <input type="checkbox" name="total_net_status"
-                                                            class="primary" value="{{ $quote->id }}"
-                                                            {{ $quote->total_net_status == 1 ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </h5>
-                                            </td>
-                                            <td>
-                                                <h5> Vat : £{{ round($discount_vat, 2) }}<br />
-                                                    <label class="switch ">
-                                                        <input type="checkbox" name="total_vat_status"
-                                                            class="primary" value="{{ $quote->id }}"
-                                                            {{ $quote->total_vat_status == 1 ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </h5>
-                                            </td>
-
-                                            <td colspan="2">
-                                                <h5> Gross total :
-                                                    £{{ $product_sum_total }}<br />
-                                                    <label class="switch ">
-                                                        <input type="checkbox" name="gross_total_status"
-                                                            class="primary" value="{{ $quote->id }}"
-                                                            {{ $quote->gross_total_status == 1 ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </h5>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td class="pull-right">
-                                                <h5>
-                                                    <label class="switch ">
-                                                        <input type="checkbox" name="collect_status"
-                                                            class="primary" value="{{ $quote->id }}"
-                                                            {{ $quote->hide_collect == 1 ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                    Grand Total (Collected) : £{{ $quote->collected }}
-                                                </h5>
-
-                                                <h5>
-
-                                                    <label class="switch ">
-                                                        <input type="checkbox" name="delivered_status"
-                                                            class="primary" value="{{ $quote->id }}"
-                                                            {{ $quote->hide_delivered == 1 ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-
-                                                    Grand Total (Delivered) :
-                                                    @if ($quote->delivered == 'N/A')
-                                                        N/A
-                                                        <small><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal"
-                                                                id="edit_delivered">(Edit)</a></small><br />
-                                                        <small>Client distance exceed 60 miles</small>
-                                                    @else
-                                                        £{{ $quote->delivered + $product_sum_total }}
-                                                        <small><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal"
-                                                                id="edit_delivered">(Edit)</a></small>
-                                                    @endif
-                                                </h5>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-sm-6 pull-right">
-                                <a href="{{ route('quote.pdf', $quote->id) }}">
-                                    <button class="btn btn-primary-rounded">
-                                        Review Quote <span><i class="fa fa-save"></i></span>
-                                    </button>
-                                </a>
-                            </div>
-                        @else
-                            <div class="col-12 col-md-8">
-                                <select class="form-select" id="clients" onchange="client_info()"></select>
-                                {{-- <select class="form-select" onchange="client_info()" id="clients">
-                                <option value="">-- Select Customer --</option>
-                                @foreach ($data as $client)
-                                    <option value='{{ $client->id }}'>{{ $client->name }}
-                                    </option>
-                                @endforeach
-                                </select> --}}
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#addcustomer">
-                                    Add Customer <i class="fa fa-plus-circle"></i>
-                                </button>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust_name">Name</label>
-                                    <input id="cust_name" name="cust-name" class="form-control" type="text"
-                                        placeholder="Enter Name" value="" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust_phone">Telephone</label>
-                                    <input id="cust_phone" name="cust-phone" class="form-control" type="number"
-                                        placeholder="Enter Number" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust-email">Email</label>
-                                    <input id="cust_email" name="cust-email" class="form-control" type="email"
-                                        placeholder="Enter Email" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust-postcode">Billing Postcode</label>
-                                    <input id="cust_postcode" name="billing_postal_code" class="form-control"
-                                        type="text" placeholder="Postcode" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="cust-address">Address</label>
-                                    <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
-                                </div>
-                            </div>
+                                        </select> --}}
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#addcustomer">
+                                            Add Customer <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cust_name">Name</label>
+                                            <input id="cust_name" name="cust-name" class="form-control" type="text"
+                                                placeholder="Enter Name" value="" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cust_phone">Telephone</label>
+                                            <input id="cust_phone" name="cust-phone" class="form-control" type="number"
+                                                placeholder="Enter Number" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cust-email">Email</label>
+                                            <input id="cust_email" name="cust-email" class="form-control" type="email"
+                                                placeholder="Enter Email" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cust-postcode">Billing Postcode</label>
+                                            <input id="cust_postcode" name="billing_postal_code" class="form-control"
+                                                type="text" placeholder="Postcode" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="cust-address">Address</label>
+                                            <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
+                                        </div>
+                                    </div>
                         @endif
                     </div>
                     <!----------------------------------- End Customer Info -------------------------------------->
@@ -637,7 +468,6 @@
                     <!----------------------------------- Add Products -------------------------------------->
                     <form action="{{ route('create_quote') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option" />
                         @if ($clint_id)
                             <input type="hidden" name="quote_id" id="" value="{{ $clint_id }}" />
                         @else
@@ -761,12 +591,9 @@
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
                                                 <option value="">-- Select option --</option>
-                                                <option value="80% Gloss - Add on / Sqm (1 sided)">80% Gloss - Add on / Sqm
-                                                    (1 sided)</option>
-                                                <option value="100% Gloss / Wet Look PU Paint (SQM)">100% Gloss / Wet Look
-                                                    PU Paint (SQM)</option>
-                                                <option value="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)">100%
-                                                    Gloss / Wet Look Clear Acrylic Lacquer (SQM)
+                                                <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
+                                                <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
+                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
                                         </div>
@@ -949,6 +776,7 @@
                     </form>
                 </div>
                 <!----------------------------------- End Delivery Options -------------------------------------->
+
             </div>
         </div>
         <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
@@ -1079,13 +907,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Update Delievery</h5>
-                    <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="{{ route('edit_survey', $quote) }}" id="edit_delivered">
                     @csrf
                     @method('put')
+                    <div class="modal-header">
+                        <h3><span id="form_output" class="alert-info"></span></h3>
+                        <h6><span id="errors" class="alert-danger"></span></h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <h3 class="modal-title">Update Delivered</h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12">
@@ -1101,16 +941,21 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                        <button class="btn btn-primary" type="submit">Update</button>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                            <button class="btn btn-primary" type="submit">Update</button>
+                        </div>
                     </div>
                 </form>
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> --}}
             </div>
         </div>
     </div>
     <!-- End endedit modal for delivered -->
+
 
 
     <!----------------------- End Add Customer Modal ------------------------------->
