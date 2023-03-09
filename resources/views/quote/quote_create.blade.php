@@ -72,6 +72,210 @@
                                 </div>
                             </div>
 
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td colspan="7">
+                                                            <select class="form-control" id="hidden_option">
+                                                                @php
+                                                                    $types = ['Option_1(display_all_price_fields)', 'Option_2(hide_net_price_column_and_discount_column)', 'Option_3(hide_all_price_column_and_discount_including_gross_total,vat,total net)'];
+                                                                @endphp
+                                                                @foreach ($types as $type)
+                                                                    @php
+                                                                        $select = old('hidden_price', $quote->hidden_price) == $type ? 'selected' : '';
+                                                                    @endphp
+                                                                    <option
+                                                                        value="{{ $type . '/' . $quote->id ?? old('type') }}"
+                                                                        {{ $select }}>
+                                                                        @php
+                                                                            // $role_name= $role->name;
+                                                                            $type = str_replace('_', ' ', $type);
+                                                                            //$type = ucwords($type);
+                                                                        @endphp
+                                                                        {{ $type }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td colspan="5"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th colspan="11">Item details</th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>Code</td>
+                                                        <td>Product</td>
+                                                        <td>Width(mm)</td>
+                                                        <td>Height(mm)</td>
+                                                        <td>SQM(m)</td>
+                                                        <td>Quantity</td>
+                                                        <td>Net Price</td>
+                                                        <td>VAT</td>
+                                                        <td>Discount Applied (%)</td>
+                                                        <td>Gross Price</td>
+                                                        <td>Action</td>
+
+                                                    <tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($quote->deals as $deal)
+                                                        <tr>
+                                                            <td>{{ 'Item: ' . $loop->iteration }}</td>
+                                                            <td>{{ $deal->product->code }}</td>
+                                                            <td>{{ $deal->product->product_name }}</td>
+                                                            <td>{{ $deal->width }}</td>
+                                                            <td>{{ $deal->height }}</td>
+                                                            <td>
+                                                                @if ($deal->product)
+                                                                @else
+                                                                    {{ $deal->sqm }}
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $deal->quantity }}</td>
+                                                            <td>
+                                                                @php
+                                                                    if ($deal->product) {
+                                                                        $disc = ($deal->net_price * $deal->trade_discount) / 100;
+                                                                        $net_price1 = $deal->net_price - $disc;
+                                                                        $net_price = round($net_price1, 2);
+                                                                    } else {
+                                                                        $net_price = round($deal->net_price, 2);
+                                                                    }
+                                                                @endphp
+                                                                {{ $net_price }}
+                                                            </td>
+                                                            <td>
+                                                                @php
+                                                                    if ($deal->product) {
+                                                                        $pro_disc = ($deal->net_price * $deal->trade_discount) / 100;
+                                                                        $pro_net_price = $deal->net_price - $pro_disc;
+                                                                        $pro_vat1 = ($pro_net_price * 20) / 100;
+                                                                        $pro_vat = round($pro_vat1, 2);
+                                                                    } else {
+                                                                        $pro_vat = round($deal->vat, 2);
+                                                                    }
+                                                                @endphp
+                                                                {{ $pro_vat }}
+                                                            </td>
+                                                            <td>{{ $deal->trade_discount }}</td>
+                                                            <td>{{ $deal->total_gross }}</td>
+                                                            <td>
+                                                                <ul class="list-inline">
+
+                                                                    <li>
+                                                                        <a href="{{ route('duplicate_item', $deal->id) }}"
+                                                                            data-toggle="tooltip" title="Duplicate Item"><i
+                                                                                class="fa fa-copy"></i></a>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <a href="{{ route('quote.edit', $deal->id) }}"
+                                                                            data-toggle="tooltip" title="Edit Item"><i
+                                                                                class="fa fa-pencil"></i></a>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <a href="{{ route('destroy_item', $deal->id) }}"
+                                                                            data-toggle="tooltip" title="Delete Item"><i
+                                                                                class="fa fa-times-circle"></i></a>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <label class="switch ">
+                                                                            <input type="checkbox" name="image_status"
+                                                                                class="primary" value="{{ $deal->id }}"
+                                                                                {{ $deal->image_status == 1 ? 'checked' : '' }}>
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                    </li>
+                                                                </ul>
+
+                                                            </td>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td colspan="10">
+                                                                @php
+                                                                    $pro = App\Models\Product::find($deal->product_id);
+                                                                    //  dd($pro);
+                                                                @endphp
+                                                                @if ($deal->matt_finish_option == 1)
+                                                                    Matt Finish(Single) |
+                                                                @else
+                                                                    Matt Finish(Double) |
+                                                                @endif
+
+                                                                @if ($deal->spraying_edges > 0)
+                                                                    Spraying Edges |
+                                                                @endif
+                                                                @if ($deal->metallic_paint > 0)
+                                                                    Metallic Paint |
+                                                                @endif
+                                                                @if ($deal->wood_stain > 0)
+                                                                    Wood Stain |
+                                                                @endif
+                                                                @dd($deal->gloss_percentage_option)
+                                                                @if ($deal->gloss_percentage_option == 1)
+                                                                    80% Gloss - Add on / Sqm (1 sided) |
+                                                                @elseif($deal->gloss_percentage_option == 2)
+                                                                    100% Gloss / Wet Look PU Paint (SQM)|
+                                                                @elseif($deal->gloss_percentage_option == 3)
+                                                                    100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)|
+                                                                @endif
+                                                                @if ($deal->gloss_100_acrylic_lacquer > 0)
+                                                                    gloss_100_acrylic_lacquer |
+                                                                @endif
+                                                                @if ($deal->polyester > 0)
+                                                                    Polyester |
+                                                                @endif
+                                                                @if ($deal->burnished_finish > 0)
+                                                                    Burnished Finish |
+                                                                @endif
+                                                                @if ($deal->barrier_coat > 0)
+                                                                    Barrier Coat |
+                                                                @endif
+                                                                @if ($deal->edgebanding > 0)
+                                                                    Edgebanding |
+                                                                @endif
+                                                                @if ($deal->micro_bevel > 0)
+                                                                    Micro Bevel |
+                                                                @endif
+                                                                @if ($deal->routed_handle_spraying > 0)
+                                                                    Routed Handle Spraying |
+                                                                @endif
+                                                                @if ($deal->beaded_door > 0)
+                                                                    Beaded Door
+                                                                @endif
+                                                            <td>
+                                                        </tr>
+                                                        @if ($deal->note)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td colspan="10">
+
+                                                                    <b>Note:</b>{{ $deal->note }}
+                                                                <td>
+                                                            </tr>
+                                                        @endif
+                                                        </tr>
+                                                    @endforeach
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="6">
+                                                            @php
+                                                                $product_sum_total = round($quote->deals->sum('total_gross'), 2);
+                                                                $delivery_charges = $quote->delivery_charges;
+                                                                $grand_total = $product_sum_total + $delivery_charges;
+
+                                                                // calculation for net discount
+                                                                $net = $product_sum_total / 1.2;
+                                                                $discount_vat = $product_sum_total - $net;
                         <div class="col-sm-12">
                             <div class="form-group table-responsive">
                                 <table class="table table-bordered">
@@ -433,6 +637,7 @@
                     <!----------------------------------- Add Products -------------------------------------->
                     <form action="{{ route('create_quote') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option" />
                         @if ($clint_id)
                             <input type="hidden" name="quote_id" id="" value="{{ $clint_id }}" />
                         @else
@@ -556,9 +761,12 @@
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
                                                 <option value="">-- Select option --</option>
-                                                <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
-                                                <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
-                                                <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
+                                                <option value="80% Gloss - Add on / Sqm (1 sided)">80% Gloss - Add on / Sqm
+                                                    (1 sided)</option>
+                                                <option value="100% Gloss / Wet Look PU Paint (SQM)">100% Gloss / Wet Look
+                                                    PU Paint (SQM)</option>
+                                                <option value="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)">100%
+                                                    Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
                                         </div>
@@ -741,7 +949,6 @@
                     </form>
                 </div>
                 <!----------------------------------- End Delivery Options -------------------------------------->
-
             </div>
         </div>
         <div class="text-center pt-5 pb-4">Please Filled the Billing Postcode field first and click the search button
