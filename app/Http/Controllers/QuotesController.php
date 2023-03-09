@@ -108,7 +108,7 @@ class QuotesController extends Controller
     // create quote
     public function create_quote()
     {
-        // dd($this->_request->all());
+//         dd($this->_request->all());
         if($this->_request->quote_id != null)
         {
             $id = $this->_request->quote_id;
@@ -165,24 +165,25 @@ class QuotesController extends Controller
             'net_price' ,
             'vat',
             'trade_discount',
-            'total_gross');
+            'total_gross',
+            'gloss_percentage_option');
             // dd($var);
             // dd($this->_request->gloss_percentage_option);
-            if($this->_request->gloss_percentage_option == "80% Gloss - Add on / Sqm (1 sided)")
-            {
-                $option = 1;
-                $data['gloss_percentage_option'] = $option;
-            }
-            else if($this->_request->gloss_percentage_option == "100% Gloss / Wet Look PU Paint (SQM)")
-            {
-                $option = 2;
-                $data['gloss_percentage_option'] = $option;
-            }
-            else if($this->_request->gloss_percentage_option =="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)")
-            {
-                $option = 3;
-                $data['gloss_percentage_option'] = $option;
-            }
+//            if($this->_request->gloss_percentage_option == "80% Gloss - Add on / Sqm (1 sided)")
+//            {
+//                $option = 1;
+//                $data['gloss_percentage_option'] = $option;
+//            }
+//            else if($this->_request->gloss_percentage_option == "100% Gloss / Wet Look PU Paint (SQM)")
+//            {
+//                $option = 2;
+//                $data['gloss_percentage_option'] = $option;
+//            }
+//            else if($this->_request->gloss_percentage_option =="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)")
+//            {
+//                $option = 3;
+//                $data['gloss_percentage_option'] = $option;
+//            }
 
 
             $data['quote_id'] = $var->id;
