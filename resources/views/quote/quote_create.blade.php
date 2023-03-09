@@ -873,25 +873,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Update Delievery</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <form method="post" action="{{ route('edit_survey', $quote) }}" id="edit_delivered">
                     @csrf
                     @method('put')
-                    <div class="modal-header">
-                        <h3><span id="form_output" class="alert-info"></span></h3>
-                        <h6><span id="errors" class="alert-danger"></span></h6>
-                        <div class="row">
-                            <div class="col-sm-6">
-
-                                <h3 class="modal-title">Update Delivered</h3>
-                            </div>
-                            <div class="col-sm-6">
-                                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                                        aria-hidden="true">&times;</span></button>
-                            </div>
-                        </div>
-                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12">
@@ -907,16 +895,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
-                            <button class="btn btn-primary" type="submit">Update</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </form>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> --}}
             </div>
         </div>
     </div>
