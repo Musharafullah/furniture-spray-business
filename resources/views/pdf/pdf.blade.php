@@ -241,11 +241,11 @@
                                     <nobr>Total Vat</nobr><br>
                                 @endif
                                 @if($quotes->gross_total_status == 1)
-                                    <nobr><b>Gross Total</b></nobr><br><br>
+                                    <nobr><b>Gross Total</b></nobr><br>
                                 @endif
 
                                 @if($quotes->hide_collect == 1)
-                                    <nobr>Grand Total (Collected)</nobr><br />
+                                    <br><nobr>Grand Total (Collected)</nobr><br />
                                 @endif
                                 @if($quotes->hide_delivered == 1)
                                     <nobr>Grand Total (Delivered)</nobr><br />
@@ -261,11 +261,11 @@
                                     £{{ $vat }}<br>
                                 @endif
                                 @if($quotes->gross_total_status == 1)
-                                    <b>£{{ $gross_total }}</b><br><br>
+                                    <b>£{{ $gross_total }}</b><br>
                                 @endif
 
                                 @if($quotes->hide_collect == 1)
-                                    £{{ $quotes->collected }}<br />
+                                    <br>£{{ $quotes->collected }}<br />
                                 @endif
                                 @if($quotes->hide_delivered == 1)
                                     £{{ $quotes->delivered }}<br />
