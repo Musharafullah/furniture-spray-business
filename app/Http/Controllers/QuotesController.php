@@ -448,7 +448,7 @@ class QuotesController extends Controller
     {
 
         $quotes = $this->get_by_id($this->_modal, $id);
-        $pdf = PDF::loadView('pdf.pdf', compact('quotes'));
+        $pdf = \PDF::loadView('pdf.pdf', compact('quotes'));
 
         return $pdf->stream();
     }
