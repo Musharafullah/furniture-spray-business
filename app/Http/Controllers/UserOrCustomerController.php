@@ -262,6 +262,31 @@ class UserOrCustomerController extends Controller
         $final_distance = (round($distance_in_miles, 2));
         return $final_distance;
     }
+    // admin update his profile
+    public function admin_update(){
+        // dd($this->_request->all());
+        $id = Auth::user()->id;
+        if($this->_request->password == ''){
+            $real_pass = Auth::user()->password;
+
+            $admin = $this->get_by_id($this->_modal, $id);
+            //$data = $this->_request->except('_token', '_method','password');
+            $admin->name = $this->_request->name;
+            $admin->email = $this->_request->email;
+            $admin->password = $real_pass;
+            $admin->address = $this->_request->address;
+            $admin->save();
+        }else{
+            $password = $this->_request->password;
+            $admin = $this->get_by_id($this->_modal, $id);
+            $admin->name = $this->_request->name;
+            $admin->email = $this->_request->email;
+            $admin->password = Hash::make($password);;
+            $admin->address = $this->_request->address;
+            $admin->save();
+        }
+        return back()->with('success','Profile updated successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      *

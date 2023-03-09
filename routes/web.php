@@ -47,6 +47,8 @@ Route::get('get-client-data/{id}', [App\Http\Controllers\UserOrCustomerControlle
 Route::post('store-client', [App\Http\Controllers\UserOrCustomerController::class, 'client_store'])->name('client_store');
 
 Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'clientinfo'])->name('clientinfo');
+// update profile
+Route::post('/admin-update',[App\Http\Controllers\UserOrCustomerController::class,'admin_update'])->name('admin_update');
 
 
 // Quote Controller

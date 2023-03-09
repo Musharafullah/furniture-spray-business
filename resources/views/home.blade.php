@@ -22,10 +22,11 @@
         
     @endphp
     <x-dynamic-component :component="$comp" :datadetail="$data" />
+    {{-- update profile --}}
 @endsection
 
 @section('scripts')
-<script>
+    <script>
         $(document).ready(function() {
 
             Highcharts.chart('daily-data-chart', {
@@ -60,9 +61,9 @@
                 series: [{
                     name: 'Population',
                     data: [
-                        @if(isset($data['grouped']))    
-                            @foreach($data['grouped'] as $key => $group)
-                                @if($loop->last)
+                        @if (isset($data['grouped']))
+                            @foreach ($data['grouped'] as $key => $group)
+                                @if ($loop->last)
                                     ['{{ $key }}', {{ $group->count() }}]
                                 @else
                                     ['{{ $key }}', {{ $group->count() }}],
@@ -72,6 +73,6 @@
                     ]
                 }]
             });
-        } );
+        });
     </script>
 @endsection
