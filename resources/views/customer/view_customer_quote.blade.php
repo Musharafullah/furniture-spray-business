@@ -20,9 +20,9 @@
                 </thead>
                 <tbody>
                     @if ($quotes)
-                        @foreach ($quotes as $quote)
+                        @foreach ($quotes as $key => $quote)
                             <tr>
-                                <td>MCG-0000{{ $quote->id }}</td>
+                                <td>MCG-0000{{ $key + 1 }}</td>
                                 <td>{{ $quote->user->name }}</td>
                                 <td>{{ $quote->user->phone }}</td>
                                 <td>{{ $quote->user->postal_code }}</td>
