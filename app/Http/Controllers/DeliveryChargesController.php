@@ -52,14 +52,13 @@ class DeliveryChargesController extends Controller
      */
     public function store()
     {
-        $this->validate($this->_request, [
-            'name' => 'required',
-        ]);
 
-        $data = $this->_request->except('_token');
-        $var = $this->add($this->_modal, $data);
+        $check = $this->get_by_id($this->_modal, 1);
 
-        return redirect()->route('{{routeName}}');
+        $data['total_charges'] = $this->_request->total_charges;
+        $check->update($data);
+
+        return back()->with('success','Delivery charges updated.');
     }
 
     /**

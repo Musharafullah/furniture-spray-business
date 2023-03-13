@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\DeliveryCharges;
 
 class BydefaultData extends Seeder
 {
@@ -71,6 +72,10 @@ class BydefaultData extends Seeder
         $user2->assignRole('client');
         $user2->save();
 
+        // create DeliveryCharges seeder
+        $deleivery1 = new DeliveryCharges();
+        $deleivery1->total_charges = 100;
+        $deleivery1->save();
 
     }
 }

@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Total Charges</th>
+                    <th>Delivery charges</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -13,11 +13,11 @@
                     @foreach ($datadetail as $key => $datadetail)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $datadetail->total_charges }}</td>
+                            <td>£{{ $datadetail->total_charges }}</td>
                             <td>
                                 <div>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#editdeliverycharges"
-                                        title="Edit">
+                                    <a href="" data-bs-toggle="modal" data-bs-toggle="modal"
+                                        data-bs-target="#delivery" title="Edit">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </div>
@@ -27,5 +27,38 @@
                 @endif
             </tbody>
         </table>
+    </div>
+</div>
+<div aria-hidden="true" aria-labelledby="DeliveryModal" class="modal modal-lg fade in" id="delivery" role="dialog"
+    tabindex="-1">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <form action="" method="post" id="">
+                @csrf
+                <input type="hidden" name="quote_create" value="1">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Delivery Charges</h5>
+                    <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 mt-3">
+                            <div class="form-group">
+                                <label for="name">Delivery(£)</label>
+                                <input id="name" name="total_charges" class="form-control" type="text"
+                                    placeholder="Enter Delivery" value="{{ $datadetail->total_charges }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    {{-- <button class="btn-primary" type="submit" id="add">Add Customer</button> --}}
+                    <button class="btn-primary" type="submit" id="">Update</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

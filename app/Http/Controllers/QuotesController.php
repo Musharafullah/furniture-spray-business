@@ -8,9 +8,11 @@ use App\Models\Quote;
 use App\Models\Deals;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\DeliveryCharges;
 use Carbon\Carbon;
 use PDF;
 use Auth;
+use Mail;
 class QuotesController extends Controller
 {
     private $_request = null;
@@ -108,7 +110,8 @@ class QuotesController extends Controller
     // create quote
     public function create_quote()
     {
-//         dd($this->_request->all());
+
+        $delivery  = $this->get_by_id(new DeliveryCharges, 1);
         if($this->_request->quote_id != null)
         {
             $id = $this->_request->quote_id;
@@ -121,7 +124,7 @@ class QuotesController extends Controller
             $data['client_id'] = $var->client_id;
             $data['user_id'] = Auth::user()->id;
             $data['collected'] = $collected;
-            $data['delivered'] = 60;
+            // $data['delivered'] = $delivery->total_charges;
             $var->update($data);
         }else{
             if($this->_request->client_id == null)
@@ -131,9 +134,9 @@ class QuotesController extends Controller
             $quote = $this->_request->only('client_id','comment', 'internal_comment');
             $quote['user_id'] = Auth::user()->id;
             $quote['collected'] = $this->_request->total_gross;
-            $quote['delivered'] = 60;
-
+            $quote['delivered'] = $delivery->total_charges;
             $var = $this->add($this->_modal, $quote);
+
         }
          //  Deals
         //  when product id is missing
@@ -165,26 +168,16 @@ class QuotesController extends Controller
             'net_price' ,
             'vat',
             'trade_discount',
-            'total_gross',
-            'gloss_percentage_option');
+            'total_gross',);
+            if($this->_request->gloss_percentage_option == null)
+            {
+                $data['gloss_percentage_option'] = 0;
+            }else{
+                $data['gloss_percentage_option'] = $this->_request->gloss_percentage_option;
+            }
+
             // dd($var);
             // dd($this->_request->gloss_percentage_option);
-//            if($this->_request->gloss_percentage_option == "80% Gloss - Add on / Sqm (1 sided)")
-//            {
-//                $option = 1;
-//                $data['gloss_percentage_option'] = $option;
-//            }
-//            else if($this->_request->gloss_percentage_option == "100% Gloss / Wet Look PU Paint (SQM)")
-//            {
-//                $option = 2;
-//                $data['gloss_percentage_option'] = $option;
-//            }
-//            else if($this->_request->gloss_percentage_option =="100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)")
-//            {
-//                $option = 3;
-//                $data['gloss_percentage_option'] = $option;
-//            }
-
 
             $data['quote_id'] = $var->id;
 
@@ -276,12 +269,6 @@ class QuotesController extends Controller
     {
 
 
-        // $quotes = Quote::with('user' , 'deals')
-        // ->when($id, function ($query, $id) {
-        //     return $query->where('client_id', $id);
-        // })
-        // ->get();
-
         $quotes = $this->get_by_column($this->_modal, 'client_id', $id);
         //$client_data = $this->get_by_id($this->_modal, $id);
         return view('customer.view_customer_quote', compact('quotes'));
@@ -319,6 +306,7 @@ class QuotesController extends Controller
      */
     public function update($id)
     {
+        // dd($this->_request->all());
         $this->validate($this->_request, [
             'product_id'  => 'required',
             'quantity' => 'required',
@@ -444,10 +432,28 @@ class QuotesController extends Controller
         // return redirect()->route('quote.create', compact('quote'))->with('success','Quote deleted successfully!');
     }
 
-
-    public function pdf($id)
+    //download pdf
+    public function download_pdf($id)
     {
 
+        $quotes = $this->get_by_id($this->_modal, $id);
+        $client = $quotes->client_id;
+        $pdf = \PDF::loadView('pdf.pdf', compact('quotes'));
+        $gsuk = 'ROKA-0000'.$id;
+        $email = $quotes->client->email;
+
+        Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
+            $message->from('roka@gmail.com', 'FurnitureSpray');
+            $message->to($email)->subject('ROKA quote –'.$gsuk);
+            $message->cc('testingjust247@gmail.com')->subject('Roka quote –'.$gsuk);
+            $message->attachData($pdf->output(), $gsuk.'.pdf');
+        });
+
+        return $pdf->download($gsuk.'.pdf');
+
+    }
+    public function pdf($id)
+    {
         $quotes = $this->get_by_id($this->_modal, $id);
         $pdf = \PDF::loadView('pdf.pdf', compact('quotes'));
 

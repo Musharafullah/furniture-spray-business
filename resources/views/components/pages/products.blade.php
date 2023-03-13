@@ -10,8 +10,8 @@
                     <th>Code</th>
                     <th>Title</th>
                     <th width="100">Image</th>
-                    <th>Sale Net SQM</th>
-                    <th>Matt Finish</th>
+                    <th>Sale Net SQM(£)</th>
+                    <th>Matt Finish(£)</th>
                     <th>Type</th>
                     <th>Action</th>
                 </tr>

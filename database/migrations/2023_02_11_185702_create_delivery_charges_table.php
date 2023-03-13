@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('delivery_charges', function (Blueprint $table) {
-            $table->UUID('id')->primary();
+            $table->id();
 
             // $table->double('min_delivery_charges');
             // $table->double('min_survey_and_fitting_charges');
 
-            $table->double('total_charges')->default(60);
+            $table->double('total_charges')->default(100);
             $table->timestamps();
         });
     }

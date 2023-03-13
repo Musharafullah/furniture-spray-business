@@ -3,14 +3,13 @@
     <title>Editquote</title>
 @endsection
 @section('content')
-
     <div class="create-quote py-3">
         <div class="container">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <h3>Create A Quote</h3>
+                            <h3>Update Quote</h3>
                         </div>
                     </div>
 
@@ -78,7 +77,8 @@
                     <form action="{{ route('quote.update', $deal->id) }}" method="POST">
                         @csrf
                         @method('put')
-                        <input type="hidden" name="quote_id" id="quote_id" value="{{ $deal->quote_id ?? old('quote_id') }}"/>
+                        <input type="hidden" name="quote_id" id="quote_id"
+                            value="{{ $deal->quote_id ?? old('quote_id') }}" />
                         <div class="row add-product">
                             <div class="col-12">
                                 <h4>Product Info</h4>
@@ -92,7 +92,7 @@
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     @php
-                                                        $select = ($product->id == old('product_id')) || ($product->id == $deal->product_id) ? 'selected' : '';
+                                                        $select = $product->id == old('product_id') || $product->id == $deal->product_id ? 'selected' : '';
                                                     @endphp
                                                     <option value="{{ $product->id }}" {{ $select }}>
                                                         {{ $product->code }}
@@ -108,7 +108,7 @@
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     @php
-                                                        $select = ($product->id == old('product_id')) || ($product->id == $deal->product_id) ? 'selected' : '';
+                                                        $select = $product->id == old('product_id') || $product->id == $deal->product_id ? 'selected' : '';
                                                     @endphp
                                                     <option value="{{ $product->id }}" {{ $select }}>
                                                         {{ $product->product_name }}
@@ -149,7 +149,8 @@
                                             <input id="product_lm" class="form-control" type="hidden" placeholder="">
                                             <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                             <input id="product_price" name="product_price" class="form-control"
-                                                type="hidden" placeholder="" value="{{ $deal->product_price ?? old('product_price') }}">
+                                                type="hidden" placeholder=""
+                                                value="{{ $deal->product_price ?? old('product_price') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +205,8 @@
                                                 <option>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
-                                            <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option" value="">
+                                            <input type="hidden" name="gloss_percentage_option"
+                                                id="gloss_percentage_option" value="">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
@@ -289,14 +291,16 @@
                                         <div class="form-group">
                                             <label for="quantity">Quantity</label>
                                             <input id="quantity" name="quantity" class="form-control" type="number"
-                                                placeholder="Please enter quantity" value="{{ $deal->quantity ?? old('quantity') }}">
+                                                placeholder="Please enter quantity"
+                                                value="{{ $deal->quantity ?? old('quantity') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="net_price">Net Price</label>
                                             <input id="net_price" name="net_price" class="form-control" type="number"
-                                                placeholder="" readonly="" value="{{ $deal->net_price ?? old('net_price') }}">
+                                                placeholder="" readonly=""
+                                                value="{{ $deal->net_price ?? old('net_price') }}">
                                             <input type="hidden" id="basic_net">
                                         </div>
                                     </div>
@@ -311,21 +315,24 @@
                                         <div class="form-group">
                                             <label for="trade_discount">Trade_discount (%)</label>
                                             <input id="trade_discount" name="trade_discount" class="form-control"
-                                                type="number" placeholder="" value="{{ $deal->trade_discount ?? old('trade_discount') }}" min="0">
+                                                type="number" placeholder=""
+                                                value="{{ $deal->trade_discount ?? old('trade_discount') }}"
+                                                min="0">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="total_gross">Gross Total</label>
                                             <input id="total_gross" name="total_gross" class="form-control"
-                                                type="number" placeholder="" readonly="" value="{{ $deal->total_gross ?? old('total_gross') }}">
+                                                type="number" placeholder="" readonly=""
+                                                value="{{ $deal->total_gross ?? old('total_gross') }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                {{--<div class="col-12">
+                                    {{-- <div class="col-12">
                                         <div class="form-group">
                                             <label for="note">Note</label>
                                             <textarea id="note" class="form-control" rows="3" placeholder="" readonly=""></textarea>
@@ -345,15 +352,15 @@
                         <!----------------------------------- Delivery Options -------------------------------------->
 
                         <div class="row">
-                            <div class="col-sm-6 mt-4">
+                            {{-- <div class="col-sm-6 mt-4">
                                 <button type="submit" class="btn btn-primary-rounded">
                                     Cancel <span><i class="fa fa-times"></i></span>
                                 </button>
-                            </div>
+                            </div> --}}
 
                             <div class="col-sm-6 mt-4">
                                 <button type="submit" class="btn btn-primary-rounded">
-                                    Update Item <span><i class="fa fa-save"></i></span>
+                                    Update quote <span><i class="fa fa-save"></i></span>
                                 </button>
                             </div>
                         </div>
@@ -369,7 +376,6 @@
 
         </div>
     </div>
-
 @endsection
 @section('scripts')
     <script>
@@ -419,19 +425,25 @@
                 set_product(result);
 
                 //selected addons
-                $("#matt_finish_option option[value={{$deal->matt_finish_option}}]").attr("selected","selected");
-                $("#metallic_paint option[value={{$deal->metallic_paint}}]").attr("selected","selected");
-                $("#wood_stain option[value={{$deal->wood_stain}}]").attr("selected","selected");
-                $("#gloss_percentage option[value={{$deal->gloss_percentage}}]").attr("selected","selected");
-                $("#gloss_100_acrylic_lacquer option[value={{$deal->gloss_100_acrylic_lacquer}}]").attr("selected","selected");
-                $("#polyester option[value={{$deal->polyester}}]").attr("selected","selected");
-                $("#burnished_finish option[value={{$deal->burnished_finish}}]").attr("selected","selected");
-                $("#barrier_coatoption[value={{$deal->barrier_coat}}]").attr("selected","selected");
-                $("#edgebanding option[value={{$deal->edgebanding}}]").attr("selected","selected");
-                $("#micro_bevel option[value={{$deal->micro_bevel}}]").attr("selected","selected");
-                $("#routed_handle_spraying option[value={{$deal->routed_handle_spraying}}]").attr("selected","selected");
-                $("#beaded_door option[value={{$deal->beaded_door}}]").attr("selected","selected");
-                $("#gloss_percentage_option").val({{$deal->gloss_percentage_option}});
+                $("#matt_finish_option option[value={{ $deal->matt_finish_option }}]").attr("selected",
+                    "selected");
+                $("#metallic_paint option[value={{ $deal->metallic_paint }}]").attr("selected",
+                    "selected");
+                $("#wood_stain option[value={{ $deal->wood_stain }}]").attr("selected", "selected");
+                $("#gloss_percentage option[value={{ $deal->gloss_percentage }}]").attr("selected",
+                    "selected");
+                $("#gloss_100_acrylic_lacquer option[value={{ $deal->gloss_100_acrylic_lacquer }}]").attr(
+                    "selected", "selected");
+                $("#polyester option[value={{ $deal->polyester }}]").attr("selected", "selected");
+                $("#burnished_finish option[value={{ $deal->burnished_finish }}]").attr("selected",
+                    "selected");
+                $("#barrier_coatoption[value={{ $deal->barrier_coat }}]").attr("selected", "selected");
+                $("#edgebanding option[value={{ $deal->edgebanding }}]").attr("selected", "selected");
+                $("#micro_bevel option[value={{ $deal->micro_bevel }}]").attr("selected", "selected");
+                $("#routed_handle_spraying option[value={{ $deal->routed_handle_spraying }}]").attr(
+                    "selected", "selected");
+                $("#beaded_door option[value={{ $deal->beaded_door }}]").attr("selected", "selected");
+                $("#gloss_percentage_option").val({{ $deal->gloss_percentage_option }});
             });
 
 
@@ -669,7 +681,7 @@
         $('#matt_finish_option, #spraying_edges, #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat, #edgebanding, #routed_handle_spraying, #beaded_door, #micro_bevel')
             .on('keyup keydown change', function() {
                 calculate_price();
-        });
+            });
 
 
         function calculate_price() {
@@ -745,16 +757,16 @@
 
             $('#total_gross').val(total_gross.toFixed(2));
         }
-        $('#gloss_percentage').on('change', function(){
+        $('#gloss_percentage').on('change', function() {
             // alert(this.html());
             var selected_gross = $('#gloss_percentage option:selected').text();
-            if( selected_gross == "80% Gloss - Add on / Sqm (1 sided)"){
+            if (selected_gross == "80% Gloss - Add on / Sqm (1 sided)") {
                 $('#gloss_percentage_option').val(1);
-            }else if(selected_gross == "100% Gloss / Wet Look PU Paint (SQM)"){
+            } else if (selected_gross == "100% Gloss / Wet Look PU Paint (SQM)") {
                 $('#gloss_percentage_option').val(2);
-            }else if(selected_gross == "100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)"){
+            } else if (selected_gross == "100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)") {
                 $('#gloss_percentage_option').val(3);
-            }else{
+            } else {
                 $('#gloss_percentage_option').val(0);
             }
         });

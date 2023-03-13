@@ -39,7 +39,7 @@
                         id="update_profile">Update Profile</a>
                 </li>
                 <li>
-                    <a href="" class="btn">Logout</a>
+                    <a href="{{ route('logout') }}" class="btn">Logout</a>
                 </li>
             </ul>
         </div>
