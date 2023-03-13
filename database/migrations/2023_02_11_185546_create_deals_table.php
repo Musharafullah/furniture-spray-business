@@ -14,13 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('deals', function (Blueprint $table) {
-            $table->UUID('id')->primary();
+            $table->id();
+
+            $table->unsignedBigInteger('quote_id');
+            $table->unsignedBigInteger('product_id');
 
             // $table->unsignedBigInteger('quote_id');
-            $table->foreignUuid('quote_id')->references('id')->on('quotes')->onDelete('cascade');
+            $table->foreign('quote_id')->references('id')->on('quotes')->onDelete('cascade')->onUpdate('cascade');
 
             // $table->unsignedBigInteger('product_id');
-            $table->foreignUuid('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+
 
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();

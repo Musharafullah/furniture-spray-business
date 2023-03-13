@@ -76,7 +76,7 @@
                                 <div class="form-group table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td colspan="7">
                                                     <select class="form-select" id="hidden_option">
                                                         @php
@@ -99,7 +99,7 @@
                                                     </select>
                                                 </td>
                                                 <td colspan="5"></td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <th>#</th>
                                                 <th colspan="11">Item details</th>
@@ -199,49 +199,49 @@
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="10" style="border: 0px;">
-                                                        @if( $deal->matt_finish_option == 1 )
+                                                        @if ($deal->matt_finish_option == 1)
                                                             Single Side |
                                                         @elseif($deal->matt_finish_option == 2)
                                                             Double Side |
                                                         @endif
-                                                        @if($deal->spraying_edges > 0 )
+                                                        @if ($deal->spraying_edges > 0)
                                                             Sprayed Edges |
                                                         @endif
-                                                        @if($deal->metallic_paint > 0 )
+                                                        @if ($deal->metallic_paint > 0)
                                                             Metallic |
                                                         @endif
-                                                        @if($deal->gloss_percentage_option == 1 )
-                                                                80% Gloss |
-                                                            @elseif($deal->gloss_percentage_option == 2)
-                                                                100% Gloss |
-                                                            @elseif($deal->gloss_percentage_option == 3)
-                                                                100% Gloss Acrylic Lacquer |
-                                                            @endif
-                                                        @if($deal->wood_stain > 0 )
+                                                        @if ($deal->gloss_percentage_option == 1)
+                                                            80% Gloss |
+                                                        @elseif($deal->gloss_percentage_option == 2)
+                                                            100% Gloss |
+                                                        @elseif($deal->gloss_percentage_option == 3)
+                                                            100% Gloss Acrylic Lacquer |
+                                                        @endif
+                                                        @if ($deal->wood_stain > 0)
                                                             Wood stain |
                                                         @endif
-                                                        @if($deal->gloss_100_acrylic_lacquer > 0 )
+                                                        @if ($deal->gloss_100_acrylic_lacquer > 0)
                                                             100% Gloss / Wet Look Clear Acrylic Lacquer |
                                                         @endif
-                                                        @if($deal->polyester > 0 )
+                                                        @if ($deal->polyester > 0)
                                                             Polyester / Full Grain |
                                                         @endif
-                                                        @if($deal->burnished_finish > 0 )
+                                                        @if ($deal->burnished_finish > 0)
                                                             Burnished Finish |
                                                         @endif
-                                                        @if($deal->barrier_coat > 0 )
+                                                        @if ($deal->barrier_coat > 0)
                                                             Barrier Coat |
                                                         @endif
-                                                        @if($deal->edgebanding > 0 )
+                                                        @if ($deal->edgebanding > 0)
                                                             Edge banding |
                                                         @endif
-                                                        @if($deal->micro_bevel > 0 )
+                                                        @if ($deal->micro_bevel > 0)
                                                             Micro bevel |
                                                         @endif
-                                                        @if($deal->routed_handle_spraying > 0 )
+                                                        @if ($deal->routed_handle_spraying > 0)
                                                             Routed / J Handle |
                                                         @endif
-                                                        @if($deal->beaded_door > 0 )
+                                                        @if ($deal->beaded_door > 0)
                                                             Beaded Door |
                                                         @endif
                                                     </td>
@@ -264,7 +264,7 @@
                                                         $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                         $delivery_charges = $quote->delivery_charges;
                                                         $grand_total = $product_sum_total + $delivery_charges;
-
+                                                        
                                                         // calculation for net discount
                                                         $net = $product_sum_total / 1.2;
                                                         $discount_vat = $product_sum_total - $net;
@@ -274,8 +274,8 @@
                                                 <td colspan="3">
                                                     <h5>Net price: £{{ round($net, 2) }}
                                                         <label class="switch ">
-                                                            <input type="checkbox" name="total_net_status"
-                                                                class="primary" value="{{ $quote->id }}"
+                                                            <input type="checkbox" name="total_net_status" class="primary"
+                                                                value="{{ $quote->id }}"
                                                                 {{ $quote->total_net_status == 1 ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
                                                         </label>
@@ -284,8 +284,8 @@
                                                 <td>
                                                     <h5> Vat : £{{ round($discount_vat, 2) }}<br />
                                                         <label class="switch ">
-                                                            <input type="checkbox" name="total_vat_status"
-                                                                class="primary" value="{{ $quote->id }}"
+                                                            <input type="checkbox" name="total_vat_status" class="primary"
+                                                                value="{{ $quote->id }}"
                                                                 {{ $quote->total_vat_status == 1 ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
                                                         </label>
@@ -296,8 +296,8 @@
                                                     <h5> Gross total :
                                                         £{{ $product_sum_total }}<br />
                                                         <label class="switch ">
-                                                            <input type="checkbox" name="gross_total_status"
-                                                                class="primary" value="{{ $quote->id }}"
+                                                            <input type="checkbox" name="gross_total_status" class="primary"
+                                                                value="{{ $quote->id }}"
                                                                 {{ $quote->gross_total_status == 1 ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
                                                         </label>
@@ -314,12 +314,13 @@
                                                 <td class="pull-right">
                                                     <h5>
                                                         <label class="switch ">
-                                                            <input type="checkbox" name="collect_status"
-                                                                class="primary" value="{{ $quote->id }}"
+                                                            <input type="checkbox" name="collect_status" class="primary"
+                                                                value="{{ $quote->id }}"
                                                                 {{ $quote->hide_collect == 1 ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
                                                         </label>
-                                                        Grand Total (Collected) : £{{ $quote->collected }}
+                                                        {{-- Grand Total (Collected) : £{{ $quote->collected }} --}}
+                                                        Grand Total (Collected) : £{{ $product_sum_total }}
                                                     </h5>
 
                                                     <h5>
@@ -548,7 +549,8 @@
                                                 <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
-                                            <input type="hidden" name="gloss_percentage_option" id="gloss_percentage_option">
+                                            <input type="hidden" name="gloss_percentage_option"
+                                                id="gloss_percentage_option">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
@@ -864,6 +866,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @php
+                    $delivery = App\Models\DeliveryCharges::where('id', 1)->first();
+                @endphp
                 <form method="post" action="{{ route('edit_survey', $quote) }}" id="edit_delivered">
                     @csrf
                     @method('put')
@@ -871,7 +876,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="delivered">Delivery Charges</label>
+                                    <label for="delivered">Delivery Charges(£)</label>
                                     <input id="delivered" name="delivered" class="form-control" type="text"
                                         placeholder="Enter Number" value="{{ $quote->delivered }}">
                                     @if ($errors->has('delivered'))
@@ -1403,18 +1408,18 @@
             $('#total_gross').val(total_gross.toFixed(2));
         }
 
-        $('#gloss_percentage').on('change', function(){
+        $('#gloss_percentage').on('change', function() {
             // alert(this.html());
             var selected_gross = $('#gloss_percentage option:selected').text();
-           if( selected_gross == "80% Gloss - Add on / Sqm (1 sided)"){
+            if (selected_gross == "80% Gloss - Add on / Sqm (1 sided)") {
                 $('#gloss_percentage_option').val(1);
-           }else if(selected_gross == "100% Gloss / Wet Look PU Paint (SQM)"){
-               $('#gloss_percentage_option').val(2);
-           }else if(selected_gross == "100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)"){
-               $('#gloss_percentage_option').val(3);
-           }else{
-               $('#gloss_percentage_option').val(0);
-           }
+            } else if (selected_gross == "100% Gloss / Wet Look PU Paint (SQM)") {
+                $('#gloss_percentage_option').val(2);
+            } else if (selected_gross == "100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)") {
+                $('#gloss_percentage_option').val(3);
+            } else {
+                $('#gloss_percentage_option').val(0);
+            }
         });
     </script>
 @endsection

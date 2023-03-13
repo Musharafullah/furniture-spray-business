@@ -22,7 +22,7 @@
                     @if ($quotes)
                         @foreach ($quotes as $key => $quote)
                             <tr>
-                                <td>MCG-0000{{ $key + 1 }}</td>
+                                <td>ROKA-00000{{ $quote->id }}</td>
                                 <td>{{ $quote->user->name }}</td>
                                 <td>{{ $quote->user->phone }}</td>
                                 <td>{{ $quote->user->postal_code }}</td>
@@ -35,9 +35,11 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <a href="" data-toggle="tooltip" title="View Quote"><i class="fa fa-eye"></i></a>
-                                        <a href="" data-toggle="tooltip" title="Send & Download Quote"><i
-                                                class="fa fa-location-arrow"></i></a>
+                                        <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip"
+                                            title="View Quote"><i class="fa fa-eye">
+                                            </i></a>
+                                        <a href="{{ route('download_pdf', $quote->id) }}" data-toggle="tooltip"
+                                            title="Send & Download Quote"><i class="fa fa-location-arrow"></i></a>
                                         <a href="" data-toggle="tooltip" title="Duplicate Quote"><i
                                                 class="fa fa-copy"></i></a>
                                     </div>

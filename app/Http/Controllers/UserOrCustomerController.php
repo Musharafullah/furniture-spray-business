@@ -174,6 +174,7 @@ class UserOrCustomerController extends Controller
      */
     public function show($id)
     {
+
         $data = $this->get_by_id($this->_modal, $id);
         return view('{{view_name}}', compact('data'));
     }

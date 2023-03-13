@@ -17,7 +17,7 @@
                 @if ($datadetail)
                     @foreach ($datadetail as $key => $quote)
                         <tr>
-                            <td>MCG-0000{{ $key + 1 }}</td>
+                            <td>ROKA-00000{{ $quote->id }}</td>
                             <td>{{ $quote->client->name }}</td>
                             <td>{{ $quote->client->phone }}</td>
                             <td>{{ $quote->client->postal_code }}</td>
@@ -47,15 +47,22 @@
                             </td>
                             <td>
                                 <div>
-                                    <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip" title="View Quote">
+                                    <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip"
+                                        title="View Quote">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                
-                                    <a href="{{ route('quote.pdf', $quote->id) }}" data-toggle="tooltip" title="Send & Download Quote">
+
+                                    <a href="{{ route('download_pdf', $quote->id) }}" data-toggle="tooltip"
+                                        title="Send & Download Quote">
                                         <i class="fa fa-location-arrow"></i>
                                     </a>
-                                
-                                    <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip" title="Duplicate Quote">
+                                    {{-- <a href="{{ route('quote.pdf', $quote->id) }}" data-toggle="tooltip"
+                                        title="Send & Download Quote">
+                                        <i class="fa fa-location-arrow"></i>
+                                    </a> --}}
+
+                                    <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip"
+                                        title="Duplicate Quote">
                                         <i class="fa fa-copy"></i>
                                     </a>
                                 </div>
