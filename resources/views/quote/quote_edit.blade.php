@@ -314,10 +314,8 @@
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="trade_discount">Trade_discount (%)</label>
-                                            <input id="trade_discount" name="trade_discount" class="form-control"
-                                                type="number" placeholder=""
-                                                value="{{ $deal->trade_discount ?? old('trade_discount') }}"
-                                                min="0">
+                                            <input id="trade_discount" name="trade_discount" class="form-control" placeholder=""
+                                                type="number" value="{{ $deal->trade_discount ?? old('trade_discount') }}"> 
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
@@ -393,7 +391,7 @@
                     $('#cust_email').val(response.client.email);
                     $('#cust_postcode').val(response.client.postal_code);
                     $('#cust_address').val(response.client.address);
-                    $('#trade_discount').val(response.client.trade_discount);
+                    //$('#trade_discount').val(response.client.trade_discount);
                 }
             });
         }
@@ -416,6 +414,7 @@
 
             } else {
                 $('#product_lm').val(1);
+                $('#product_sqm').val(1);
             }
 
             //This is simple Get ajax request
@@ -437,7 +436,7 @@
                 $("#polyester option[value={{ $deal->polyester }}]").attr("selected", "selected");
                 $("#burnished_finish option[value={{ $deal->burnished_finish }}]").attr("selected",
                     "selected");
-                $("#barrier_coatoption[value={{ $deal->barrier_coat }}]").attr("selected", "selected");
+                $("#barrier_coat option[value={{ $deal->barrier_coat }}]").attr("selected", "selected");
                 $("#edgebanding option[value={{ $deal->edgebanding }}]").attr("selected", "selected");
                 $("#micro_bevel option[value={{ $deal->micro_bevel }}]").attr("selected", "selected");
                 $("#routed_handle_spraying option[value={{ $deal->routed_handle_spraying }}]").attr(
@@ -566,6 +565,10 @@
                 addon_selectboxes('gloss_100_acrylic_lacquer', 0);
                 set_gloss_percent('gloss_percentage', row.gloss_80, row.gloss_100_paint, row.gloss_100_acrylic_lacquer);
             }
+            if (type == 'standard' || type== 'basic') {
+                addon_selectboxes('gloss_100_acrylic_lacquer', 0);
+                set_gloss_percent('gloss_percentage',  0, 0, 0);
+            }
 
             addon_selectboxes('polyester', row.polyester_or_full_grain);
             addon_selectboxes('burnished_finish', row.burnished_finish);
@@ -587,7 +590,7 @@
             var net_price = row.sale_net_sqm;
             $('#pro_price').val(net_price);
 
-            if (type == 'standard' || type == 'basic') {
+            if (type == 'standard') {
                 $('.full_paint, .full_wood').hide();
                 $('.sqm, .width, .height').show();
 
@@ -621,8 +624,11 @@
             }
 
             if (type == 'basic') {
+                $('.full_paint, .full_wood').hide();
                 $('.sqm, .width, .height').hide();
+
                 $('#product_sqm').val(1);
+                $('#product_lm').val(1);
                 calculate_price();
             }
         }
@@ -717,8 +723,10 @@
                         } else {
                             var value = Number($(this).val()) * input_sqm;
                             total += value;
+                            //alert(total);
                         }
                     });
+                    
 
 
                 var lm = Number($('#product_lm').val());
