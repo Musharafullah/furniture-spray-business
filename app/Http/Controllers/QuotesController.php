@@ -259,6 +259,15 @@ class QuotesController extends Controller
 
     }
 
+    public function hidden_option(){
+        $quote_id = $this->_request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->hidden_price = $this->_request->quote_option;
+        $quote->save();
+
+    }
+
     /**
      * Display the specified resource.
      *

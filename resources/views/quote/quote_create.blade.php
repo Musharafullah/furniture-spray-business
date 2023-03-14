@@ -76,7 +76,7 @@
                                 <div class="form-group table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                            {{-- <tr>
+                                            <tr>
                                                 <td colspan="7">
                                                     <select class="form-select" id="hidden_option">
                                                         @php
@@ -99,7 +99,7 @@
                                                     </select>
                                                 </td>
                                                 <td colspan="5"></td>
-                                            </tr> --}}
+                                            </tr> 
                                             <tr>
                                                 <th>#</th>
                                                 <th colspan="11">Item details</th>
@@ -1418,6 +1418,27 @@
             } else {
                 $('#gloss_percentage_option').val(0);
             }
+        });
+
+        //hidden price for quote
+        $('#hidden_option').on('change', function() {
+            var hidden_option =this.value;
+                //alert(hidden_option);
+            hidden_option = hidden_option.split("/");
+
+            var quote_option = hidden_option[0];
+            var quote_id = hidden_option[1];
+            //alert('quote option :'+quote_option+ ' qute_id:'+quote_id);
+            $.ajax({
+                type: "GET",
+                url: " {{route('hidden.option')}}",
+                data: {quote_option: quote_option, quote_id: quote_id},
+                success: function (data) {
+                    //console.log(data);
+                    // console.log('ok')
+                }
+
+            });
         });
     </script>
 @endsection
