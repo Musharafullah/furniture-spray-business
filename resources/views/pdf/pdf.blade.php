@@ -105,7 +105,7 @@
             </div>
             <div class="right-element">
                 <span>
-                    Quote: {{ $quotes->id }}<br />
+                    Quote: ROKA-00000{{ $quotes->id }}<br />
                     Date: 13-02-2023<br />
                     Created By: {{ $quotes->user->name }}
                 </span>
@@ -141,10 +141,18 @@
                         <td>SQM</td>
                         <td>Qty</td>
                         @if ($discount > 0)
-                            <td>Trade Discount</td>
+                            <td>
+                                @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
+                                    Trade Discount
+                                @endif
+                            </td>
                         @endif
                         @if ($quotes->net_price_status == 1)
-                            <td>Net Price</td>
+                            <td>
+                                @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
+                                    Net Price
+                                @endif
+                            </td>
                         @endif
                     </tr>
                 </thead>
@@ -161,7 +169,7 @@
                                 $net_price += $quote->net_price;
                                 $gross_total += $quote->total_gross;
                             @endphp
-                            <td>ROCA-0000{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration }}</td>
 
                             @if ($discount > 0 && $quotes->net_price_status == 1)
                                 <td>{{ $quote->product->product_name }}</td>
@@ -176,10 +184,18 @@
                             <td>{{ $quote->sqm }}</td>
                             <td>{{ $quote->quantity }}</td>
                             @if ($discount > 0)
-                                <td>{{ $quote->trade_discount }}</td>
+                                <td>
+                                    @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
+                                        {{ $quote->trade_discount }}
+                                    @endif
+                                </td>
                             @endif
                             @if ($quotes->net_price_status == 1)
-                                <td>{{ $quote->net_price }}</td>
+                                <td>
+                                    @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
+                                        {{ $quote->net_price }}
+                                    @endif
+                                </td>
                             @endif
                         </tr>
 
@@ -238,40 +254,44 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5">
+                        <td colspan="4">
                             <b>Comment : {{ $quotes->comment }}</b>
                         </td>
-                        <td colspan="2">
+                        <td colspan="3">
                             <span>
-                                @if ($quotes->total_net_status == 1)
-                                    <nobr>Total Net</nobr><br>
-                                @endif
-                                @if ($quotes->total_vat_status == 1)
-                                    <nobr>Total Vat</nobr><br>
-                                @endif
-                                @if ($quotes->gross_total_status == 1)
-                                    <nobr><b>Gross Total</b></nobr><br>
+                                @if($quotes->hidden_price == 'Option_1(display_all_price_fields)' || $quotes->hidden_price == 'Option_2(hide_net_price_column_and_discount_column)')
+                                    @if ($quotes->total_net_status == 1)
+                                        <nobr>Total Net</nobr><br>
+                                    @endif
+                                    @if ($quotes->total_vat_status == 1)
+                                        <nobr>Total Vat</nobr><br>
+                                    @endif
+                                    @if ($quotes->gross_total_status == 1)
+                                        <nobr><b>Gross Total</b></nobr><br>
+                                    @endif
                                 @endif
 
                                 @if ($quotes->hide_collect == 1)
                                     <br>
-                                    <nobr>Grand Total (Collected)</nobr><br />
+                                    Grand Total (Collected)<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
-                                    <nobr>Grand Total (Delivered)</nobr><br />
+                                    Grand Total (Delivered)<br />
                                 @endif
                             </span>
                         </td>
                         <td>
                             <span>
-                                @if ($quotes->total_net_status == 1)
-                                    £{{ $net_price }}<br>
-                                @endif
-                                @if ($quotes->total_vat_status == 1)
-                                    £{{ $vat }}<br>
-                                @endif
-                                @if ($quotes->gross_total_status == 1)
-                                    <b>£{{ $gross_total }}</b><br>
+                                @if($quotes->hidden_price == 'Option_1(display_all_price_fields)' || $quotes->hidden_price == 'Option_2(hide_net_price_column_and_discount_column)')
+                                    @if ($quotes->total_net_status == 1)
+                                        £{{ $net_price }}<br>
+                                    @endif
+                                    @if ($quotes->total_vat_status == 1)
+                                        £{{ $vat }}<br>
+                                    @endif
+                                    @if ($quotes->gross_total_status == 1)
+                                        <b>£{{ $gross_total }}</b><br>
+                                    @endif
                                 @endif
 
                                 @if ($quotes->hide_collect == 1)

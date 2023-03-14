@@ -349,7 +349,7 @@
 
                         <!----------------------------------- Delivery Options -------------------------------------->
 
-                        <div class="row">
+                        <div class="row d-flex justify-content-end">
                             {{-- <div class="col-sm-6 mt-4">
                                 <button type="submit" class="btn btn-primary-rounded">
                                     Cancel <span><i class="fa fa-times"></i></span>

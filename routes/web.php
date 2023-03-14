@@ -68,6 +68,7 @@ Route::get('/gross-total', [App\Http\Controllers\QuotesController::class,'gross_
 Route::get('/net-price', [App\Http\Controllers\QuotesController::class,'net_price_status'])->name('net_price_status');
 Route::get('/collect-status', [App\Http\Controllers\QuotesController::class,'collect_status'])->name('collect_status');
 Route::get('/delivered-status', [App\Http\Controllers\QuotesController::class,'delivered_status'])->name('delivered_status');
+Route::get('/hidden-option', [App\Http\Controllers\QuotesController::class,'hidden_option'])->name('hidden.option');
 
 
 Route::get('/quote-status', [App\Http\Controllers\QuotesController::class,'status'])->name('quote_status');
