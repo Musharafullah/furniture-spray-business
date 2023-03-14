@@ -28,7 +28,7 @@ return new class extends Migration
             $table->longText('internal_comment')->nullable();
             // status
             $table->string('hide_collect')->default(1)->comment('1: show, 0:hide');
-            $table->string('hide_delivered')->default(1)->comment('1: show, 0:hide');
+            $table->string('hide_delivered')->default(0)->comment('1: show, 0:hide');
             $table->string('total_net_status')->default(1)->comment('1: show, 0:hide');
             $table->string('total_vat_status')->default(1)->comment('1: show, 0:hide');
             $table->string('gross_total_status')->default(1)->comment('1: show, 0:hide');

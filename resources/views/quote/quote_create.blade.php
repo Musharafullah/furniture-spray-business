@@ -165,41 +165,35 @@
                                                     <td>{{ $deal->trade_discount }}</td>
                                                     <td>{{ $deal->total_gross }}</td>
                                                     <td>
-                                                        <ul class="list-inline">
-
-                                                            <li>
+                                                        <div>
+                                                            <nobr>
                                                                 <a href="{{ route('duplicate_item', $deal->id) }}"
                                                                     data-toggle="tooltip" title="Duplicate Item"><i
-                                                                        class="fa fa-copy"></i></a>
-                                                            </li>
-
-                                                            <li>
+                                                                        class="fa fa-copy"></i>
+                                                                </a>
                                                                 <a href="{{ route('quote.edit', $deal->id) }}"
                                                                     data-toggle="tooltip" title="Edit Item"><i
-                                                                        class="fa fa-pencil"></i></a>
-                                                            </li>
-
-                                                            <li>
+                                                                        class="fa fa-pencil"></i>
+                                                                </a>
                                                                 <a href="{{ route('destroy_item', $deal->id) }}"
                                                                     data-toggle="tooltip" title="Delete Item"><i
-                                                                        class="fa fa-times-circle"></i></a>
-                                                            </li>
-
-                                                            <li>
+                                                                        class="fa fa-times-circle"></i>
+                                                                </a>
                                                                 <label class="switch ">
                                                                     <input type="checkbox" name="image_status"
                                                                         class="primary" value="{{ $deal->id }}"
                                                                         {{ $deal->image_status == 1 ? 'checked' : '' }}>
                                                                     <span class="slider round"></span>
                                                                 </label>
-                                                            </li>
-                                                        </ul>
+                                                            </nobr>
+                                                        </div>
 
                                                     </td>
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="10" style="border: 0px;">
-                                                        @if ($deal->matt_finish_option == 1)
+                                                        @if($deal->product->type == 'basic' || $deal->product->type == 'standard')
+                                                        @elseif ($deal->matt_finish_option == 1)
                                                             Single Side |
                                                         @elseif($deal->matt_finish_option == 2)
                                                             Double Side |
@@ -503,7 +497,7 @@
                                             <label>Sides</label>
                                             <select name="matt_finish_option" id="matt_finish_option"
                                                 class="form-select">
-                                                <option value="">-- Select option --</option>
+                                                <option value="0">-- Select option --</option>
                                                 <option value="1">Single</option>
                                                 <option value="2">Double</option>
                                             </select>
@@ -543,7 +537,7 @@
                                         <div class="form-group">
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
-                                                <option value="">-- Select option --</option>
+                                                <option value="0">-- Select option --</option>
                                                 <option value="">80% Gloss - Add on / Sqm (1 sided)</option>
                                                 <option value="">100% Gloss / Wet Look PU Paint (SQM)</option>
                                                 <option value="">100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
@@ -558,7 +552,7 @@
                                             <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
-                                                <option value="">-- Select option --</option>
+                                                <option value="0">-- Select option --</option>
                                                 <option value="">YES</option>
                                                 <option value="">NO</option>
                                             </select>
@@ -1215,6 +1209,10 @@
             if (type == 'full_paint') {
                 addon_selectboxes('gloss_100_acrylic_lacquer', 0);
                 set_gloss_percent('gloss_percentage', row.gloss_80, row.gloss_100_paint, row.gloss_100_acrylic_lacquer);
+            }
+            if (type == 'standard' || type== 'basic') {
+                addon_selectboxes('gloss_100_acrylic_lacquer', 0);
+                set_gloss_percent('gloss_percentage',  0, 0, 0);
             }
 
             addon_selectboxes('polyester', row.polyester_or_full_grain);

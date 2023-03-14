@@ -161,7 +161,7 @@
                                 $net_price += $quote->net_price;
                                 $gross_total += $quote->total_gross;
                             @endphp
-                            <td>{{ $loop->iteration }}</td>
+                            <td>ROCA-0000{{ $loop->iteration }}</td>
 
                             @if ($discount > 0 && $quotes->net_price_status == 1)
                                 <td>{{ $quote->product->product_name }}</td>
@@ -186,7 +186,8 @@
                         <tr>
                             <td style="border: 0px;"></td>
                             <td colspan="8" style="border: 0px;">
-                                @if ($quote->matt_finish_option == 1)
+                                @if($quote->product->type == 'basic' || $quote->product->type == 'standard')
+                                @elseif ($quote->matt_finish_option == 1)
                                     Single Side |
                                 @elseif($quote->matt_finish_option == 2)
                                     Double Side |
@@ -274,10 +275,10 @@
                                 @endif
 
                                 @if ($quotes->hide_collect == 1)
-                                    <br>£{{ $quotes->collected }}<br />
+                                    <br>£{{ $gross_total }}<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
-                                    £{{ $quotes->delivered }}<br />
+                                    £{{ $quotes->delivered + $gross_total }}<br />
                                 @endif
                             </span>
                         </td>
@@ -381,9 +382,9 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-copyright">
-            ALL GOODS SUPPLIED REMAIN PROPERTY OF MCG UNTIL PAID FOR IN FULL.<br>
-            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA TERMS AND CONDITIONS.<br>
-            <span>MCG | 020 8099 9455 | info@mcg.glass</span>
+            ALL GOODS SUPPLIED REMAIN PROPERTY OF ROKA SPRAYING UNTIL PAID FOR IN FULL.<br>  
+            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA TERMS AND CONDITIONS.<br>  
+            <span>Roka Spraying | 020 3004 4824| info@furniturepaintspraying.co.uk</span>
         </div>
     </footer>
     <!-- Footer -->
