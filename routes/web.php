@@ -60,6 +60,8 @@ Route::get('/duplicate-item/{var?}', [App\Http\Controllers\QuotesController::cla
 Route::get('/quote-duplicate/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate'])->name('quote_riplicate');
 // download quote
 Route::get('send-pdf/{id}', [App\Http\Controllers\QuotesController::class,'download_pdf'])->name('download_pdf');
+// send quote
+Route::get('view-send-pdf/{id}', [App\Http\Controllers\QuotesController::class,'send_pdf'])->name('send.pdf');
 // status change
 Route::get('/image-status', [App\Http\Controllers\QuotesController::class,'image_status'])->name('image_status');
 Route::get('/total-vat', [App\Http\Controllers\QuotesController::class,'total_vat_status'])->name('total_vat_status');

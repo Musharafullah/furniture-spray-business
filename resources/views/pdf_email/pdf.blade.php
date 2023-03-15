@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Title</title>
+    <title>PDF Quote</title>
 
     <style>
         body {
@@ -106,7 +106,7 @@
             <div class="right-element">
                 <span>
                     Quote: ROKA-00000{{ $quotes->id }}<br />
-                    Date: 13-02-2023<br />
+                    {{'Date: ' .\Illuminate\Support\Carbon::now()->format('d-m-Y') }}<br />
                     Created By: {{ $quotes->user->name }}
                 </span>
             </div>
@@ -395,8 +395,6 @@
             </ol>
 
         </div>
-
-        <button class="btn-info">Send Quote</button>
     </main>
 
     <!-- Footer -->
