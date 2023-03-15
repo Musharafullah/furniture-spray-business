@@ -447,20 +447,44 @@ class QuotesController extends Controller
 
         $quotes = $this->get_by_id($this->_modal, $id);
         $client = $quotes->client_id;
-        $pdf = \PDF::loadView('pdf.pdf', compact('quotes'));
+        // $pdf = \PDF::loadView('pdf.pdf', compact('quotes'));
+        $pdf = \PDF::loadView('pdf_email.pdf', compact('quotes'));
         $gsuk = 'ROKA-0000'.$id;
         $email = $quotes->client->email;
 
         Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
-            $message->from('roka@gmail.com', 'FurnitureSpray');
+            $message->from('dev@cyberbulwark.com', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
-            $message->cc('testingjust247@gmail.com')->subject('Roka quote –'.$gsuk);
+            $message->cc('dev@cyberbulwark.com')->subject('Roka quote –'.$gsuk);
             $message->attachData($pdf->output(), $gsuk.'.pdf');
         });
 
         return $pdf->download($gsuk.'.pdf');
 
     }
+    //send_pdf
+      //download pdf
+    public function send_pdf($id)
+    {
+
+        $quotes = $this->get_by_id($this->_modal, $id);
+        $client = $quotes->client_id;
+        $pdf = \PDF::loadView('pdf_email.pdf', compact('quotes'));
+        $gsuk = 'ROKA-0000'.$id;
+        $email = $quotes->client->email;
+
+        Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
+            $message->from('dev@cyberbulwark.com', 'FurnitureSpray');
+            $message->to($email)->subject('ROKA quote –'.$gsuk);
+            $message->cc('dev@cyberbulwark.com')->subject('Roka quote –'.$gsuk);
+            $message->attachData($pdf->output(), $gsuk.'.pdf');
+        });
+
+       return redirect()->route('quote.index')->with('success','PDF sent successfully!');
+
+    }
+    
+    
     public function pdf($id)
     {
         $quotes = $this->get_by_id($this->_modal, $id);
