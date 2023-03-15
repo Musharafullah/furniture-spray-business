@@ -147,7 +147,7 @@
                                                                 $net_price = round($deal->net_price, 2);
                                                             }
                                                         @endphp
-                                                        {{ $net_price }}
+                                                        {{ number_format($net_price, 2) }}
                                                     </td>
                                                     <td>
                                                         @php
@@ -160,10 +160,10 @@
                                                                 $pro_vat = round($deal->vat, 2);
                                                             }
                                                         @endphp
-                                                        {{ $pro_vat }}
+                                                        {{ number_format($pro_vat, 2) }}
                                                     </td>
                                                     <td>{{ $deal->trade_discount }}</td>
-                                                    <td>{{ $deal->total_gross }}</td>
+                                                    <td>{{ number_format($deal->total_gross, 2) }}</td>
                                                     <td>
                                                         <div>
                                                             <nobr>
@@ -266,7 +266,7 @@
                                                     <h5>Total</h5>
                                                 </td>
                                                 <td colspan="3">
-                                                    <h5>Net price: £{{ round($net, 2) }}
+                                                    <h5>Net price: £{{ number_format($net, 2) }}
                                                         <label class="switch ">
                                                             <input type="checkbox" name="total_net_status" class="primary"
                                                                 value="{{ $quote->id }}"
@@ -276,7 +276,7 @@
                                                     </h5>
                                                 </td>
                                                 <td>
-                                                    <h5> Vat : £{{ round($discount_vat, 2) }}<br />
+                                                    <h5> Vat : £{{ number_format($discount_vat, 2) }}<br />
                                                         <label class="switch ">
                                                             <input type="checkbox" name="total_vat_status" class="primary"
                                                                 value="{{ $quote->id }}"
@@ -288,7 +288,7 @@
 
                                                 <td colspan="2">
                                                     <h5> Gross total :
-                                                        £{{ $product_sum_total }}<br />
+                                                        £{{ number_format($product_sum_total, 2) }}<br />
                                                         <label class="switch ">
                                                             <input type="checkbox" name="gross_total_status" class="primary"
                                                                 value="{{ $quote->id }}"
@@ -314,7 +314,7 @@
                                                             <span class="slider round"></span>
                                                         </label>
                                                         {{-- Grand Total (Collected) : £{{ $quote->collected }} --}}
-                                                        Grand Total (Collected) : £{{ $product_sum_total }}
+                                                        Grand Total (Collected) : £{{ number_format($product_sum_total, 2) }}
                                                     </h5>
 
                                                     <h5>
@@ -334,7 +334,7 @@
                                                                     id="edit_delivered">(Edit)</a></small><br />
                                                             <small>Client distance exceed 60 miles</small>
                                                         @else
-                                                            £{{ $quote->delivered + $product_sum_total }}
+                                                            £{{ number_format($quote->delivered + $product_sum_total, 2) }}
                                                             <small><a href="#" data-bs-toggle="modal"
                                                                     data-bs-target="#myModal"
                                                                     id="edit_delivered">(Edit)</a></small>
