@@ -549,7 +549,7 @@
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
                                         <div class="form-group">
-                                            <label>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)</label>
+                                            <label>100% Gloss / Wet Look</label>
                                             <select name="gloss_100_acrylic_lacquer" id="gloss_100_acrylic_lacquer"
                                                 class="form-select">
                                                 <option value="0">-- Select option --</option>
