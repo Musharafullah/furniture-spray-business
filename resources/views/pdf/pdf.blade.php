@@ -193,7 +193,7 @@
                             @if ($quotes->net_price_status == 1)
                                 <td>
                                     @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
-                                        {{ $quote->net_price }}
+                                        {{ number_format($quote->net_price, 2) }}
                                     @endif
                                 </td>
                             @endif
@@ -284,21 +284,21 @@
                             <span>
                                 @if($quotes->hidden_price == 'Option_1(display_all_price_fields)' || $quotes->hidden_price == 'Option_2(hide_net_price_column_and_discount_column)')
                                     @if ($quotes->total_net_status == 1)
-                                        £{{ $net_price }}<br>
+                                        £{{ number_format($net_price, 2) }}<br>
                                     @endif
                                     @if ($quotes->total_vat_status == 1)
-                                        £{{ $vat }}<br>
+                                        £{{ number_format($vat, 2) }}<br>
                                     @endif
                                     @if ($quotes->gross_total_status == 1)
-                                        <b>£{{ $gross_total }}</b><br>
+                                        <b>£{{ number_format($gross_total, 2) }}</b><br>
                                     @endif
                                 @endif
 
                                 @if ($quotes->hide_collect == 1)
-                                    <br>£{{ $gross_total }}<br />
+                                    <br>£{{ number_format($gross_total, 2) }}<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
-                                    £{{ $quotes->delivered + $gross_total }}<br />
+                                    £{{ number_format($quotes->delivered + $gross_total, 2) }}<br />
                                 @endif
                             </span>
                         </td>

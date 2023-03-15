@@ -480,6 +480,9 @@ class QuotesController extends Controller
             $message->attachData($pdf->output(), $gsuk.'.pdf');
         });
 
+        $quotes->status = 'sent';
+        $quotes->save();
+
        return redirect()->route('quote.index')->with('success','PDF sent successfully!');
 
     }
