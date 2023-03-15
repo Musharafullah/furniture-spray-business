@@ -91,11 +91,11 @@
                                     <h6>Total Quotes</h6>
                                 </div>
                                 <div class="stat">
-                                    <h2>£{{ $highest_quote }}</h2>
+                                    <h2>£{{ number_format($highest_quote, 2) }}</h2>
                                     <h6>Highest Quote</h6>
                                 </div>
                                 <div class="stat">
-                                    <h2>£{{ $average_quote }}</h2>
+                                    <h2>£{{ number_format($average_quote, 2) }}</h2>
                                     <h6>Average Quote</h6>
                                 </div>
                                 <div class="stat">
@@ -132,7 +132,7 @@
                                     @php
                                         $quote_total = $quote->deals->sum('total_gross')
                                     @endphp
-                                    {{ $quote_total }}
+                                    {{ number_format($quote_total, 2) }}
                                 </td>
                                 <td>{{ $quote->status }}</td>
                                 <td>

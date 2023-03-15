@@ -26,7 +26,7 @@
                                 @php
                                     $quote_total = $quote->deals->sum('total_gross');
                                 @endphp
-                                {{ $quote_total }}</td>
+                                {{ number_format($quote_total, 2) }}</td>
 
                             <td>
                                 <select name="status" id="quote-status"

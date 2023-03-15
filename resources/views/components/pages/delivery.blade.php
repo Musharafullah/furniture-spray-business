@@ -13,7 +13,7 @@
                     @foreach ($datadetail as $key => $datadetail)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>£{{ $datadetail->total_charges }}</td>
+                            <td>£{{ number_format($datadetail->total_charges, 2) }}</td>
                             <td>
                                 <div>
                                     <a href="" data-bs-toggle="modal" data-bs-toggle="modal"
@@ -31,7 +31,7 @@
 </div>
 <div aria-hidden="true" aria-labelledby="DeliveryModal" class="modal modal-lg fade in" id="delivery" role="dialog"
     tabindex="-1">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="" method="post" id="">
                 @csrf
@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label for="name">Delivery(£)</label>
                                 <input id="name" name="total_charges" class="form-control" type="text"
-                                    placeholder="Enter Delivery" value="{{ $datadetail->total_charges }}" required>
+                                    placeholder="Enter Delivery" value="{{ number_format($datadetail->total_charges, 2) }}" required>
                             </div>
                         </div>
                     </div>
