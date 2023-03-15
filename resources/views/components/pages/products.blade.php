@@ -32,8 +32,8 @@
                             <td class="text-center">
                                 <img src="{{ asset('product_image/product/' . $product->product_image_path) }}">
                             </td>
-                            <td>{{ $product->sale_net_sqm }}</td>
-                            <td>{{ $product->matt_finish }}</td>
+                            <td>{{ number_format($product->sale_net_sqm, 2) }}</td>
+                            <td>{{ number_format($product->matt_finish, 2) }}</td>
                             <td>{{ $pro_type }}</td>
                             <td>
                                 <div>
