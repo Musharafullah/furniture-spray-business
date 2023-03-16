@@ -219,13 +219,15 @@ class QuotesController extends Controller
         $duplicate_quote = $quote->replicate();
         $duplicate_quote->save();
 
-        $item_duplicate = Deals::where('quote_id',$quote->id)->first();
-        $duplicate = $item_duplicate->replicate();
-        $duplicate->save();
+        $duplicate_quote_id = $duplicate_quote->id;
 
-        $update_id = Deals::where('quote_id', $quote->id)->latest('created_at')->first();
-        $update_id->quote_id =$duplicate_quote->id;
-        $update_id->save();
+        $item_duplicate = Deals::where('quote_id', $quote->id)->get();
+        foreach($item_duplicate as $duplicate){
+            $replicate = $duplicate->replicate();
+            $replicate->quote_id = $duplicate_quote_id;
+            $replicate->save();
+        }
+
         //
         return redirect()->back()->with('success','Record duplicted successfull!');
     }

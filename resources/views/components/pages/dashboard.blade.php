@@ -124,7 +124,7 @@
                             @if ($datadetail['all_quotes'])
                                 @foreach ($datadetail['all_quotes'] as $key => $quote)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $quote->client->name }}</td>
                                         <td>{{ $quote->client->phone }}</td>
                                         <td>{{ $quote->client->postal_code }}</td>
