@@ -330,16 +330,10 @@
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    {{-- <div class="col-12">
-                                        <div class="form-group">
-                                            <label for="note">Note</label>
-                                            <textarea id="note" class="form-control" rows="3" placeholder="" readonly=""></textarea>
-                                        </div>
-                                    </div> --}}
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="product-note">Product Note</label>
-                                            <textarea id="product-note" class="form-control" rows="3" placeholder="Please Add Product Note"></textarea>
+                                            <label for="note">Product Note</label>
+                                            <textarea id="note" name="note" class="form-control" rows="3" placeholder="Please Add Product Note">{{ $deal->note ?? old('note') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -585,7 +579,7 @@
 
             set_single_selectbox('spraying_edges', row.spraying_edges);
 
-            $('#note').text(row.product_note);
+            //$('#note').text(row.product_note);
 
             var net_price = row.sale_net_sqm;
             $('#pro_price').val(net_price);

@@ -53,6 +53,7 @@ return new class extends Migration
             $table->double('vat')->nullable();
             $table->double('trade_discount')->nullable();
             $table->double('total_gross')->nullable();
+            $table->string('note')->nullable();
 
             $table->string('image_status')->default(0);
             // $table->string('total_vat_status')->default(0);

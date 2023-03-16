@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $data = $this->get_all($this->_modal);
+        $data = $this->get_all($this->_modal)->sortBy('product_name');
         $slug = "products";
         return view('home',compact('slug','data'));
 
