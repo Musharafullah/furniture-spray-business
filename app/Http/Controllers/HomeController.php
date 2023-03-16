@@ -36,7 +36,7 @@ class HomeController extends Controller
      */
     public function index($slug = null)
     {
-        // dd($slug);
+        // dd($slug); 
         $total_quotes = $this->get_all($this->_modal)->count();
         $total_customers = $this->get_all_by_roll($this->_cmodal)->count();
         $total_products = $this->get_all($this->_pmodal)->count();
@@ -50,7 +50,7 @@ class HomeController extends Controller
                 ->where('created_at', '<=', $to)
                 ->get();
 
-        $all_quotes = $this->get_all($this->_modal);
+        $all_quotes = $this->get_all($this->_modal)->sortDesc();
 
         $data = ['total_quotes' => $total_quotes, 'total_customers' => $total_customers, 'total_products' => $total_products, 'from' => $from, 'to' => $to, 'grouped' => $grouped, 'grouped_quotes' => $grouped_quotes, 'all_quotes' => $all_quotes ];
 

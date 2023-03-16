@@ -360,13 +360,6 @@
                         @else
                             <div class="col-12 col-md-8">
                                 <select class="form-select" id="clients" onchange="client_info()"></select>
-                                {{-- <select class="form-select" onchange="client_info()" id="clients">
-                                <option value="">-- Select Customer --</option>
-                                @foreach ($data as $client)
-                                    <option value='{{ $client->id }}'>{{ $client->name }}
-                                    </option>
-                                @endforeach
-                                </select> --}}
                             </div>
                             <div class="col-12 col-md-4">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="modal"
@@ -740,7 +733,7 @@
         role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('customer.store') }}" method="post" id="">
+                <form action="{{ route('client_store') }}" method="post" id="add_client_form">
                     @csrf
                     <input type="hidden" name="quote_create" value="1">
                     <div class="modal-header">
@@ -810,7 +803,6 @@
                                         @php
                                             $discount = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50];
                                         @endphp
-                                        <option value=""> -- Select Product Type --</option>
                                         @foreach ($discount as $type)
                                             <option value="{{ $type }}">
                                                 {{ $type }}
@@ -1127,10 +1119,12 @@
                 dataType: 'json',
                 cache: false,
                 success: function(result) {
+                    //alert(id);
                     $('#addcustomer').modal('hide');
                     $('.fade').hide();
                     $("#clients").html(result.client);
                     if (id) {
+                        
                         $('#clients').val(id);
                         $('#cust_name').val(name);
                         $('#cust_phone').val(phone);
