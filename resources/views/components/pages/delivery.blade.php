@@ -29,7 +29,7 @@
         </table>
     </div>
 </div>
-<div aria-hidden="true" aria-labelledby="DeliveryModal" class="modal modal-lg fade in" id="delivery" role="dialog"
+<div aria-hidden="true" aria-labelledby="DeliveryModal" class="modal fade in" id="delivery" role="dialog"
     tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-6 mt-3">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="name">Delivery(£)</label>
                                 <input id="name" name="total_charges" class="form-control" type="text"
