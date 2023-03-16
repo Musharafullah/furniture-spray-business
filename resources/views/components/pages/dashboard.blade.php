@@ -137,15 +137,22 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <a href="" data-toggle="tooltip" title="View Quote">
+                                                <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip"
+                                                    title="View Quote">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
 
-                                                <a href="" data-toggle="tooltip" title="Send & Download Quote">
+                                                <a href="{{ route('download_pdf', $quote->id) }}" data-toggle="tooltip"
+                                                    title="Send & Download Quote">
                                                     <i class="fa fa-location-arrow"></i>
                                                 </a>
+                                                {{-- <a href="{{ route('quote.pdf', $quote->id) }}" data-toggle="tooltip"
+                                                    title="Send & Download Quote">
+                                                    <i class="fa fa-location-arrow"></i>
+                                                </a> --}}
 
-                                                <a href="" data-toggle="tooltip" title="Duplicate Quote">
+                                                <a href="{{ route('quote_riplicate', $quote) }}" data-toggle="tooltip"
+                                                    title="Duplicate Quote">
                                                     <i class="fa fa-copy"></i>
                                                 </a>
                                             </div>
