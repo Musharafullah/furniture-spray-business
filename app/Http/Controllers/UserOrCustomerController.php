@@ -34,7 +34,7 @@ class UserOrCustomerController extends Controller
     public function index()
     {
 
-        $data = $this->get_all_by_roll($this->_modal);
+        $data = $this->get_all_by_roll($this->_modal)->sortDesc();
         $slug = "customer";
         return view('home',compact('slug','data'));
 
@@ -44,7 +44,7 @@ class UserOrCustomerController extends Controller
     // here  get all client info by ajax
     public function allclient()
     {
-        $clients = $this->get_all_by_roll($this->_modal);
+        $clients = $this->get_all_by_roll($this->_modal)->sortBy('name');
         // return view('render_data.clients')->rendor('data');
         $client  = view('render_data.clients', compact('clients'))->render();
 

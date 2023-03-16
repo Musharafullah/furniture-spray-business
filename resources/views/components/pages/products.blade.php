@@ -26,7 +26,7 @@
                             $pro_type = ucwords($pro_type);
                         @endphp
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->product_name }}</td>
                             <td class="text-center">

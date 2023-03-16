@@ -42,7 +42,7 @@ class QuotesController extends Controller
     {
 
 
-        $data = $this->get_all($this->_modal);
+        $data = $this->get_all($this->_modal)->sortDesc();
         $slug = "quote";
         return view('home',compact('slug','data'));
     }
@@ -103,7 +103,7 @@ class QuotesController extends Controller
             $clint_id = null;
         }
         $data = $this->get_all_by_roll(new User);
-        $products = $this->get_all(new Product);
+        $products = $this->get_all(new Product)->sortBy('product_name');;
         // dd(Deals::where('quote_id'));
         return view('quote.quote_create',compact('data','products','quote','clint_id'));
     }
@@ -168,7 +168,8 @@ class QuotesController extends Controller
             'net_price' ,
             'vat',
             'trade_discount',
-            'total_gross',);
+            'total_gross',
+            'note');
             if($this->_request->gloss_percentage_option == null)
             {
                 $data['gloss_percentage_option'] = 0;

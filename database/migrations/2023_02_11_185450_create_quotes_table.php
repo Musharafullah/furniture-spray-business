@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('net_price_status')->default(1)->comment('1: show, 0:hide');
             $table->string('discount_status')->default(1)->comment('1: show, 0:hide');
             $table->string('product_price_status')->default(1)->comment('1: show, 0:hide');
-            $table->string('hidden_price')->default('Option_3(hide_all_price_column_and_discount_including_gross_total,vat,total net)');
+            $table->string('hidden_price')->default('Option_1(display_all_price_fields)');
             $table->string('status')->default('draft');
 
             // end status

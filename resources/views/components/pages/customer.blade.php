@@ -19,7 +19,7 @@
                 @if ($datadetail)
                     @foreach ($datadetail as $key => $clients)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $clients->name }}</td>
                             <td>{{ $clients->email }}</td>
                             <td>{{ $clients->phone }}</td>

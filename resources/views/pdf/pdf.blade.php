@@ -250,6 +250,12 @@
                                 @endif
                             </td>
                         </tr>
+                        @if( $quote->note )
+                            <tr>
+                                <td style="border: 0px;"></td>
+                                <td colspan="8" style="border: 0px;"><b>Note:</b> {{ $quote->note }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
                 <tfoot>
