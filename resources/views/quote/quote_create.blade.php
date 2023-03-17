@@ -12,30 +12,27 @@
                         <div class="col-6">
                             <h3>Create A Quote</h3>
                         </div>
-                        <div class="col-sm-3" >
-                            @if($quote->id)
+                        @if($quote->id)
+                            <div class="col-12 col-md-6">
+                                <div class="row gx-2 gy-2">
+                                    <div class="col-sm-6">
+                                        @if(isset($previous))
+                                            <a href="{{ route('quote.create', $previous) }}" class="btn btn-rounded btn-info w-100">
+                                                <span><i class="fa fa-step-backward"></i></span>&nbsp;Previous
+                                                Quote
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @if(isset($next))
+                                            <a href="{{ route('quote.create', $next) }}"class="btn btn-rounded btn-info w-100">Next Quote
+                                                <span><i class="fa fa-step-forward"></i></span>
+                                            </a>
 
-                                @if(isset($previous))
-
-                                    <a href="{{ route('quote.create', $previous) }}"
-                                       class="btn btn-rounded btn-info btn-block form-group"><span><i
-                                                class="fa fa-step-backward"></i></span>&nbsp;Previous
-                                        Quote
-                                    </a>
-
-                                @endif
-                        </div>
-                        <div class="col-sm-3" >
-                            @if(isset($next))
-
-                                <a href="{{ route('quote.create', $next) }}"
-                                   class="btn btn-rounded btn-info btn-block form-group">Next
-                                    Quote
-                                    <span><i
-                                            class="fa fa-step-forward"></i></span></a>
-
-                            @endif
-                        </div>
+                                        @endif
+                                    </div>
+                                </div>  
+                            </div>
                         @endif
                     </div>
 
