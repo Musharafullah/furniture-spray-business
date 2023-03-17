@@ -88,7 +88,6 @@ class QuotesController extends Controller
      */
     public function create(Request $request , $id = null)
     {
-
         if($id != null){
             $quote = $this->get_by_id($this->_modal,$id);
             // dd($quote);
@@ -101,11 +100,14 @@ class QuotesController extends Controller
 
             $quote = new $this->_modal;
             $clint_id = null;
+            $previous = null;
+            // get next user id
+            $next = null;
         }
         $data = $this->get_all_by_roll(new User);
         $products = $this->get_all(new Product)->sortBy('product_name');;
         // dd(Deals::where('quote_id'));
-        return view('quote.quote_create',compact('data','products','quote','clint_id'));
+        return view('quote.quote_create',compact('data','products','quote','clint_id','next', 'previous'));
     }
     // create quote
     public function create_quote()
@@ -492,8 +494,8 @@ class QuotesController extends Controller
        return redirect()->route('quote.index')->with('success','PDF sent successfully!');
 
     }
-    
-    
+
+
     public function pdf($id)
     {
         $quotes = $this->get_by_id($this->_modal, $id);
