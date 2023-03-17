@@ -9,9 +9,34 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <h3>Create A Quote</h3>
                         </div>
+                        <div class="col-sm-3" >
+                            @if($quote->id)
+
+                                @if(isset($previous))
+
+                                    <a href="{{ route('quote.create', $previous) }}"
+                                       class="btn btn-rounded btn-info btn-block form-group"><span><i
+                                                class="fa fa-step-backward"></i></span>&nbsp;Previous
+                                        Quote
+                                    </a>
+
+                                @endif
+                        </div>
+                        <div class="col-sm-3" >
+                            @if(isset($next))
+
+                                <a href="{{ route('quote.create', $next) }}"
+                                   class="btn btn-rounded btn-info btn-block form-group">Next
+                                    Quote
+                                    <span><i
+                                            class="fa fa-step-forward"></i></span></a>
+
+                            @endif
+                        </div>
+                        @endif
                     </div>
 
                     <!----------------------------------- Customer Info -------------------------------------->
@@ -99,7 +124,7 @@
                                                     </select>
                                                 </td>
                                                 <td colspan="5"></td>
-                                            </tr> 
+                                            </tr>
                                             <tr>
                                                 <th>#</th>
                                                 <th colspan="11">Item details</th>
@@ -258,7 +283,7 @@
                                                         $product_sum_total = round($quote->deals->sum('total_gross'), 2);
                                                         $delivery_charges = $quote->delivery_charges;
                                                         $grand_total = $product_sum_total + $delivery_charges;
-                                                        
+
                                                         // calculation for net discount
                                                         $net = $product_sum_total / 1.2;
                                                         $discount_vat = $product_sum_total - $net;
@@ -677,7 +702,7 @@
                                             <label for="note">Product Note</label>
                                             <textarea id="note" name="note" class="form-control" rows="3" placeholder="Please Add Product Note"></textarea>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>

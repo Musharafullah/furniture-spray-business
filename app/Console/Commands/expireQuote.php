@@ -4,7 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Carbon\Carbon;
+use App\Models\Client;
+use App\Models\Product;
 use App\Models\Quote;
+use App\Models\Deal;
 
 class expireQuote extends Command
 {
@@ -23,26 +26,15 @@ class expireQuote extends Command
     protected $description = 'This is quote expire cron job';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
-       // echo 'expire job cron';
         $month = Carbon::now()->subMonth(2);
-        // dd($month);
-        $quote = Quote::where('status', 'reminder')
+        $quote = Quote::with('deals', 'deals.product', 'client')
+            ->where('status', 'reminder')
             ->where('created_at','<=', $month)
             ->get();
         if($quote) {

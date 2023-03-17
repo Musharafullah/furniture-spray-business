@@ -4,7 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Product;
 use App\Models\Quote;
+use App\Models\Deal;
 use Mail;
 
 class emailUser extends Command
@@ -24,30 +27,17 @@ class emailUser extends Command
     protected $description = 'This command will send remainder email to user';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
-
-
-        //
-      //  echo 'i am test cron job';
         $from = Carbon::now()->subDays(6)->startOfDay();
         $to = Carbon::now()->subDays(8)->endOfDay();
         // dd($to);
-        $quote = Quote::where('status', 'sent')
+        $quote = Quote::with('deals', 'deals.product', 'client')
+            ->where('status', 'sent')
             ->where('created_at', '<=', $from)
             ->where('created_at', '>=', $to)
             ->get();
@@ -60,9 +50,9 @@ class emailUser extends Command
                 Mail::send('pdf_email.reminder', [
                     "name" => $email->client->name,
                 ], function ($mail) use ($emails) {
-                    $mail->from('info@furniturepaintspraying.co.uk', 'Roka Spraying');
+                    $mail->from('info@mycolourglass.co.uk', 'MCG Glass');
 
-                    $mail->to($emails)->subject('Roka Spraying quote Reminder email');
+                    $mail->to($emails)->subject('Glass quote Reminder email');
 
                 });
 
