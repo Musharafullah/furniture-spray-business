@@ -1124,7 +1124,7 @@
                     $('.fade').hide();
                     $("#clients").html(result.client);
                     if (id) {
-                        
+                        $('#client_id').val(id);
                         $('#clients').val(id);
                         $('#cust_name').val(name);
                         $('#cust_phone').val(phone);

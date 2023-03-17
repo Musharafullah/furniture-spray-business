@@ -125,6 +125,10 @@ class QuotesController extends Controller
             $data['user_id'] = Auth::user()->id;
             $data['collected'] = $collected;
             // $data['delivered'] = $delivery->total_charges;
+
+            $previous = $this->_modal::where('id', '<', $this->_request->quote_id)->max('id');
+            $next = $this->_modal::where('id', '>', $this->_request->quote_id)->min('id');
+
             $var->update($data);
         }else{
             if($this->_request->client_id == null)
