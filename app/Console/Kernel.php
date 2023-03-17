@@ -26,12 +26,6 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
-    protected $commands = [
-        //
-        "App\Console\Commands\\emailUser",
-        "App\Console\Commands\\expireQuote"
-    ];
-
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('email:user')
