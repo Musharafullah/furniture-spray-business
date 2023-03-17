@@ -13,9 +13,21 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+    protected $commands = [
+        //
+        "App\Console\Commands\\emailUser",
+        "App\Console\Commands\\expireQuote"
+    ];
+
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('email:user')
+            ->daily();
+
+        $schedule->command('expire:quote')
+            ->daily();
     }
 
     /**
