@@ -202,6 +202,22 @@
                             @endif
                         </tr>
 
+                        @if($quote->image_status == 1)
+                        <tr>
+                            <td style="border: 0px;"></td>
+                            <td colspan="8" style="border: 0px;">
+                                @if($quote->product->product_image_path) 
+                                    @php
+                                        $image = "product_image/product/". $quote->product->product_image_path;
+                                    @endphp
+                                    <img src="{{ $image }}" height="100px" width="100px" style="margin-top:10px;">
+                                @else
+                                    <img src="product_image/product/no_img.jpg" height="100px" width="100px" style="margin-top:10px;">
+                                @endif
+                            </td>
+                        </tr>
+                        @endif
+
                         <tr>
                             <td style="border: 0px;"></td>
                             <td colspan="8" style="border: 0px;">
