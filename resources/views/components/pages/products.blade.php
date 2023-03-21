@@ -30,7 +30,11 @@
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->product_name }}</td>
                             <td class="text-center">
-                                <img src="{{ asset('product_image/product/' . $product->product_image_path) }}">
+                                @if($product->product_image_path)
+                                    <img src="{{ asset('product_image/product/' . $product->product_image_path) }}">
+                                @else
+                                    <img src="{{ asset('product_image/product/no_img.jpg') }}">
+                                @endif
                             </td>
                             <td>{{ number_format($product->sale_net_sqm, 2) }}</td>
                             <td>{{ number_format($product->matt_finish, 2) }}</td>
