@@ -137,7 +137,7 @@
                                 <td>{{ $quote->status }}</td>
                                 <td>
                                     <div>
-                                        <a href="" data-toggle="tooltip" title="View Quote">
+                                        <a href="{{ route('quote.create', $quote) }}" data-toggle="tooltip" title="View Quote">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </div>
