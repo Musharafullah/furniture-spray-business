@@ -418,24 +418,24 @@
                 set_product(result);
 
                 //selected addons
-                $("#matt_finish_option option[value={{ $deal->matt_finish_option }}]").attr("selected",
+                $("#matt_finish_option option[value={{ $deal->matt_finish_option }}]").prop("selected",
                     "selected");
-                $("#metallic_paint option[value={{ $deal->metallic_paint }}]").attr("selected",
+                $("#metallic_paint option[value={{ $deal->metallic_paint }}]").prop("selected",
                     "selected");
-                $("#wood_stain option[value={{ $deal->wood_stain }}]").attr("selected", "selected");
-                $("#gloss_percentage option[value={{ $deal->gloss_percentage }}]").attr("selected",
+                $("#wood_stain option[value={{ $deal->wood_stain }}]").prop("selected", "selected");
+                $("#gloss_percentage option[value={{ $deal->gloss_percentage }}]").prop("selected",
                     "selected");
-                $("#gloss_100_acrylic_lacquer option[value={{ $deal->gloss_100_acrylic_lacquer }}]").attr(
+                $("#gloss_100_acrylic_lacquer option[value={{ $deal->gloss_100_acrylic_lacquer }}]").prop(
                     "selected", "selected");
-                $("#polyester option[value={{ $deal->polyester }}]").attr("selected", "selected");
-                $("#burnished_finish option[value={{ $deal->burnished_finish }}]").attr("selected",
+                $("#polyester option[value={{ $deal->polyester }}]").prop("selected", "selected");
+                $("#burnished_finish option[value={{ $deal->burnished_finish }}]").prop("selected",
                     "selected");
-                $("#barrier_coat option[value={{ $deal->barrier_coat }}]").attr("selected", "selected");
-                $("#edgebanding option[value={{ $deal->edgebanding }}]").attr("selected", "selected");
-                $("#micro_bevel option[value={{ $deal->micro_bevel }}]").attr("selected", "selected");
-                $("#routed_handle_spraying option[value={{ $deal->routed_handle_spraying }}]").attr(
+                $("#barrier_coat option[value={{ $deal->barrier_coat }}]").prop("selected", "selected");
+                $("#edgebanding option[value={{ $deal->edgebanding }}]").prop("selected", "selected");
+                $("#micro_bevel option[value={{ $deal->micro_bevel }}]").prop("selected", "selected");
+                $("#routed_handle_spraying option[value={{ $deal->routed_handle_spraying }}]").prop(
                     "selected", "selected");
-                $("#beaded_door option[value={{ $deal->beaded_door }}]").attr("selected", "selected");
+                $("#beaded_door option[value={{ $deal->beaded_door }}]").prop("selected", "selected");
                 $("#gloss_percentage_option").val({{ $deal->gloss_percentage_option }});
             });
 
