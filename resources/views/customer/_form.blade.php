@@ -67,36 +67,18 @@
     <div class="col-sm-4">
         <div class="form-group">
             <label for="trade_discount">Trade Discount</label>
-            <select name="trade_discount" class="form-select">
-                @php
-                    $discount = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-                @endphp
-                <option value=""> -- Select Product Type --</option>
-                @foreach ($discount as $type)
-                    @php
-                        $select = old('trade_discount', $client->trade_discount) == $type ? 'selected' : '';
-                    @endphp
-                    <option value="{{ $type ?? old('trade_discount') }}" {{ $select }}>{{ $type }}
-                    </option>
-                @endforeach
-            </select>
+            @if ($client->trade_discount)
+                <input id="trade_discount" name="trade_discount" class="form-control" type="number"
+                    placeholder="Enter Trade Discount" value="{{ $client->trade_discount }}">
+            @else
+                <input id="trade_discount" name="trade_discount" class="form-control" type="number"
+                    placeholder="Enter Trade Discount" value="" >
+            @endif
             @if ($errors->any())
                 @if ($errors->has('trade_discount'))
                     <strong class="text-danger">{{ $errors->first('trade_discount') }}</strong>
                 @endif
             @endif
-            {{-- <option value=""> -- Select --</option>
-                <option value="0">0</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="30">30</option>
-                <option value="35">35</option>
-                <option value="40">40</option>
-                <option value="45">45</option>
-                <option value="50">50</option> --}}
-            </select>
         </div>
     </div>
     <div class="col-12">

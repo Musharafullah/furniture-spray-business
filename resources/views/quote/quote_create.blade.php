@@ -216,9 +216,9 @@
                                                     <td colspan="10" style="border: 0px;">
                                                         @if($deal->product->type == 'basic' || $deal->product->type == 'standard')
                                                         @elseif ($deal->matt_finish_option == 1)
-                                                            Single Side |
+                                                            Single Sided |
                                                         @elseif($deal->matt_finish_option == 2)
-                                                            Double Side |
+                                                            Double Sided |
                                                         @endif
                                                         @if ($deal->spraying_edges > 0)
                                                             Sprayed Edges |
@@ -513,8 +513,8 @@
                                             <select name="matt_finish_option" id="matt_finish_option"
                                                 class="form-select">
                                                 <option value="0">-- Select option --</option>
-                                                <option value="1">Single</option>
-                                                <option value="2">Double</option>
+                                                <option value="1">Single Sided</option>
+                                                <option value="2">Double Sided</option>
                                             </select>
                                             <input name="matt_finish" id="matt_finish" class="form-control"
                                                 type="hidden" placeholder="">
@@ -821,16 +821,8 @@
                             <div class="col-sm-4 mt-3">
                                 <div class="form-group">
                                     <label for="trade_discount">Trade Discount</label>
-                                    <select name="trade_discount" id="trade_discount" class="form-select">
-                                        @php
-                                            $discount = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-                                        @endphp
-                                        @foreach ($discount as $type)
-                                            <option value="{{ $type }}">
-                                                {{ $type }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input id="trade_discount" name="trade_discount" class="form-control" type="number"
+                                        placeholder="Enter Trade Discount" value="" >
                                     @if ($errors->any())
                                         @if ($errors->has('trade_discount'))
                                             <strong class="text-danger">{{ $errors->first('trade_discount') }}</strong>
@@ -1192,8 +1184,8 @@
 
         function set_selectbox(selectbox_id) {
             var options = '';
-            options += '<option value="1">Single</option>';
-            options += '<option value="2">Double</option>';
+            options += '<option value="1">Single Sided</option>';
+            options += '<option value="2">Double Sided</option>';
             $('#' + selectbox_id).html(options);
         }
 
