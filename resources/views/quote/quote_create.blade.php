@@ -821,7 +821,7 @@
                             <div class="col-sm-4 mt-3">
                                 <div class="form-group">
                                     <label for="trade_discount">Trade Discount</label>
-                                    <input id="trade_discount" name="trade_discount" class="form-control" type="number"
+                                    <input name="trade_discount" class="form-control" type="number"
                                         placeholder="Enter Trade Discount" value="" >
                                     @if ($errors->any())
                                         @if ($errors->has('trade_discount'))
@@ -848,7 +848,7 @@
                     <div class="modal-footer">
                         <button class="btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
                         {{-- <button class="btn-primary" type="submit" id="add">Add Customer</button> --}}
-                        <button class="btn-primary" type="submit" id="">Add Customer</button>
+                        <button class="btn-primary" type="submit">Add Customer</button>
                     </div>
                 </form>
             </div>
@@ -910,7 +910,7 @@
                 type: "get",
                 url: "{{ route('allclient') }}",
                 success: function(response) {
-                    console.log(response.client);
+                    //console.log(response.client);
                     $("#clients").html(response.client);
                 }
             });
@@ -922,7 +922,7 @@
             $('input[name="image_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
                 var deal_id = $(this).val();
                 var status = 0;
-                console.log(event.target.checked);
+                //console.log(event.target.checked);
                 if (event.target.checked) {
                     status = 1;
                 }
@@ -943,7 +943,7 @@
             //total vat status change
             $('input[name="total_vat_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
                 var quote_id = $(this).val();
-                console.log('quote_id' + quote_id);
+                //console.log('quote_id' + quote_id);
                 var total_vat_status = 0;
                 if (event.target.checked) {
                     total_vat_status = 1;
@@ -966,7 +966,7 @@
             //total net status change
             $('input[name="total_net_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
                 var quote_id = $(this).val();
-                console.log('quote_id' + quote_id);
+                //console.log('quote_id' + quote_id);
                 var total_net_status = 0;
                 if (event.target.checked) {
                     total_net_status = 1;
@@ -1012,7 +1012,7 @@
             //net price status change
             $('input[name="net_price_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
                 var quote_id = $(this).val();
-                console.log('quote_id' + quote_id);
+                //console.log('quote_id' + quote_id);
                 var net_price_status = 0;
                 if (event.target.checked) {
                     net_price_status = 1;
