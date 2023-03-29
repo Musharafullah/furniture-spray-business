@@ -162,8 +162,8 @@
                                             <label>Sides</label>
                                             <select name="matt_finish_option" id="matt_finish_option"
                                                 class="form-select">
-                                                <option value="1">Single</option>
-                                                <option value="2">Double</option>
+                                                <option value="1">Single Sided</option>
+                                                <option value="2">Double Sided</option>
                                             </select>
                                             <input name="matt_finish" id="matt_finish" class="form-control"
                                                 type="hidden" placeholder="" value="{{ $deal->matt_finish }}">
@@ -525,8 +525,8 @@
 
         function set_selectbox(selectbox_id) {
             var options = '';
-            options += '<option value="1">Single Side</option>';
-            options += '<option value="2">Double Side</option>';
+            options += '<option value="1">Single Sided</option>';
+            options += '<option value="2">Double Sided</option>';
             $('#' + selectbox_id).html(options);
         }
 

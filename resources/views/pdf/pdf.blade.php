@@ -163,15 +163,11 @@
                     @php
                         $vat = 0;
                         $net_price = 0;
+                        $netPrice = 0;
                         $gross_total = 0;
                     @endphp
                     @foreach ($quotes->deals as $quote)
                         <tr>
-                            @php
-                                $vat += $quote->vat;
-                                $net_price += $quote->net_price;
-                                $gross_total += $quote->total_gross;
-                            @endphp
                             <td>{{ $loop->iteration }}</td>
 
                             @if ($discount > 0 && $quotes->net_price_status == 1)
@@ -196,7 +192,17 @@
                             @if ($quotes->net_price_status == 1)
                                 <td>
                                     @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
-                                        {{ number_format($quote->net_price, 2) }}
+
+                                        @php
+                                            if ($quote->product) {
+                                                $disc = ($quote->net_price * $quote->trade_discount) / 100;
+                                                $net_price1 = $quote->net_price - $disc;
+                                                $netPrice = round($net_price1, 2);
+                                            } else {
+                                                $netPrice = round($quote->net_price, 2);
+                                            }
+                                        @endphp
+                                        {{ number_format($netPrice, 2) }}
                                     @endif
                                 </td>
                             @endif
@@ -223,9 +229,9 @@
                             <td colspan="8" style="border: 0px;">
                                 @if($quote->product->type == 'basic' || $quote->product->type == 'standard')
                                 @elseif ($quote->matt_finish_option == 1)
-                                    Single Side |
+                                    Single Sided |
                                 @elseif($quote->matt_finish_option == 2)
-                                    Double Side |
+                                    Double Sided |
                                 @endif
                                 @if ($quote->spraying_edges > 0)
                                     Sprayed Edges |
@@ -275,6 +281,20 @@
                                 <td colspan="8" style="border: 0px;"><b>Note:</b> {{ $quote->note }}</td>
                             </tr>
                         @endif
+
+                        @php                                
+                            if ($quote->product) {
+                                $pro_disc = ($quote->net_price * $quote->trade_discount) / 100;
+                                $pro_net_price = $quote->net_price - $pro_disc;
+                                $pro_vat1 = ($pro_net_price * 20) / 100;
+                                $pro_vat = round($pro_vat1, 2);
+                            } else {
+                                $pro_vat = round($deal->vat, 2);
+                            }
+                            $vat += $pro_vat;
+                            $net_price += $netPrice;
+                            $gross_total += $quote->total_gross;
+                        @endphp
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -293,7 +313,7 @@
                                     @endif
                                     @if ($quotes->gross_total_status == 1)
                                         <nobr><b>Gross Total</b></nobr><br>
-                                    @endif
+                                    @endif 
                                 @endif
 
                                 @if ($quotes->hide_collect == 1)
