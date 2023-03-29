@@ -377,7 +377,7 @@
                 type: "get",
                 url: "{{ route('clientinfo') }}/" + $id,
                 success: function(response) {
-                    console.log(response.client);
+                    //console.log(response.client);
                     //$("#clients").html(response.client);
                     $('#client_id').val(response.client.id);
                     $('#cust_name').val(response.client.name);
@@ -458,7 +458,7 @@
                         .address, data.trade_discount, data.distance);
                 },
                 error: function(data) {
-                    console.log("Error");
+                    //console.log("Error");
                     var errors = '';
                     $.each(data.responseJSON.errors, function(key, value) {
                         errors += value + '<br />';
@@ -630,7 +630,7 @@
         //disabled remove from height attribute if width is given
         $('#product_width').on('keyup', function(event) {
             var val = $(this).val();
-            console.log(val.length);
+            //console.log(val.length);
             if (val.length > 0) {
                 $('#product_height').removeAttr('readonly');
             } else {

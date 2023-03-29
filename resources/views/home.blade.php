@@ -26,7 +26,11 @@
 @endsection
 
 @section('scripts')
-    <script>
+<!----------------- High Charts ------------------>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.3/highcharts.js"
+        integrity="sha512-8cJ3Lf1cN3ld0jUEZy26UOg+A5YGLguP6Xi6bKLyYurrxht+xkLJ9oH9rc7pvNiYsmYuTvpe3wwS6LriK/oWDg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" type="text/javascript"></script>
+    <script type="text/javascript">
         $(document).ready(function() {
 
             Highcharts.chart('daily-data-chart', {
