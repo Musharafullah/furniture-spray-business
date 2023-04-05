@@ -50,9 +50,9 @@ class emailUser extends Command
                 Mail::send('pdf_email.reminder', [
                     "name" => $email->client->name,
                 ], function ($mail) use ($emails) {
-                    $mail->from('info@mycolourglass.co.uk', 'MCG Glass');
+                    $mail->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
 
-                    $mail->to($emails)->subject('Glass quote Reminder email');
+                    $mail->to($emails)->subject('Furniture Spray quote Reminder email');
 
                 });
 
