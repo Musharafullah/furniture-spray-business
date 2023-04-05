@@ -462,9 +462,9 @@ class QuotesController extends Controller
         $email = $quotes->client->email;
 
         Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
-            $message->from('dev@cyberbulwark.com', 'FurnitureSpray');
+            $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
-            $message->cc('dev@cyberbulwark.com')->subject('Roka quote –'.$gsuk);
+            $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
             $message->attachData($pdf->output(), $gsuk.'.pdf');
         });
 
@@ -486,9 +486,9 @@ class QuotesController extends Controller
         $email = $quotes->client->email;
 
         Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
-            $message->from('dev@cyberbulwark.com', 'FurnitureSpray');
+            $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
-            $message->cc('dev@cyberbulwark.com')->subject('Roka quote –'.$gsuk);
+            $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
             $message->attachData($pdf->output(), $gsuk.'.pdf');
         });
 
