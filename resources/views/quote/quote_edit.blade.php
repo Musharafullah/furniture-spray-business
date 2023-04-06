@@ -411,6 +411,12 @@
                 $('#product_sqm').val(1);
             }
 
+            if (width.length > 0) {
+                $('#product_height').removeAttr('readonly');
+            } else {
+                $('#product_height').attr('readonly', 'disabled');
+            }
+
             //This is simple Get ajax request
             var url = '{{ url('get-product-data') }}' + '/' + val;
 
