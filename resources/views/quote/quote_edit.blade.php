@@ -669,8 +669,12 @@
             }
         });
 
-        $('#quantity, #net_price, #trade_discount').on('keyup', function(event) {
+        $('#quantity, #net_price').on('keyup', function(event) {
             calculate_gross();
+        });
+
+        $('#trade_discount').on('keyup', function(event) {
+            calculate_price();
         });
 
         $('#product_height').on('keyup', function() {
