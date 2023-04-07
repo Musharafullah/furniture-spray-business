@@ -49,6 +49,10 @@
                                         title="Duplicate Product">
                                         <i class="fa fa-copy"></i>
                                     </a>
+                                    <a href="{{ route('product_delete', $product->id) }}"
+                                        data-toggle="tooltip" title="Delete Item"><i
+                                            class="fa fa-times-circle"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

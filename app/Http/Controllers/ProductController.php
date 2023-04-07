@@ -91,6 +91,49 @@ class ProductController extends Controller
         //dd($product);
         $product = $this->_request->except('_token');
 
+        if($this->_request->matt_finish == null){
+            $product['matt_finish'] = 0;
+        }
+        if($this->_request->spraying_edges == null){
+            $product['spraying_edges'] = 0;
+        }
+        if($this->_request->metallic_paint == null){
+            $product['metallic_paint'] = 0;
+        }
+        if($this->_request->gloss_80 == null){
+            $product['gloss_80'] = 0;
+        }
+        if($this->_request->gloss_100_paint == null){
+            $product['gloss_100_paint'] = 0;
+        }
+        if($this->_request->gloss_100_acrylic_lacquer == null){
+            $product['gloss_100_acrylic_lacquer'] = 0;
+        }
+        if($this->_request->edgebanding == null){
+            $product['edgebanding'] = 0;
+        }
+        if($this->_request->micro_bevel == null){
+            $product['micro_bevel'] = 0;
+        }
+        if($this->_request->routed_handle_spraying == null){
+            $product['routed_handle_spraying'] = 0;
+        }
+        if($this->_request->beaded_door == null){
+            $product['beaded_door'] = 0;
+        }
+        if($this->_request->burnished_finish == null){
+            $product['burnished_finish'] = 0;
+        }
+        if($this->_request->polyester_or_full_grain == null){
+            $product['polyester_or_full_grain'] = 0;
+        }
+        if($this->_request->wood_stain == null){
+            $product['wood_stain'] = 0;
+        }
+        if($this->_request->barrier_coat == null){
+            $product['barrier_coat'] = 0;
+        }
+            
         if($this->_request->type == "standard" || $this->_request->type == "basic")
         {
             $product['matt_finish'] = 0;
@@ -293,7 +336,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $this->delete($this->_modal, $id);
-        return redirect()->route('{{ routeName }}');
+        return back()->with('product.index')->with('success','Product Removed Successfully');
     }
 
 

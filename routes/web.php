@@ -34,7 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/product', App\Http\Controllers\ProductController::class);
 Route::get('/get-product-type/{id?}', [App\Http\Controllers\ProductController::class, 'product_info'])->name('product_info');
 Route::get('/product-duplicate/{id}', [App\Http\Controllers\ProductController::class, 'duplicate'])->name('product_duplicate');
-
+Route::get('/product/destroy/{var?}', [App\Http\Controllers\ProductController::class,'destroy'])->name('product_delete');
 Route::get('get-product-data/{id?}', [App\Http\Controllers\ProductController::class,'product_data'])->name('get.product');
 
 
