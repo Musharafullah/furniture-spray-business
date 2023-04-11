@@ -185,7 +185,7 @@
                             @if ($discount > 0)
                                 <td>
                                     @if($quotes->hidden_price == 'Option_1(display_all_price_fields)')
-                                        {{ $quote->trade_discount }}
+                                        {{ $quote->trade_discount }}%
                                     @endif
                                 </td>
                             @endif
