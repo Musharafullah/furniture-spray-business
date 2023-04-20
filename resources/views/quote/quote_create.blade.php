@@ -1366,7 +1366,7 @@
                 var sqm_price = input_sqm * sqm_product;
                 $('#product_price').val(sqm_price);
                 total += sqm_price;
-
+                
 
                 $(' #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat')
                     .each(function() {
@@ -1380,8 +1380,18 @@
                         }
                     });
 
-                var matt_finish = Number($('#matt_finish').val()) * input_sqm;
-                total += matt_finish;
+
+                if (input_sqm > 0.3 && $('#matt_finish_option').val() == 2) {
+                    var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
+                    total += matt_finish;
+                    //alert(matt_finish);
+                }
+                else {
+                    var matt_finish = Number($('#matt_finish').val()) * input_sqm;
+                    total += matt_finish;
+                    //alert(matt_finish);
+                }
+                
 
                 var lm = Number($('#product_lm').val());
                 $('#spraying_edges, #edgebanding, #beaded_door, #micro_bevel')
