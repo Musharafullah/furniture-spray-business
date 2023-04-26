@@ -199,14 +199,14 @@
                                         <div class="form-group">
                                             <label>Gloss Percentage</label>
                                             <select name="gloss_percentage" id="gloss_percentage" class="form-select">
-                                                <option>No Gloss</option>
+                                                <option value="0">No Gloss</option>
                                                 <option>80% Gloss - Add on / Sqm (1 sided)</option>
                                                 <option>100% Gloss / Wet Look PU Paint (SQM)</option>
                                                 <option>100% Gloss / Wet Look Clear Acrylic Lacquer (SQM)
                                                 </option>
                                             </select>
                                             <input type="hidden" name="gloss_percentage_option"
-                                                id="gloss_percentage_option" value="">
+                                                id="gloss_percentage_option" value="0">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
@@ -707,7 +707,7 @@
 
                 var sqm_product = Number($('#pro_price').val());
 
-                /*if ($('#matt_finish_option').val() == 2) {
+                /*if ($('#matt_finish_option').val() == 2)
                     var sqm_price = input_sqm * sqm_product * 2;
                     $('#product_price').val(sqm_price);
                     total += sqm_price;

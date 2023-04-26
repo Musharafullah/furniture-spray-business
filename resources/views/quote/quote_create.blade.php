@@ -559,7 +559,7 @@
                                                 </option>
                                             </select>
                                             <input type="hidden" name="gloss_percentage_option"
-                                                id="gloss_percentage_option">
+                                                id="gloss_percentage_option" value="0">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 full_wood">
@@ -673,8 +673,13 @@
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="trade_discount">Trade_discount (%)</label>
-                                            <input id="trade_discount" name="trade_discount" class="form-control"
-                                                type="number" placeholder="" value="" min="0">
+                                            @if($quote->id)
+                                                <input id="trade_discount" name="trade_discount" class="form-control"
+                                                    type="number" placeholder="" value="{{ $quote->client->trade_discount }}">
+                                            @else
+                                                <input id="trade_discount" name="trade_discount" class="form-control"
+                                                    type="number" placeholder="">
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
@@ -1097,6 +1102,7 @@
                     $('#cust_postcode').val(response.client.postal_code);
                     $('#cust_address').val(response.client.address);
                     $('#trade_discount').val(response.client.trade_discount);
+                    //alert(response.client.trade_discount);
                 }
             });
         }
