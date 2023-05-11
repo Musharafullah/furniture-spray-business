@@ -302,7 +302,8 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <b>Comment : {{ $quotes->comment }}</b>
+                            <b>Comment : {{ $quotes->comment }}</b></br>
+                            <b>Internal Comment : {{ $quotes->internal_comment }}</b>
                         </td>
                         <td colspan="3">
                             <span>

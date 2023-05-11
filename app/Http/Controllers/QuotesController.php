@@ -132,6 +132,8 @@ class QuotesController extends Controller
             $next = $this->_modal::where('id', '>', $this->_request->quote_id)->min('id');
 
             $var->update($data);
+
+            alert($var)
         }else{
             if($this->_request->client_id == null)
             {
@@ -141,7 +143,7 @@ class QuotesController extends Controller
             $quote['user_id'] = Auth::user()->id;
             $quote['collected'] = $this->_request->total_gross;
             $quote['delivered'] = $delivery->total_charges;
-            $var = $this->add($this->_modal, $quote);
+            $var = $this->add($this->_modal, $quote); 
 
         }
          //  Deals
