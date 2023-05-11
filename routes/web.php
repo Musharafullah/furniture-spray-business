@@ -23,6 +23,9 @@ Route::get('/clear', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('welcome');
+});
 Route::get('/logout', function ()
 {
     Auth::logout();
