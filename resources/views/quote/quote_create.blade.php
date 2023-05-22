@@ -392,7 +392,7 @@
                             </div>
                         @else
                             <div class="col-12 col-md-8">
-                                <select class="form-select" id="clients" onchange="client_info()"></select>
+                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true"></select>
                             </div>
                             <div class="col-12 col-md-4">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="modal"
@@ -922,6 +922,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+
             $.ajax({
                 type: "get",
                 url: "{{ route('allclient') }}",
@@ -929,6 +930,10 @@
                     //console.log(response.client);
                     $("#clients").html(response.client);
                 }
+            });
+
+            $('.select2').select2().on('select2:open', function(e){
+                $('.select2-search__field').attr('placeholder', 'Search customer here.....');
             });
 
             $('.full_wood').hide();

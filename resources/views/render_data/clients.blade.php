@@ -1,4 +1,4 @@
-<option value="">-- Select Customer --</option>
+<option value="" disabled selected>-- Select Customer --</option>
 @foreach ($clients as $client)
     <option value='{{ $client->id }}'>{{ $client->name }}</option>
 @endforeach
