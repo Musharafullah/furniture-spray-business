@@ -46,6 +46,34 @@ input::-webkit-inner-spin-button {
     color: #333333!important;
 }
 
+.select2 {
+    height: 42.33px;
+}
+
+.select2-container .select2-selection--single {
+    height: 100% !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    height: 40px !important;
+    outline: none !important;
+    border: 1.5px solid #4a90e2 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 42.33px !important;
+}
+
+.select2-selection__arrow {
+    height: 100% !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 100% !important;
+    color: #979797 !important;
+    line-height: 42px !important;
+}
+
 .btn {
     background-color: transparent;
     border: none;
