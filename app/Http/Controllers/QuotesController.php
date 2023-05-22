@@ -393,7 +393,7 @@ class QuotesController extends Controller
 
         $quote->net_price_status = $request->net_price_status;
         $quote->save();
-        return response()->json('Delivered ststus change');
+        return response()->json('Delivered status change');
     }
     // total net price status
     public function total_net_status(Request $request)
@@ -404,7 +404,17 @@ class QuotesController extends Controller
 
         $quote->total_net_status = $request->total_net_status;
         $quote->save();
-        return response()->json('Delivered ststus change');
+        return response()->json('Delivered status change');
+    }
+    // total sqm status
+    public function total_sqm_status(Request $request)
+    {
+        //dd($request->all());
+        $quote_id = $request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->total_sqm_status = $request->total_sqm_status;
+        $quote->save();
     }
     // collect status
     public function collect_status(Request $request)

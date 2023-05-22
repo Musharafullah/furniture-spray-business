@@ -69,6 +69,7 @@ Route::get('view-send-pdf/{id}', [App\Http\Controllers\QuotesController::class,'
 Route::get('/image-status', [App\Http\Controllers\QuotesController::class,'image_status'])->name('image_status');
 Route::get('/total-vat', [App\Http\Controllers\QuotesController::class,'total_vat_status'])->name('total_vat_status');
 Route::get('/total-net', [App\Http\Controllers\QuotesController::class,'total_net_status'])->name('total_net_status');
+Route::get('/total-sqm-status', [App\Http\Controllers\QuotesController::class,'total_sqm_status'])->name('total_sqm_status');
 Route::get('/gross-total', [App\Http\Controllers\QuotesController::class,'gross_total_status'])->name('gross_total_status');
 Route::get('/net-price', [App\Http\Controllers\QuotesController::class,'net_price_status'])->name('net_price_status');
 Route::get('/collect-status', [App\Http\Controllers\QuotesController::class,'collect_status'])->name('collect_status');

@@ -165,6 +165,7 @@
                         $net_price = 0;
                         $netPrice = 0;
                         $gross_total = 0;
+                        $total_sqm = 0;
                     @endphp
                     @foreach ($quotes->deals as $quote)
                         <tr>
@@ -180,7 +181,7 @@
 
                             <td>{{ $quote->width }}</td>
                             <td>{{ $quote->height }}</td>
-                            <td>{{ $quote->sqm }}</td>
+                            <td>{{ number_format($quote->sqm, 2) }}</td>
                             <td>{{ $quote->quantity }}</td>
                             @if ($discount > 0)
                                 <td>
@@ -296,13 +297,16 @@
                             $vat += $pro_vat;
                             $net_price += $netPrice;
                             $gross_total += $quote->total_gross;
+
+                            $total_sqm = $total_sqm + ($quote->sqm * $quote->quantity);
                         @endphp
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <b>Comment : {{ $quotes->comment }}</b>
+                            <b>Comment : {{ $quotes->comment }}</b></br>
+                            <b>Internal Comment : {{ $quotes->internal_comment }}</b>
                         </td>
                         <td colspan="3">
                             <span>
@@ -315,11 +319,14 @@
                                     @endif
                                     @if ($quotes->gross_total_status == 1)
                                         <nobr><b>Gross Total</b></nobr><br>
-                                    @endif
+                                    @endif 
                                 @endif
 
-                                @if ($quotes->hide_collect == 1)
+                                @if ($quotes->total_sqm_status == 1)
                                     <br>
+                                    Total Sqm<br />
+                                @endif
+                                @if ($quotes->hide_collect == 1)
                                     Grand Total (Collected)<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
@@ -331,21 +338,24 @@
                             <span>
                                 @if($quotes->hidden_price == 'Option_1(display_all_price_fields)' || $quotes->hidden_price == 'Option_2(hide_net_price_column_and_discount_column)')
                                     @if ($quotes->total_net_status == 1)
-                                        £{{ $net_price }}<br>
+                                        £{{ number_format($net_price, 2) }}<br>
                                     @endif
                                     @if ($quotes->total_vat_status == 1)
-                                        £{{ $vat }}<br>
+                                        £{{ number_format($vat, 2) }}<br>
                                     @endif
                                     @if ($quotes->gross_total_status == 1)
-                                        <b>£{{ $gross_total }}</b><br>
+                                        <b>£{{ number_format($gross_total, 2) }}</b><br>
                                     @endif
                                 @endif
 
+                                @if ($quotes->total_sqm_status == 1)
+                                    <br>{{ number_format($total_sqm, 2) }}<br />
+                                @endif
                                 @if ($quotes->hide_collect == 1)
-                                    <br>£{{ $gross_total }}<br />
+                                    £{{ number_format($gross_total, 2) }}<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
-                                    £{{ $quotes->delivered + $gross_total }}<br />
+                                    £{{ number_format($quotes->delivered + $gross_total, 2) }}<br />
                                 @endif
                             </span>
                         </td>
@@ -442,6 +452,10 @@
             </ol>
 
         </div>
+
+        <!--<button class="btn-info">Send Quote</button>-->
+         <a href="{{ url('view-send-pdf', $quotes->id) }}" data-toggle="tooltip"
+                                            title="Send & Download Quote" class="btn-info">Send Quote</a>
     </main>
 
     <!-- Footer -->
