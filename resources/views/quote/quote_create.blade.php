@@ -144,20 +144,20 @@
                                             <tr>
                                         </thead>
                                         <tbody>
-
+                                            @php
+                                                $total_sqm = 0;
+                                            @endphp
                                             @foreach ($quote->deals as $deal)
+                                                @php
+                                                    $total_sqm = $total_sqm + ($deal->sqm * $deal->quantity);
+                                                @endphp
                                                 <tr>
                                                     <td>{{ 'Item: ' . $loop->iteration }}</td>
                                                     <td>{{ $deal->product->code }}</td>
                                                     <td>{{ $deal->product->product_name }}</td>
                                                     <td>{{ $deal->width }}</td>
                                                     <td>{{ $deal->height }}</td>
-                                                    <td>
-                                                        @if ($deal->product)
-                                                        @else
-                                                            {{ $deal->sqm }}
-                                                        @endif
-                                                    </td>
+                                                    <td>{{ number_format($deal->sqm, 2) }}</td>
                                                     <td>{{ $deal->quantity }}</td>
                                                     <td>
                                                         @php
@@ -328,6 +328,15 @@
                                         <thead>
                                             <tr>
                                                 <td class="pull-right">
+                                                    <h5>
+                                                        <label class="switch ">
+                                                            <input type="checkbox" name="total_sqm_status" class="primary"
+                                                                value="{{ $quote->id }}"
+                                                                {{ $quote->total_sqm_status == 1 ? 'checked' : '' }}>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        Total Sqm ({{  number_format($total_sqm, 2) }})
+                                                    </h5>
                                                     <h5>
                                                         <label class="switch ">
                                                             <input type="checkbox" name="collect_status" class="primary"
@@ -743,7 +752,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> 
                 <!----------------------------------- End Delivery Options -------------------------------------->
 
             </div>
@@ -1036,6 +1045,30 @@
 
                 });
             });
+
+            //total sqm status change
+            $('input[name="total_sqm_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
+                var quote_id = $(this).val();
+                console.log('quote_id' + quote_id);
+                var total_sqm_status = 0;
+                //console.log(event.target.checked);
+                if (event.target.checked) {
+                    total_sqm_status = 1;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: " {{ route('total_sqm_status') }}",
+                    data: {
+                        total_sqm_status: total_sqm_status,
+                        quote_id: quote_id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                    }
+                });
+            });
+
             //collect status change
             $('input[name="collect_status"]').on('change', function(event, state) { //switchChange.bootstrapSwitch
                 var quote_id = $(this).val();

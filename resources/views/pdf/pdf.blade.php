@@ -165,6 +165,7 @@
                         $net_price = 0;
                         $netPrice = 0;
                         $gross_total = 0;
+                        $total_sqm = 0;
                     @endphp
                     @foreach ($quotes->deals as $quote)
                         <tr>
@@ -180,7 +181,7 @@
 
                             <td>{{ $quote->width }}</td>
                             <td>{{ $quote->height }}</td>
-                            <td>{{ $quote->sqm }}</td>
+                            <td>{{ number_format($quote->sqm, 2) }}</td>
                             <td>{{ $quote->quantity }}</td>
                             @if ($discount > 0)
                                 <td>
@@ -296,6 +297,8 @@
                             $vat += $pro_vat;
                             $net_price += $netPrice;
                             $gross_total += $quote->total_gross;
+
+                            $total_sqm = $total_sqm + ($quote->sqm * $quote->quantity);
                         @endphp
                     @endforeach
                 </tbody>
@@ -319,8 +322,11 @@
                                     @endif 
                                 @endif
 
-                                @if ($quotes->hide_collect == 1)
+                                @if ($quotes->total_sqm_status == 1)
                                     <br>
+                                    Total Sqm<br />
+                                @endif
+                                @if ($quotes->hide_collect == 1)
                                     Grand Total (Collected)<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
@@ -342,8 +348,11 @@
                                     @endif
                                 @endif
 
+                                @if ($quotes->total_sqm_status == 1)
+                                    <br>{{ number_format($total_sqm, 2) }}<br />
+                                @endif
                                 @if ($quotes->hide_collect == 1)
-                                    <br>£{{ number_format($gross_total, 2) }}<br />
+                                    £{{ number_format($gross_total, 2) }}<br />
                                 @endif
                                 @if ($quotes->hide_delivered == 1)
                                     £{{ number_format($quotes->delivered + $gross_total, 2) }}<br />
