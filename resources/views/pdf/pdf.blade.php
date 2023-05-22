@@ -166,6 +166,7 @@
                         $netPrice = 0;
                         $gross_total = 0;
                         $total_sqm = 0;
+                        $total_items = 0;
                     @endphp
                     @foreach ($quotes->deals as $quote)
                         <tr>
@@ -299,6 +300,7 @@
                             $gross_total += $quote->total_gross;
 
                             $total_sqm = $total_sqm + ($quote->sqm * $quote->quantity);
+                            $total_items = $total_items + $quote->quantity;
                         @endphp
                     @endforeach
                 </tbody>
@@ -322,8 +324,8 @@
                                     @endif 
                                 @endif
 
+                                <br>Total items<br />
                                 @if ($quotes->total_sqm_status == 1)
-                                    <br>
                                     Total Sqm<br />
                                 @endif
                                 @if ($quotes->hide_collect == 1)
@@ -332,6 +334,7 @@
                                 @if ($quotes->hide_delivered == 1)
                                     Grand Total (Delivered)<br />
                                 @endif
+                                
                             </span>
                         </td>
                         <td>
@@ -348,8 +351,9 @@
                                     @endif
                                 @endif
 
+                                <br>{{ $total_items }}<br />
                                 @if ($quotes->total_sqm_status == 1)
-                                    <br>{{ number_format($total_sqm, 2) }}<br />
+                                    {{ number_format($total_sqm, 2) }}<br />
                                 @endif
                                 @if ($quotes->hide_collect == 1)
                                     £{{ number_format($gross_total, 2) }}<br />
