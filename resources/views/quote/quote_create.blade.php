@@ -146,10 +146,12 @@
                                         <tbody>
                                             @php
                                                 $total_sqm = 0;
+                                                $total_items = 0;
                                             @endphp
                                             @foreach ($quote->deals as $deal)
                                                 @php
                                                     $total_sqm = $total_sqm + ($deal->sqm * $deal->quantity);
+                                                    $total_items = $total_items + $deal->quantity;
                                                 @endphp
                                                 <tr>
                                                     <td>{{ 'Item: ' . $loop->iteration }}</td>
@@ -348,8 +350,7 @@
                                                         Grand Total (Collected) : £{{ number_format($product_sum_total, 2) }}
                                                     </h5>
 
-                                                    <h5>
-
+                                                    <h5 class="pb-3">
                                                         <label class="switch ">
                                                             <input type="checkbox" name="delivered_status"
                                                                 class="primary" value="{{ $quote->id }}"
@@ -371,6 +372,7 @@
                                                                     id="edit_delivered">(Edit)</a></small>
                                                         @endif
                                                     </h5>
+                                                    <h6><b>Total items: {{ $total_items }}</b></h6>
                                                 </td>
                                             </tr>
                                         </thead>
