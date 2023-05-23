@@ -521,4 +521,14 @@ class QuotesController extends Controller
 
         return $pdf->stream();
     }
+
+    public function update_client_id($id)
+    {
+        $quote_id = $this->_request->quote_id;
+        $quote = $this->get_by_id($this->_modal, $quote_id);
+
+        $quote->client_id = $id;
+        $quote->save();
+        return response()->json('Customer changed successfully');
+    }
 }

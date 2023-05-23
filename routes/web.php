@@ -45,7 +45,7 @@ Route::get('get-product-data/{id?}', [App\Http\Controllers\ProductController::cl
 Route::resource('/customer',App\Http\Controllers\UserOrCustomerController::class);
 Route::get('/customer-quote/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'customer_quote'])->name('customer_quote');
 
-Route::get('/all-client',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
+Route::get('/all-client/{id}',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
 Route::get('get-client-data/{id}', [App\Http\Controllers\UserOrCustomerController::class, 'client_data'])->name('get_data');
 Route::post('store-client', [App\Http\Controllers\UserOrCustomerController::class, 'client_store'])->name('client_store');
 
@@ -57,6 +57,7 @@ Route::post('/admin-update',[App\Http\Controllers\UserOrCustomerController::clas
 // Quote Controller
 Route::resource('/quote', App\Http\Controllers\QuotesController::class);
 
+Route::get('/update-client-id/{id}',[App\Http\Controllers\QuotesController::class,'update_client_id'])->name('update_client_id');
 Route::put('/edit-survey/{id?}', [App\Http\Controllers\QuotesController::class,'edit_survey'])->name('edit_survey');
 Route::get('/destroy/{var?}', [App\Http\Controllers\QuotesController::class,'destroy'])->name('destroy_item');
 Route::get('/duplicate-item/{var?}', [App\Http\Controllers\QuotesController::class,'duplicate_item'])->name('duplicate_item');

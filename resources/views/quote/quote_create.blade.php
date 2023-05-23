@@ -41,59 +41,54 @@
                         <div class="col-12">
                             <h4>Customer Info</h4>
                         </div>
+                        
+                        <div class="col-12 col-md-8">
+                            <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
+                        </div>
+                        @if( !$quote->id )
+                        <div class="col-12 col-md-4">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                data-bs-target="#addcustomer">
+                                Add Customer <i class="fa fa-plus-circle"></i>
+                            </button>
+                        </div>
+                        @endif
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust_name">Name</label>
+                                <input id="cust_name" name="cust-name" class="form-control" type="text"
+                                    placeholder="Enter Name" value="{{ $quote->id ? $quote->client->name : '' }}" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust_phone">Telephone</label>
+                                <input id="cust_phone" name="cust-phone" class="form-control" type="number"
+                                    placeholder="Enter Number" value="{{ $quote->id ? $quote->client->phone : '' }}" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust-email">Email</label>
+                                <input id="cust_email" name="cust-email" class="form-control" type="email"
+                                    placeholder="Enter Email" readonly="" value="{{ $quote->id ? $quote->client->email : '' }}">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="cust-postcode">Billing Postcode</label>
+                                <input id="cust_postcode" name="billing_postal_code" class="form-control"
+                                    type="text" placeholder="Postcode" value="{{ $quote->id ? $quote->client->postal_code : '' }}" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cust-address">Address</label>
+                                <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly="">{{ $quote->id ? $quote->client->address : '' }}</textarea>
+                            </div>
+                        </div>
+
                         @if ($quote->id)
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="product_type_id">Name</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
-                                        value="{{ $quote->id ? $quote->client->name : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="product_type_id">Billing Postcode</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
-                                        value="{{ $quote->id ? $quote->client->postal_code : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="product_type_id">Project Postcode</label>
-                                    @if (!empty($quote->billing_postal_code))
-                                        <input class="form-control" type="text" placeholder="Enter Name"
-                                            value="{{ $quote->id ? $quote->billing_postal_code : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    @else
-                                        <input class="form-control" type="text" placeholder="Enter Name"
-                                            value="{{ $quote->id ? $quote->client->postal_code : '' }}"
-                                            {{ $quote->id ? 'readonly' : '' }}>
-                                    @endif
-                                </div>
-                            </div>
-                            {{-- <div class="col-sm-1">
-                                <div style="margin-top:35px; margin-left:-23px;"><a href="#" data-toggle="modal"
-                                        data-target="#editpostal" id="edit_postal">(Edit)</a></div>
-                            </div> --}}
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="product_type_id">Email</label>
-                                    <input class="form-control" type="text" placeholder=""
-                                        value="{{ $quote->id ? $quote->client->email : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="product_type_id">Phone No</label>
-                                    <input class="form-control" type="text" placeholder=""
-                                        value="{{ $quote->id ? $quote->client->phone : '' }}"
-                                        {{ $quote->id ? 'readonly' : '' }}>
-                                </div>
-                            </div>
-
                             <div class="col-sm-12">
                                 <div class="form-group table-responsive">
                                     <table class="table table-bordered">
@@ -388,50 +383,6 @@
                                             Review Quote <span><i class="fa fa-save"></i></span>
                                         </button>
                                     </a>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-12 col-md-8">
-                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true"></select>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#addcustomer">
-                                    Add Customer <i class="fa fa-plus-circle"></i>
-                                </button>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust_name">Name</label>
-                                    <input id="cust_name" name="cust-name" class="form-control" type="text"
-                                        placeholder="Enter Name" value="" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust_phone">Telephone</label>
-                                    <input id="cust_phone" name="cust-phone" class="form-control" type="number"
-                                        placeholder="Enter Number" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust-email">Email</label>
-                                    <input id="cust_email" name="cust-email" class="form-control" type="email"
-                                        placeholder="Enter Email" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="cust-postcode">Billing Postcode</label>
-                                    <input id="cust_postcode" name="billing_postal_code" class="form-control"
-                                        type="text" placeholder="Postcode" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="cust-address">Address</label>
-                                    <textarea id="cust_address" class="form-control" rows="3" placeholder="Enter Address" readonly=""></textarea>
                                 </div>
                             </div>
                         @endif
@@ -922,10 +873,14 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            var quote_id = '{{ $quote->id }}';
+            if(quote_id == null || quote_id==""){
+                quote_id = null;
+            }
 
             $.ajax({
                 type: "get",
-                url: "{{ route('allclient') }}",
+                url: "{{ route('allclient', ['id' => ':id']) }}".replace(':id', quote_id),
                 success: function(response) {
                     //console.log(response.client);
                     $("#clients").html(response.client);
@@ -935,6 +890,7 @@
             $('.select2').select2().on('select2:open', function(e){
                 $('.select2-search__field').attr('placeholder', 'Search customer here.....');
             });
+            
 
             $('.full_wood').hide();
             $('.full_paint').show();
@@ -1128,7 +1084,7 @@
         function client_info() {
             var selectElement = document.querySelector('.form-select');
             var selectedValue = selectElement.value;
-            // alert(selectedValue);
+            //alert($("#clients").val());
             $.ajax({
                 type: "get",
                 url: "{{ route('clientinfo') }}/" + selectedValue,
@@ -1143,6 +1099,38 @@
                     $('#cust_address').val(response.client.address);
                     $('#trade_discount').val(response.client.trade_discount);
                     //alert(response.client.trade_discount);
+
+                    var quote_id = '{{ $quote->id }}';
+                    if(quote_id == null || quote_id==""){}
+                    else {
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('update_client_id', ['id' => ':id']) }}".replace(':id', response.client.id),
+                            data: {
+                                quote_id: quote_id
+                            },
+                            success: function(response) {
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "positionClass": "toast-bottom-right",
+                                    "progressBar": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+                                toastr.success("Customer changed successfully");
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -1173,9 +1161,13 @@
 
         //set all client data after adding new client through modal
         function set_client(id, name, phone, postal_code, email, address, trade_discount, distance) {
+            var quote_id = '{{ $quote->id }}';
+            if(quote_id == null || quote_id==""){
+                quote_id = null;
+            }
             $.ajax({
                 type: "GET",
-                url: "{{ route('allclient') }}",
+                url: "{{ route('allclient', ['id' => ':id']) }}".replace(':id', quote_id),
                 dataType: 'json',
                 cache: false,
                 success: function(result) {
