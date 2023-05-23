@@ -475,7 +475,7 @@ class QuotesController extends Controller
         $gsuk = 'ROKA-0000'.$id;
         $email = $quotes->client->email;
 
-        Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
+        Mail::send('pdf_email.plain_text',  ['id' => $id], function ($message) use ($pdf, $client, $gsuk, $email) {
             $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
             $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
@@ -499,7 +499,7 @@ class QuotesController extends Controller
         $gsuk = 'ROKA-0000'.$id;
         $email = $quotes->client->email;
 
-        Mail::send('pdf_email.plain_text', [], function ($message) use ($pdf, $client, $gsuk, $email) {
+        Mail::send('pdf_email.plain_text', ['id' => $id], function ($message) use ($pdf, $client, $gsuk, $email) {
             $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
             $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
@@ -512,7 +512,6 @@ class QuotesController extends Controller
        return redirect()->route('quote.index')->with('success','PDF sent successfully!');
 
     }
-
 
     public function pdf($id)
     {
@@ -530,5 +529,29 @@ class QuotesController extends Controller
         $quote->client_id = $id;
         $quote->save();
         return response()->json('Customer changed successfully');
+    }
+
+    public function quote_status_message()
+    {
+        $message = session('message');
+        return view('quote.quote_status')->with('message', $message);
+    }
+
+    public function approve_quote($id)
+    {
+        $quote = $this->get_by_id($this->_modal, $id);
+        $quote->status = 'approved';
+        $quote->update();
+
+        return redirect()->route('quote_status_message')->with('message','Quote has been approved!');
+    }
+
+    public function reject_quote($id)
+    {
+        $quote = $this->get_by_id($this->_modal, $id);
+        $quote->status = 'rejected';
+        $quote->update();
+
+        return redirect()->route('quote_status_message')->with('message','Quote has been rejected!');
     }
 }
