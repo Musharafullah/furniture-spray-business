@@ -35,6 +35,9 @@
                                         title="View Related Quotes">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    <a href="{{ route('change_customer_status', $clients->id) }}" data-toggle="tooltip" title="Delete Customer">
+                                        <i class="fa fa-times-circle"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
