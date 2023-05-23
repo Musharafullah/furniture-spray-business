@@ -40,6 +40,8 @@ class emailUser extends Command
             ->where('status', 'sent')
             ->where('created_at', '<=', $from)
             ->where('created_at', '>=', $to)
+            ->where('status', '=', 'approved')
+            ->where('status', '!=', 'rejected')
             ->get();
 
         if ($quote) {

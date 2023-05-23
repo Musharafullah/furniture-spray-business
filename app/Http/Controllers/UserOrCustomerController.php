@@ -62,7 +62,6 @@ class UserOrCustomerController extends Controller
 
     public function clientinfo($id)
     {
-
         $client = $this->get_by_id($this->_modal, $id);
         // return view('render_data.clients')->rendor('data');
         // $client  = view('render_data.clients', compact('data'))->render();

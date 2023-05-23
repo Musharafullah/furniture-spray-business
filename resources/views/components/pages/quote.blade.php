@@ -33,7 +33,7 @@
                                     onchange="quoteStatus('{{ $quote->id ?? '' }}', this)" class="form-select"
                                     data-live-search="true" tabindex="-1" aria-hidden="true">
                                     @php
-                                        $quote_status = ['draft', 'sent', 'reminder', 'paid-collected', 'paid-delivered', 'collect', 'delivered', 'expired'];
+                                        $quote_status = ['draft', 'sent', 'approved', 'rejected', 'reminder', 'paid-collected', 'paid-delivered', 'collect', 'delivered', 'expired'];
                                     @endphp
                                     <option value=""> -- Select Product Type --</option>
                                     @foreach ($quote_status as $status)
