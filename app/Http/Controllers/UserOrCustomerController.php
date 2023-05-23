@@ -34,7 +34,7 @@ class UserOrCustomerController extends Controller
     public function index()
     {
 
-        $data = $this->get_all_by_roll($this->_modal)->sortDesc();
+        $data = $this->get_all_by_roll($this->_modal)->where('status', '!=', 0)->sortDesc();
         $slug = "customer";
         return view('home',compact('slug','data'));
 
@@ -44,7 +44,7 @@ class UserOrCustomerController extends Controller
     // here  get all client info by ajax
     public function allclient($id)
     {
-        $clients = $this->get_all_by_roll($this->_modal)->sortBy('name');
+        $clients = $this->get_all_by_roll($this->_modal)->where('status', '!=', 0)->sortBy('name');
 
         if($id != 'null') {
             $quote = $this->get_by_id($this->_qModel, $id);
@@ -59,7 +59,6 @@ class UserOrCustomerController extends Controller
             'quote' =>$quote,
         ]);
     }
-
 
     public function clientinfo($id)
     {
@@ -305,5 +304,20 @@ class UserOrCustomerController extends Controller
     {
         $this->delete($this->_modal, $id);
         return redirect()->route('{{ routeName }}');
+    }
+
+    public function change_customer_status($id)
+    {
+        $client = $this->get_by_id($this->_modal, $id);
+        if($client->status == 1){
+            $client->status = 0;
+            $client->update();
+        }
+        else {
+            $client->status = 1;
+            $client->update();
+        }
+
+        return back()->with('success','Customer deleted successfully!');
     }
 }

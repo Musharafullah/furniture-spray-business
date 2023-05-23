@@ -27,6 +27,7 @@ return new class extends Migration
             $table->double('longitude')->nullable();
             $table->double('distance')->nullable();
             $table->double('trade_discount')->nullable();
+            $table->integer('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

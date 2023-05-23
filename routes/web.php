@@ -48,6 +48,7 @@ Route::get('/customer-quote/{id?}',[App\Http\Controllers\UserOrCustomerControlle
 Route::get('/all-client/{id}',[App\Http\Controllers\UserOrCustomerController::class,'allclient'])->name('allclient');
 Route::get('get-client-data/{id}', [App\Http\Controllers\UserOrCustomerController::class, 'client_data'])->name('get_data');
 Route::post('store-client', [App\Http\Controllers\UserOrCustomerController::class, 'client_store'])->name('client_store');
+Route::get('change-customer-status/{id}', [App\Http\Controllers\UserOrCustomerController::class, 'change_customer_status'])->name('change_customer_status');
 
 Route::get('/client/{id?}',[App\Http\Controllers\UserOrCustomerController::class,'clientinfo'])->name('clientinfo');
 // update profile
