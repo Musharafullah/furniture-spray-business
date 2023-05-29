@@ -91,3 +91,5 @@ Route::get('reject-quote/{id}', [App\Http\Controllers\QuotesController::class,'r
 
 // Delievery Charges
 Route::resource('/deliverycharges', App\Http\Controllers\DeliveryChargesController::class);
+Route::resource('/guestItem', App\Http\Controllers\GuestItemController::class);
+Route::get('/guest/destroy/{var?}', [App\Http\Controllers\GuestItemController::class,'destroy'])->name('destroy_guest');

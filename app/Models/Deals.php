@@ -41,4 +41,9 @@ class Deals extends Model
     {
         return $this->belongsTo(Product::class,'product_id');
     }
+
+    public function guest()
+    {
+        return $this->belongsTo(GuestItem::class,'guest_id');
+    }
 }

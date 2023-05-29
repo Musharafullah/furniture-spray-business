@@ -42,10 +42,10 @@
                             <h4>Customer Info</h4>
                         </div>
                         
-                        <div class="col-12 col-md-8">
-                            <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
-                        </div>
                         @if ($quote->id)
+                            <div class="col-12 col-md-8">
+                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
+                            </div>
                             <div class="col-sm-5">
                                 <div class="form-group">
                                     <label for="product_type_id">Name</label>
@@ -150,6 +150,7 @@
                                             @php
                                                 $total_sqm = 0;
                                                 $total_items = 0;
+                                                $guest_code = 0;
                                             @endphp
                                             @foreach ($quote->deals as $deal)
                                                 @php
@@ -158,11 +159,44 @@
                                                 @endphp
                                                 <tr>
                                                     <td>{{ 'Item: ' . $loop->iteration }}</td>
-                                                    <td>{{ $deal->product->code }}</td>
-                                                    <td>{{ $deal->product->product_name }}</td>
-                                                    <td>{{ $deal->width }}</td>
-                                                    <td>{{ $deal->height }}</td>
-                                                    <td>{{ number_format($deal->sqm, 2) }}</td>
+                                                    <td>
+                                                        @if($deal->product_id!=null)
+                                                            {{ $deal->product->code }}
+                                                        @elseif($deal->guest_id!=null)
+                                                            @php
+                                                                ++$guest_code;
+                                                            @endphp
+                                                            GUEST-{{ $guest_code }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($deal->product_id!=null)
+                                                            {{ $deal->product->product_name }}
+                                                        @elseif($deal->guest_id!=null)
+                                                            {{ $deal->guest->title }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($deal->guest_id!=null)
+                                                            -
+                                                        @else
+                                                            {{ $deal->width }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($deal->guest_id!=null)
+                                                            -
+                                                        @else
+                                                            {{ $deal->height }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($deal->guest_id!=null)
+                                                            -
+                                                        @else
+                                                            {{ number_format($deal->sqm, 2) }}
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $deal->quantity }}</td>
                                                     <td>
                                                         @php
@@ -194,24 +228,33 @@
                                                     <td>
                                                         <div>
                                                             <nobr>
-                                                                <a href="{{ route('duplicate_item', $deal->id) }}"
-                                                                    data-toggle="tooltip" title="Duplicate Item"><i
-                                                                        class="fa fa-copy"></i>
-                                                                </a>
-                                                                <a href="{{ route('quote.edit', $deal->id) }}"
-                                                                    data-toggle="tooltip" title="Edit Item"><i
-                                                                        class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <a href="{{ route('destroy_item', $deal->id) }}"
-                                                                    data-toggle="tooltip" title="Delete Item"><i
-                                                                        class="fa fa-times-circle"></i>
-                                                                </a>
-                                                                <label class="switch ">
-                                                                    <input type="checkbox" name="image_status"
-                                                                        class="primary" value="{{ $deal->id }}"
-                                                                        {{ $deal->image_status == 1 ? 'checked' : '' }}>
-                                                                    <span class="slider round"></span>
-                                                                </label>
+                                                                @if($deal->product_id!=null)
+                                                                    <a href="{{ route('duplicate_item', $deal->id) }}"
+                                                                        data-toggle="tooltip" title="Duplicate Item"><i
+                                                                            class="fa fa-copy"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('quote.edit', $deal->id) }}" data-toggle="tooltip" title="Edit Item">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('destroy_item', $deal->id) }}"
+                                                                        data-toggle="tooltip" title="Delete Item"><i
+                                                                            class="fa fa-times-circle"></i>
+                                                                    </a>
+                                                                    <label class="switch ">
+                                                                        <input type="checkbox" name="image_status"
+                                                                            class="primary" value="{{ $deal->id }}"
+                                                                            {{ $deal->image_status == 1 ? 'checked' : '' }}>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                @elseif($deal->guest_id!=null)
+                                                                    <a href="{{ route('guestItem.edit', $deal->id) }}" data-toggle="tooltip" title="Edit Item">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('destroy_guest', $deal->guest_id) }}"
+                                                                        data-toggle="tooltip" title="Delete Item"><i
+                                                                            class="fa fa-times-circle"></i>
+                                                                    </a>
+                                                                @endif
                                                             </nobr>
                                                         </div>
 
@@ -219,6 +262,7 @@
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="10" style="border: 0px;">
+                                                    @if($deal->product_id!=null)
                                                         @if($deal->product->type == 'basic' || $deal->product->type == 'standard')
                                                         @elseif ($deal->matt_finish_option == 1)
                                                             Single Sided |
@@ -265,6 +309,9 @@
                                                         @if ($deal->beaded_door > 0)
                                                             Beaded Door |
                                                         @endif
+                                                    @elseif($deal->guest_id!=null)
+                                                        <b>Description:</b> {{ $deal->guest->description }}
+                                                    @endif
                                                     </td>
                                                 </tr>
                                                 @if ($deal->note)
@@ -394,6 +441,9 @@
                                 </div>
                             </div>
                         @else
+                            <div class="col-12 col-md-8">
+                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
+                            </div>
                             <div class="col-12 col-md-4">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                     data-bs-target="#addcustomer">
@@ -451,12 +501,17 @@
                             <div class="col-12">
                                 <h4>Add Product</h4>
                             </div>
+                            <div class="col-12 col-sm-7 col-md-5 col-lg-4 ms-auto mt-3 mb-3">
+                                <button type="button" class="btn btn-primary-rounded" data-bs-toggle="modal" data-bs-target="#addGuest">
+                                    Add Guest Item <span><i class="fa fa-save"></i></span>
+                                </button>
+                            </div>
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="code_id">Code</label>
-                                            <select name="code_id" id="code_id" class="form-select">
+                                            <select name="code_id" id="code_id" class="form-select" required>
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">
@@ -914,9 +969,131 @@
     </div>
     <!-- End endedit modal for delivered -->
 
+    <!--start Modal for add guest item-->
+    <div class="modal fade modal-lg" id="addGuest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Guest Item</h5>
+                    <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{ route('guestItem.store') }}" id="add_guest_item">
+                    @csrf
 
+                    @if ($quote->id)
+                        <input type="hidden" name="quote_id" value="{{ $quote->id }}" />
+                    @else
+                        <input type="hidden" name="client_id" id="item_client_id" />
+                    @endif
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="guest_title">Title</label>
+                                    <input id="guest_title" name="title" class="form-control" type="text"
+                                        placeholder="Enter Title" value="Guest" required>
+                                    @if ($errors->has('guest_title'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_title') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group mt-4">
+                                    <label for="guest_price">Price</label>
+                                    <input id="guest_price" name="price" class="form-control" type="number"
+                                        placeholder="Enter Price" value="" required>
+                                    @if ($errors->has('guest_price'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group mt-4">
+                                    <label for="guest_quantity">Quantity</label>
+                                    <input id="guest_quantity" name="quantity" class="form-control" type="number"
+                                        placeholder="Enter Quantity" value="1" required>
+                                    @if ($errors->has('guest_quantity'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_quantity') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group mt-4">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" name="description" class="form-control" rows="4"
+                                        placeholder="Enter Description" value="" required></textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('description') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group mt-4">
+                                    <label for="guest_discount">Trade_discount (%)</label>
+                                    <input id="guest_discount" name="trade_discount" class="form-control" type="number"
+                                        placeholder="Enter Number" value="{{ $quote->id ? $quote->client->trade_discount : '' }}" required>
+                                    @if ($errors->has('guest_discount'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_discount') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group mt-4">
+                                    <label for="guest_net_price">Net Price</label>
+                                    <input id="guest_net_price" name="net_price" class="form-control" value="" required readonly>
+                                    @if ($errors->has('guest_net_price'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_net_price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group mt-4">
+                                    <label for="guest_vat">Vat</label>
+                                    <input id="guest_vat" name="vat" class="form-control" value="" required readonly>
+                                    @if ($errors->has('guest_vat'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_vat') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group mt-4">
+                                    <label for="guest_total_price">Total Price</label>
+                                    <input id="guest_total_price" name="total_price" class="form-control"value="" required readonly>
+                                    @if ($errors->has('guest_total_price'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong class="text-danger">{{ $errors->first('guest_total_price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pb-0 mt-2">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                        <button class="btn btn-primary" type="submit">Add Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End add guest item modal -->
 
-    <!----------------------- End Add Customer Modal ------------------------------->
 
 @endsection
 @section('scripts')
@@ -1147,6 +1324,7 @@
                     $('#cust_postcode').val(response.client.postal_code);
                     $('#cust_address').val(response.client.address);
                     $('#trade_discount').val(response.client.trade_discount);
+                    $('#guest_discount').val(response.client.trade_discount);
                     //alert(response.client.trade_discount);
 
                     var quote_id = '{{ $quote->id }}';
@@ -1206,6 +1384,12 @@
                     $('#errors').html(errors);
                 }
             });
+        });
+
+        //client insert data
+        $("#add_guest_item").on('submit', function(event) {
+            var item_client_id = $('#clients').val();
+            $('#item_client_id').val(item_client_id);
         });
 
         //set all client data after adding new client through modal
@@ -1406,6 +1590,10 @@
             }
         });
 
+        $('#guest_price, #guest_quantity, #guest_discount').on('keyup', function(event) {
+            calculate_guest_gross();
+        });
+
         $('#quantity, #net_price, #trade_discount').on('keyup', function(event) {
             calculate_gross();
         });
@@ -1515,6 +1703,29 @@
             var total_gross = gross - net_discount;
 
             $('#total_gross').val(total_gross.toFixed(2));
+        }
+
+        function calculate_guest_gross() {
+            var quantity = Number($('#guest_quantity').val());
+            var basic_net = Number($('#guest_price').val());
+            var discount = Number($('#guest_discount').val());
+
+            var net = Number(quantity * basic_net);
+            var vat = (20 * net) / 100;
+            var gross = net + vat;
+
+            var net_discount = (discount * gross) / 100;
+            var total_gross = gross - net_discount;
+
+            var net_discount1 = (discount * net) / 100;
+            var total_net = net - net_discount1;
+
+            var vat_discount = (discount * vat) / 100;
+            var total_vat = vat - vat_discount;
+
+            $('#guest_net_price').val(total_net.toFixed(2));
+            $('#guest_vat').val(total_vat.toFixed(2));
+            $('#guest_total_price').val(total_gross.toFixed(2));
         }
 
         $('#gloss_percentage').on('change', function() {
