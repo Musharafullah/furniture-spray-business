@@ -173,16 +173,52 @@
                             <td>{{ $loop->iteration }}</td>
 
                             @if ($discount > 0 && $quotes->net_price_status == 1)
-                                <td>{{ $quote->product->product_name }}</td>
+                                <td>
+                                    @if($quote->product_id!=null)
+                                        {{ $quote->product->product_name }}
+                                    @elseif($quote->guest_id!=null)
+                                        {{ $quote->guest->title }}
+                                    @endif
+                                </td>
                             @elseif($discount > 0 || $quotes->net_price_status == 1)
-                                <td colspan="2">{{ $quote->product->product_name }}</td>
+                                <td colspan="2">
+                                    @if($quote->product_id!=null)
+                                        {{ $quote->product->product_name }}
+                                    @elseif($quote->guest_id!=null)
+                                        {{ $quote->guest->title }}
+                                    @endif
+                                </td>
                             @else
-                                <td colspan="3">{{ $quote->product->product_name }}</td>
+                                <td colspan="3">
+                                    @if($quote->product_id!=null)
+                                        {{ $quote->product->product_name }}
+                                    @elseif($quote->guest_id!=null)
+                                        {{ $quote->guest->title }}
+                                    @endif
+                                </td>
                             @endif
 
-                            <td>{{ $quote->width }}</td>
-                            <td>{{ $quote->height }}</td>
-                            <td>{{ number_format($quote->sqm, 2) }}</td>
+                            <td>
+                                @if($quote->guest_id!=null)
+                                    -
+                                @else
+                                    {{ $quote->width }}
+                                @endif
+                            </td>
+                            <td>
+                                @if($quote->guest_id!=null)
+                                    -
+                                @else
+                                    {{ $quote->height }}
+                                @endif
+                            </td>
+                            <td>
+                                @if($quote->guest_id!=null)
+                                    -
+                                @else
+                                    {{ number_format($quote->sqm, 2) }}
+                                @endif
+                            </td>
                             <td>{{ $quote->quantity }}</td>
                             @if ($discount > 0)
                                 <td>
@@ -231,6 +267,7 @@
                         <tr>
                             <td style="border: 0px;"></td>
                             <td colspan="8" style="border: 0px;">
+                            @if($quote->product_id!=null)
                                 @if($quote->product->type == 'basic' || $quote->product->type == 'standard')
                                 @elseif ($quote->matt_finish_option == 1)
                                     Single Sided |
@@ -277,6 +314,9 @@
                                 @if ($quote->beaded_door > 0)
                                     Beaded Door |
                                 @endif
+                            @elseif($quote->guest_id!=null)
+                                <b>Description:</b> {{ $quote->guest->description }}
+                            @endif
                             </td>
                         </tr>
                         @if( $quote->note )
@@ -293,7 +333,7 @@
                                 $pro_vat1 = ($pro_net_price * 20) / 100;
                                 $pro_vat = round($pro_vat1, 2);
                             } else {
-                                $pro_vat = round($deal->vat, 2);
+                                $pro_vat = round($quote->vat, 2);
                             }
                             $vat += $pro_vat;
                             $net_price += $netPrice;

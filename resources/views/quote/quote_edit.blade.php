@@ -476,9 +476,14 @@
 
         //set all client data after adding new client through modal
         function set_client(id, name, phone, postal_code, email, address, trade_discount, distance) {
+            var quote_id = '{{ $quote->id }}';
+            if(quote_id == null || quote_id==""){
+                quote_id = null;
+            }
+
             $.ajax({
                 type: "GET",
-                url: "{{ route('allclient') }}",
+                url: "{{ route('allclient', ['id' => ':id']) }}".replace(':id', quote_id),
                 dataType: 'json',
                 cache: false,
                 success: function(result) {

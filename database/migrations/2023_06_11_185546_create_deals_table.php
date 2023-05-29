@@ -17,13 +17,12 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('quote_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('guest_id')->nullable();
 
-            // $table->unsignedBigInteger('quote_id');
             $table->foreign('quote_id')->references('id')->on('quotes')->onDelete('cascade')->onUpdate('cascade');
-
-            // $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('guest_id')->references('id')->on('guest_items')->onDelete('cascade')->onUpdate('cascade');
 
 
             $table->integer('width')->nullable();
@@ -63,7 +62,6 @@ return new class extends Migration
             $table->string('delivered_status')->default(0);
             $table->string('status')->nullable();
             $table->timestamps();
-
         });
     }
 
