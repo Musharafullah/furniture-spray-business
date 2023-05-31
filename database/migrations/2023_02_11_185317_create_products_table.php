@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_image_path')->nullable();
             $table->double('cost_from_supplier')->nullable()->default(0);
             $table->double('sale_net_sqm')->nullable();
+            $table->double('min_sqm')->default(0.30);
             $table->double('matt_finish')->nullable()->default(0);
             //$table->double('min_charges')->nullable();
             $table->double('spraying_edges')->nullable()->default(0);

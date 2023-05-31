@@ -152,10 +152,11 @@
             var type = $('#type').val();
             if (type == 'standard') {
                 $('.full_paint, .full_wood').hide();
+                $('.standard').show();
             }
 
             if (type == 'basic') {
-                $('.full_paint, .full_wood').hide();
+                $('.full_paint, .full_wood, .standard').hide();
             }
             if (type == 'full_paint') {
                 $('.full_wood').hide();

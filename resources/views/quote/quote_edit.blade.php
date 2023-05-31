@@ -146,6 +146,7 @@
                                             <label for="product_sqm">SQM</label>
                                             <input id="product_sqm" name="sqm" class="form-control" type="number"
                                                 placeholder="" readonly value="{{ $deal->sqm ?? old('sqm') }}">
+                                            <input id="db_sqm" class="form-control" type="hidden" placeholder="">
                                             <input id="product_lm" class="form-control" type="hidden" placeholder="">
                                             <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                             <input id="product_price" name="product_price" class="form-control"
@@ -600,7 +601,8 @@
                 $('.sqm, .width, .height').show();
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(0.30);
+                    $('#product_sqm').val(row.min_sqm);
+                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -611,7 +613,8 @@
                 $('.sqm, .width, .height').show();
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(0.30);
+                    $('#product_sqm').val(row.min_sqm);
+                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -622,7 +625,8 @@
                 $('.sqm, .width, .height').show();
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(0.30);
+                    $('#product_sqm').val(row.min_sqm);
+                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -633,6 +637,7 @@
                 $('.sqm, .width, .height').hide();
 
                 $('#product_sqm').val(1);
+                $('#db_sqm').val(1);
                 $('#product_lm').val(1);
                 calculate_price();
             }
@@ -653,12 +658,14 @@
         $('#product_width, #product_height').on('keyup', function(event) {
             var height = $('#product_height').val();
             var width = $('#product_width').val();
+            var min_sqm = $('#db_sqm').val();
+
             if (height.length > 0 && width.length > 0) {
                 var mul = width * height;
                 var sqm = mul / 1000000;
 
-                if (sqm < 0.30) {
-                    $('#product_sqm').val(0.30);
+                if (sqm < min_sqm) {
+                    $('#product_sqm').val(min_sqm);
                 } else {
                     $('#product_sqm').val(sqm);
                 }
@@ -669,7 +676,7 @@
                 //alert(lm);
 
             } else {
-                $('#product_sqm').val(0.30);
+                $('#product_sqm').val(min_sqm);
                 $('#product_lm').val(1);
             }
         });
@@ -705,9 +712,10 @@
 
                 // product price per sqm
                 var input_sqm = Number($('#product_sqm').val());
-                if (input_sqm < 0.30 || $('#product_sqm').val() == '') {
-                    input_sqm = 0.30;
-                    $('#product_sqm').val(0.30);
+                var min_sqm = Number($('#db_sqm').val());
+                if (input_sqm < min_sqm || $('#product_sqm').val() == '') {
+                    input_sqm = min_sqm;
+                    $('#product_sqm').val(min_sqm);
                 }
 
                 var sqm_product = Number($('#pro_price').val());
@@ -740,7 +748,7 @@
                     });
 
 
-                if (input_sqm > 0.3 && $('#matt_finish_option').val() == 2) {
+                if (input_sqm > min_sqm && $('#matt_finish_option').val() == 2) {
                     var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
                     total += matt_finish;
                     //alert(matt_finish);
