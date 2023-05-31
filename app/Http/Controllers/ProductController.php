@@ -72,6 +72,7 @@ class ProductController extends Controller
             'product_name',
             'cost_from_supplier',
             'sale_net_sqm',
+            'min_sqm',
             'matt_finish',
             'spraying_edges',
             'metallic_paint',
@@ -88,9 +89,12 @@ class ProductController extends Controller
             'beaded_door',
             'barrier_coat',
         );
-        //dd($product);
+        
         $product = $this->_request->except('_token');
 
+        if($this->_request->min_sqm == null){
+            $product['min_sqm'] = 0.30;
+        }
         if($this->_request->matt_finish == null){
             $product['matt_finish'] = 0;
         }
@@ -165,6 +169,11 @@ class ProductController extends Controller
             $product['metallic_paint'] = 0;
             $product['gloss_80'] = 0;
             $product['micro_bevel'] = 0;
+        }
+
+        if($this->_request->type == "basic")
+        {
+            $product['min_sqm'] = 1;
         }
 
 
@@ -244,6 +253,7 @@ class ProductController extends Controller
             'product_name',
             'cost_from_supplier',
             'sale_net_sqm',
+            'min_sqm',
             'matt_finish',
             'spraying_edges',
             'metallic_paint',
@@ -263,6 +273,10 @@ class ProductController extends Controller
         // dd($product);
         $product = $this->_request->except('_token');
         $exist = $this->get_by_id($this->_modal, $id);
+
+        if($this->_request->min_sqm == null){
+            $product['min_sqm'] = 0.30;
+        }
 
         if($this->_request->type == "standard" || $this->_request->type == "basic")
         {
@@ -295,6 +309,11 @@ class ProductController extends Controller
             $product['metallic_paint'] = 0;
             $product['gloss_80'] = 0;
             $product['micro_bevel'] = 0;
+        }
+
+        if($this->_request->type == "basic")
+        {
+            $product['min_sqm'] = 1;
         }
 
         if ($this->_request->file('product_image'))

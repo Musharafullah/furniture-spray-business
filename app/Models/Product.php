@@ -17,7 +17,7 @@ class Product extends Model
         'cost_from_supplier',
         'sale_net_sqm',
         'matt_finish',
-        //'min_charges',
+        'min_sqm',
         'spraying_edges',
         'metallic_paint',
         'wood_stain',

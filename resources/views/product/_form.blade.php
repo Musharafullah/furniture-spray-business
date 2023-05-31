@@ -83,6 +83,20 @@
             @endif
         </div>
     </div>
+    <div class="col-sm-6 standard full_wood full_paint">
+        <div class="form-group">
+            <label for="sale_net_sqm">Min SQM</label>
+            <input id="min_sqm" name="min_sqm" class="form-control" type="number" placeholder="Enter Number"
+                value="{{ $product->min_sqm ?? old('min_sqm') }}" step="any">
+            @if ($errors->any())
+                @if ($errors->has('min_sqm'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong class="text-danger">{{ $errors->first('min_sqm') }}</strong>
+                    </span>
+                @endif
+            @endif
+        </div>
+    </div>
     <div class="col-sm-6 full_wood full_paint">
         <div class="form-group">
             <label>Rate / Sqm (1 sided) - Matt Finish</label>

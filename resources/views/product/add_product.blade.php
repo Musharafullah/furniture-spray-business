@@ -111,7 +111,7 @@
                 }
 
                 if (type == 'basic') {
-                    $('.full_paint, .full_wood').hide();
+                    $('.full_paint, .full_wood, .standard').hide();
                     $('.basic').show();
                 }
                 if (type == 'full_paint') {
