@@ -789,7 +789,7 @@
             var vat = (20 * net) / 100;
             $('#vat').val(vat.toFixed(2));
 
-            var gross = net + vat;
+            var gross = net + vat; 
 
             var net_discount = (discount * gross) / 100;
 
