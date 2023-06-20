@@ -86,8 +86,8 @@ Route::post('/create-quote/',[App\Http\Controllers\QuotesController::class,'crea
 Route::get('preview-pdf/{id}', [App\Http\Controllers\QuotesController::class,'pdf'])->name('quote.pdf');
 
 Route::get('quote-status-message', [App\Http\Controllers\QuotesController::class,'quote_status_message'])->name('quote_status_message');
-Route::get('approve-quote/{id}', [App\Http\Controllers\QuotesController::class,'approve_quote'])->name('approve_quote');
-Route::get('reject-quote/{id}', [App\Http\Controllers\QuotesController::class,'reject_quote'])->name('reject_quote');
+Route::get('approve/{id}/{admin_email}', [App\Http\Controllers\QuotesController::class,'approve_quote'])->name('approve_quote');
+Route::get('reject-quote/{id}/{admin_email}', [App\Http\Controllers\QuotesController::class,'reject_quote'])->name('reject_quote');
 
 // Delievery Charges
 Route::resource('/deliverycharges', App\Http\Controllers\DeliveryChargesController::class);

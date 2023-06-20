@@ -474,8 +474,10 @@ class QuotesController extends Controller
         $pdf = \PDF::loadView('pdf_email.pdf', compact('quotes'));
         $gsuk = 'ROKA-0000'.$id;
         $email = $quotes->client->email;
+        $admin_email = Auth::user()->email;
+        //dd($admin_email);
 
-        Mail::send('pdf_email.plain_text',  ['id' => $id], function ($message) use ($pdf, $client, $gsuk, $email) {
+        Mail::send('pdf_email.plain_text',  ['id' => $id, 'admin_email' => $admin_email], function ($message) use ($pdf, $client, $gsuk, $email) {
             $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
             $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
@@ -498,8 +500,10 @@ class QuotesController extends Controller
         $pdf = \PDF::loadView('pdf_email.pdf', compact('quotes'));
         $gsuk = 'ROKA-0000'.$id;
         $email = $quotes->client->email;
+        $admin_email = Auth::user()->email;
+        //dd($admin_email);
 
-        Mail::send('pdf_email.plain_text', ['id' => $id], function ($message) use ($pdf, $client, $gsuk, $email) {
+        Mail::send('pdf_email.plain_text', ['id' => $id, 'admin_email' => $admin_email], function ($message) use ($pdf, $client, $gsuk, $email) {
             $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
             $message->to($email)->subject('ROKA quote –'.$gsuk);
             $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
@@ -537,21 +541,78 @@ class QuotesController extends Controller
         return view('quote.quote_status')->with('message', $message);
     }
 
-    public function approve_quote($id)
+    public function approve_quote($id, $admin_email)
     {
         $quote = $this->get_by_id($this->_modal, $id);
-        $quote->status = 'approved';
-        $quote->update();
 
-        return redirect()->route('quote_status_message')->with('message','Quote has been approved!');
+        if($quote->status == 'draft' || $quote->status == 'sent'){
+            $quote->status = 'approved';
+            $quote->update();
+
+            $client = $quote->client_id;
+            $gsuk = 'ROKA-0000'.$id;
+            $email = $quote->client->email;
+            $status = 'approved';
+
+            //send email to customer
+            Mail::send('pdf_email.status_email_customer', ['status' => $status, 'id' => $gsuk], function ($message) use ($client, $gsuk, $email) {
+                $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
+                $message->to($email)->subject('ROKA quote –'.$gsuk.' Status');
+                $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
+            });
+
+            $email= $admin_email;
+            //send email to admin
+            Mail::send('pdf_email.status_email_admin', ['status' => $status, 'id' => $gsuk], function ($message) use ($client, $gsuk, $email) {
+                $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
+                $message->to($email)->subject('ROKA quote –'.$gsuk.' Status');
+                $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
+            });
+
+            return redirect()->route('quote_status_message')->with('message','Quote has been approved!');
+        }
+        elseif($quote->status == 'rejected'){
+            return redirect()->route('quote_status_message')->with('message','Quote has already been rejected. You can not change the status again.');
+        }
+        else{
+            return redirect()->route('quote_status_message')->with('message','Quote has already been approved. You can not change the status again.');
+        } 
     }
 
-    public function reject_quote($id)
+    public function reject_quote($id, $admin_email)
     {
         $quote = $this->get_by_id($this->_modal, $id);
-        $quote->status = 'rejected';
-        $quote->update();
+        if($quote->status == 'draft' || $quote->status == 'sent'){
+            $quote->status = 'rejected';
+            $quote->update();
 
-        return redirect()->route('quote_status_message')->with('message','Quote has been rejected!');
+            $client = $quote->client_id;
+            $gsuk = 'ROKA-0000'.$id;
+            $email = $quote->client->email;
+            $status = 'rejected';
+
+            //send email to customer
+            Mail::send('pdf_email.status_email_customer', ['status' => $status, 'id' => $gsuk], function ($message) use ($client, $gsuk, $email) {
+                $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
+                $message->to($email)->subject('ROKA quote –'.$gsuk.' Status');
+                $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
+            });
+
+            $email= $admin_email;
+            //send email to admin
+            Mail::send('pdf_email.status_email_admin', ['status' => $status, 'id' => $gsuk], function ($message) use ($client, $gsuk, $email) {
+                $message->from('info@furniturepaintspraying.co.uk', 'FurnitureSpray');
+                $message->to($email)->subject('ROKA quote –'.$gsuk.' Status');
+                $message->cc('info@furniturepaintspraying.co.uk')->subject('Roka quote –'.$gsuk);
+            });
+
+            return redirect()->route('quote_status_message')->with('message','Quote has been rejected!');
+        }
+        elseif($quote->status == 'rejected'){
+            return redirect()->route('quote_status_message')->with('message','Quote has already been rejected. You can not change the status again.');
+        }
+        else{
+            return redirect()->route('quote_status_message')->with('message','Quote has already been approved. You can not change the status again.');
+        } 
     }
 }

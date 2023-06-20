@@ -88,7 +88,7 @@
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="code_id">Code</label>
-                                            <select id="code_id" class="form-select">
+                                            <select id="code_id" class="form-select" required data-live-search="true">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     @php
@@ -104,7 +104,7 @@
                                     <div class="col-12 col-md-4">
                                         <div class="form-group">
                                             <label for="product_id">Products</label>
-                                            <select name="product_id" id="product_id" class="form-select">
+                                            <select name="product_id" id="product_id" class="form-select" required data-live-search="true">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     @php
@@ -391,6 +391,12 @@
             });
         }
         $(document).ready(function() {
+
+            $('.select2').select2().on('select2:open', function(e){
+                $('.select2-search__field').attr('placeholder', 'Search here.....');
+            });
+
+
             $id = $("#clients").val();
             client_info($id);
 
@@ -600,9 +606,10 @@
                 $('.full_paint, .full_wood').hide();
                 $('.sqm, .width, .height').show();
 
+                $('#product_sqm').val(row.min_sqm);
+                $('#db_sqm').val(row.min_sqm);
+
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(row.min_sqm);
-                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -612,9 +619,10 @@
                 $('.full_paint').show();
                 $('.sqm, .width, .height').show();
 
+                $('#product_sqm').val(row.min_sqm);
+                $('#db_sqm').val(row.min_sqm);
+
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(row.min_sqm);
-                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -624,9 +632,10 @@
                 $('.full_wood').show();
                 $('.sqm, .width, .height').show();
 
+                $('#product_sqm').val(row.min_sqm);
+                $('#db_sqm').val(row.min_sqm);
+
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
-                    $('#product_sqm').val(row.min_sqm);
-                    $('#db_sqm').val(row.min_sqm);
                     $('#product_lm').val(1);
                     calculate_price();
                 }
@@ -681,11 +690,11 @@
             }
         });
 
-        $('#quantity, #net_price').on('keyup', function(event) {
+        $('#net_price').on('keyup', function(event) {
             calculate_gross();
         });
 
-        $('#trade_discount').on('keyup', function(event) {
+        $('#quantity, #trade_discount').on('keyup', function(event) {
             calculate_price();
         });
 
