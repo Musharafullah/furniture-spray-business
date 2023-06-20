@@ -409,90 +409,26 @@
         </div>
 
         <div class="terms-and-conditions">
-            <h4 align="center"><strong>STANDARD TERMS & CONDITIONS OF QUOTATION</strong></h4>
+  <h4 align="center"><strong>STANDARD TERMS & CONDITIONS OF QUOTATION</strong></h4>
             <ol>
-                <li><strong>All prices are inclusive of VAT at the applicable rate.</strong></li>
-                <li>All quotations are valid for 30 days from date of issue.</li>
-                <li>
-                    Full payment on pro forma invoice is normally required on order, however, we do provide 30 day
-                    monthly terms which is
-                    subject to approval of a submitted account application, unless otherwise stated.
-                </li>
-                <li>
-                    All glass will be loose loaded and tail board with delivery during normal working hours, Monday to
-                    Friday 8am- 5pm,
-                    excluding weekends and public holidays unless otherwise stated.
-                </li>
-                <li>
-                    Any templates will be free issue to ourselves and must be full size rigid hardboard and clearly
-                    marked (paper is not acceptable
-                    as templates). We retain templates for a period of 14 days before disposal or return and all
-                    manufacturing from templates will be
-                    within manufacturer tolerances.
-                </li>
-                <li>
-                    We subscribe to and adhere to that all our glass products are sold subject to GGF visual quality
-                    standards and standard glass
-                    manufacturing and processing tolerances.
-                </li>
-                <li>
-                    Due to the nature and scope of matching decorated colour products such as paint, films, fabric and
-                    some glass materials etc
-                    we cannot be held responsible for not providing an exact colour match even if samples have been
-                    provided. Unless otherwise stated all our quotations
-                    are based on standard float glass. On closer inspection slight blemishes, imperfections and surface
-                    scratches can appear due to the processing, heating,
-                    cooling of toughened glass. This is unavoidable but also minimal. Imperfections that are not clearly
-                    visible in a 500mm square at a distance of 3mtrs
-                    and in a natural light environment with all downlighters switched off are deemed acceptable.
-                </li>
-                <li>
-                    We provide lead times and delivery/collection dates in good faith and are based on all the relevant
-                    information we have at the
-                    time. In most cases of technical and specialist works these can vary greatly and we will keep you
-                    informed of the progress of
-                    your works but cannot be held responsible for delays outside our control and will not accept or
-                    agree to any contra charging or
-                    provide any other compensation for your subsequent losses, unless otherwise stated. Any delivery
-                    date is otherwise, purely
-                    indicative. Printed glass and toughened mirrors can take up to 3 weeks to be manufacured.
-                </li>
-                <li>
-                    We do not accept withholding of payments for any reason including retention payments, discounts and
-                    any kind of
-                    performance bond etc, unless otherwise stated. All our products are subject to a full 12 month
-                    manufacturer defect warranty.
-                </li>
-                <li>
-                    We value quality and customer service, therefore, in the event that you are unhappy with any of our
-                    products due to defects
-                    we will gladly replace the item, provided, you inform us in writing no later than 24h from delivery
-                    date and the faulty product
-                    can be returned to our works for inspection as soon as possible, otherwise, any remake will be
-                    chargeable.
-                </li>
-                <li>
-                    We can provide some samples free of charge, however, other samples may be chargeable. Visit our
-                    website for more details.
-                </li>
-                <li>
-                    We reserve the right to amend any price if final sizes and/or quantities differ from quotation.
-                </li>
-                <li>
-                    Technical Limitations;<br>
-                    <div class="points">
-                        1) Minimum area charge for float annealed 0.25m2, Low Iron 0.25m2, Toughened and IGU glass is
-                        0.30m2.<br>
-                        2) Minimum glass size for toughening is 275mm x 100mm.<br>
-                        3) Maximum glass size for toughening is 3600mm x 2000mm.<br>
-                        4) Minimum area charge for toughened laminated is 0.3m2.<br>
-                        5) All circles are priced on application.<br>
-                        6) Holes and or cut outs on toughened glass must be within manufacturing tolerances and we
-                        reserve the right to refuse any
-                        order that does not comply with our specifications. All internal cut outs will have a radius
-                        minimum of the thickness of the glass.<br>
-                    </div>
-                </li>
+                <li>All prices are  inclusive of <strong>VAT</strong> at the applicable rate where stated</li>
+                <li>All quotations are valid  for <strong>30 days</strong> from date of issue.</li>
+              <li>Payments - <strong>Full  payment</strong> is required prior to collection, without exception. Collection will  be denied if payment has not been received. We do not accept withholding of  payments for any reason including retention payments, discounts and any kind of  performance bond etc, unless otherwise stated.</li>
+              <li>Deposit - Order values  over £500 will require a <strong>50% deposit</strong>. Order values below £500 will  require payment in full prior to commencing any works.</li>
+              <li>Estimates - All estimates  are<u> </u>based on the information provided. If your project requires further  preparation work or entails far more work than expected, we will advise you  upon receipt of your work or during the course of works. We cannot guarantee  any estimates based upon descriptions or photos. We reserve the right to amend  any price if final sizes and/or quantities differ from the original quotation. </li>
+              <li>Defects - Whilst every  item is checked during the packing process to ensure that it meets the highest  of standards, it is <strong>your</strong> <strong>responsibility</strong> to check that you are  fully satisfied prior to collection of your goods. We do not guarantee to  accept responsibility for damages reported after collection or delivery. Any  issues <strong>must</strong> be reported within <strong>24 hours</strong> of collection. In the  unlikely event that a fault is discovered which we have agreed to correct, it  is your responsibility to transport / return the items to us. We will not  contribute to any associated costs of delivery or transportation.<u></u></li>
+              <li>Faults on Delivery – If  you have arranged for us to deliver your order, it is <strong>your responsibility</strong> to attend beforehand, and check you are satisfied with all items. We <strong>will  not</strong> be held responsible or be expected to bear the costs for collecting or  re-delivering any missing items or items deemed to be faulty. Any damage in  transit is not our responsibility and will have to be taken up with the courier  carrying out the delivery. Any faults must be reported within 24 hours of  receipt. <u></u></li>
+              <li>Courier Collections - If  you are organising collection via courier, it is <strong>your responsibility</strong> to  attend beforehand and check you are satisfied with all items. We <strong>will not </strong>be  responsible for collecting or re-delivering any missing items or items deemed  to be faulty.<u></u></li>
+              <li>Packaging and Protection  - All items are packed in a 1mm foam wrap. Items may be carefully grouped  together to economise on packaging. If you require further protection such as  edge or corner protectors, we must be informed as this will incur an additional  charge.<u></u></li>
+              <li>Mirror / Glass – It is <strong>your  responsibility </strong>to check all doors containing mirror or glass prior to  sending them to us. We will not take responsibility for any scratched glass.  Our internal SOP&rsquo;s include masking all glass and mirror items prior to  preparation and therefore we cannot cause any scratching to mirrors or glass. Please  note that we cannot guarantee a very high quality finish where doors are glazed  prior to spraying. We advise removal of all  glazing prior to sending for spray. If you  choose to pre-glaze, we cannot take responsibility for any primer or paint  penetrating between the glass and framework.</li>
+              <li>Ironmongery – All  ironmongery such as handles, locks or hinges must be removed prior to  delivering items to us for spraying. We will require all items to be removed  prior to spraying. This will incur a minimum charge of £40.00. Please note that  we will not take responsibility for any missing ironmongery or any damages  which may happen in processing or removal. If ironmongery cannot be removed, we  shall paint without removing it. We will not be held responsible for any  damages which take place to the ironmongery whilst spraying or preparing for  spray.</li>
+              <li>Paint Colour Matches –  Whilst our paint suppliers have digitally scanned many original Designer paint colour  samples, we cannot guarantee a 100% representation of the original colour.  Please note that a 10% sheen, matt finish, is the best true representation of  any matched colour. As sheen levels are increased, the colour will look one  shade lighter for every 10% increment in sheen level. </li>
+              <li>Scanned Colour Matches –  Whilst any sample you provide will be digitally scanned, we cannot guarantee a  100% representation of the original colour. Light colours may be matched and  adjusted &lsquo;by eye&rsquo; and these may differ more in representation as compared to  the original paint colour. </li>
+              <li>Quality Standard – We  guarantee our paint finishes for 12 months from original application onto raw  MDF. Any re-painted or restored items are not covered by our guarantee. We will  prepare and spray all items to a very high standard with an expected inspection  distance of 2 metres, under indirect natural lighting. Any potential faults  visible under any shorter viewing distance is not covered under our quality assurance  policy. </li>
+              <li>MDF – We assume that all  items provided for spraying will be made from Moisture Resistant MDF. If low  quality standard MDF is sent, an additional preparation charge may be applied  for preparation of edges. </li>
+              <li>Additional Charges - Very  rough edges or unevenly sawn material may carry a further preparation charge. Any  items requiring excessive amounts of preparation and filling work may also  incur further charges.</li>
+              <li>Lead Times - We provide  lead times and delivery/collection dates in good faith, and these are based on  the relevant information we have at the time. In most cases we will keep you  informed of the progress of your works, but we cannot be held responsible for  delays outside our control and will not accept or agree to any contra charging,  penalties or provide any other form of compensation for any subsequent losses  you may incur. Unless stated otherwise, any delivery date is therefore purely  indicative.cturing from templates will be
+                    within manufacturer tolerances.                            </li>
             </ol>
 
         </div>
@@ -504,10 +440,11 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-copyright">
-            ALL GOODS SUPPLIED REMAIN PROPERTY OF ROKA SPRAYING UNTIL PAID FOR IN FULL.<br>  
-            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA TERMS AND CONDITIONS.<br>  
-            <span>Roka Spraying | 020 3004 4824| info@furniturepaintspraying.co.uk</span>
+   <div class="footer-copyright">
+            ALL GOODS SUPPLIED REMAIN THE PROPERTY OF ROKA SPRAY UNTIL PAID FOR IN FULL.<br>  
+            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA SPRAY’S TERMS AND CONDITIONS.<br>  
+            <span>RBC London LLP t/a ROKA Spray | Unit 2,
+8 Walmgate Road, Perivale, London, UB6 7LH | 020 3004 4824| office@roka-spray.com</span>
         </div>
     </footer>
     <!-- Footer -->

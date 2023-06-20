@@ -496,18 +496,15 @@
             </ol>
 
         </div>
-
-        <!--<button class="btn-info">Send Quote</button>-->
-         <a href="{{ url('view-send-pdf', $quotes->id) }}" data-toggle="tooltip"
-                                            title="Send & Download Quote" class="btn-info">Send Quote</a>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-copyright">
-            ALL GOODS SUPPLIED REMAIN PROPERTY OF ROKA SPRAYING UNTIL PAID FOR IN FULL.<br>  
-            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA TERMS AND CONDITIONS.<br>  
-            <span>Roka Spraying | 020 3004 4824| info@furniturepaintspraying.co.uk</span>
+            ALL GOODS SUPPLIED REMAIN THE PROPERTY OF ROKA SPRAY UNTIL PAID FOR IN FULL.<br>  
+            ALL ORDERS ARE ACCEPTED STRICTLY ON ROKA SPRAY’S TERMS AND CONDITIONS.<br>  
+            <span>RBC London LLP t/a ROKA Spray | Unit 2,
+8 Walmgate Road, Perivale, London, UB6 7LH | 020 3004 4824| office@roka-spray.com</span>
         </div>
     </footer>
     <!-- Footer -->

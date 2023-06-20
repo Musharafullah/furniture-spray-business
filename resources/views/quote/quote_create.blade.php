@@ -41,36 +41,37 @@
                         <div class="col-12">
                             <h4>Customer Info</h4>
                         </div>
+
+                        <div class="col-12 col-md-8">
+                            <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
+                        </div>
                         
                         @if ($quote->id)
-                            <div class="col-12 col-md-8">
-                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
-                            </div>
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label for="product_type_id">Name</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
+                                    <label for="cust_name">Name</label>
+                                    <input id="cust_name" class="form-control" type="text" placeholder="Enter Name"
                                         value="{{ $quote->id ? $quote->client->name : '' }}"
                                         {{ $quote->id ? 'readonly' : '' }}>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="product_type_id">Billing Postcode</label>
-                                    <input class="form-control" type="text" placeholder="Enter Name"
+                                    <label for="cust-billcode">Billing Postcode</label>
+                                    <input id="cust_billcode" class="form-control" type="text" placeholder="Enter Name"
                                         value="{{ $quote->id ? $quote->client->postal_code : '' }}"
                                         {{ $quote->id ? 'readonly' : '' }}>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="product_type_id">Project Postcode</label>
+                                    <label for="cust-postcode">Project Postcode</label>
                                     @if (!empty($quote->billing_postal_code))
-                                        <input class="form-control" type="text" placeholder="Enter Name"
+                                        <input id="cust_postcode" class="form-control" type="text" placeholder="Enter Name"
                                             value="{{ $quote->id ? $quote->billing_postal_code : '' }}"
                                             {{ $quote->id ? 'readonly' : '' }}>
                                     @else
-                                        <input class="form-control" type="text" placeholder="Enter Name"
+                                        <input id="cust_postcode" class="form-control" type="text" placeholder="Enter Name"
                                             value="{{ $quote->id ? $quote->client->postal_code : '' }}"
                                             {{ $quote->id ? 'readonly' : '' }}>
                                     @endif
@@ -83,16 +84,16 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="product_type_id">Email</label>
-                                    <input class="form-control" type="text" placeholder=""
+                                    <label for="cust-email">Email</label>
+                                    <input id="cust_email" class="form-control" type="text" placeholder=""
                                         value="{{ $quote->id ? $quote->client->email : '' }}"
                                         {{ $quote->id ? 'readonly' : '' }}>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="product_type_id">Phone No</label>
-                                    <input class="form-control" type="text" placeholder=""
+                                    <label for="cust_phone">Telephone</label>
+                                    <input id="cust_phone" class="form-control" type="text" placeholder=""
                                         value="{{ $quote->id ? $quote->client->phone : '' }}"
                                         {{ $quote->id ? 'readonly' : '' }}>
                                 </div>
@@ -154,7 +155,14 @@
                                             @endphp
                                             @foreach ($quote->deals as $deal)
                                                 @php
-                                                    $total_sqm = $total_sqm + ($deal->sqm * $deal->quantity);
+                                                    if($deal->guest_id==null){
+                                                        if($deal->product->type == 'basic'){
+                                                            $total_sqm = $total_sqm + 0;
+                                                        }
+                                                        else{
+                                                            $total_sqm = $total_sqm + ($deal->sqm * $deal->quantity);
+                                                        }
+                                                    }
                                                     $total_items = $total_items + $deal->quantity;
                                                 @endphp
                                                 <tr>
@@ -177,21 +185,21 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($deal->guest_id!=null)
+                                                        @if($deal->guest_id!=null || $deal->product->type == 'basic')
                                                             -
                                                         @else
                                                             {{ $deal->width }}
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($deal->guest_id!=null)
+                                                        @if($deal->guest_id!=null || $deal->product->type == 'basic')
                                                             -
                                                         @else
                                                             {{ $deal->height }}
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($deal->guest_id!=null)
+                                                        @if($deal->guest_id!=null || $deal->product->type == 'basic')
                                                             -
                                                         @else
                                                             {{ number_format($deal->sqm, 2) }}
@@ -441,9 +449,6 @@
                                 </div>
                             </div>
                         @else
-                            <div class="col-12 col-md-8">
-                                <select class="form-select select2" id="clients" onchange="client_info()" data-live-search="true" required></select>
-                            </div>
                             <div class="col-12 col-md-4">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                     data-bs-target="#addcustomer">
@@ -511,7 +516,7 @@
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
                                             <label for="code_id">Code</label>
-                                            <select name="code_id" id="code_id" class="form-select" required>
+                                            <select name="code_id" id="code_id" class="form-select" required data-live-search="true">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">
@@ -524,7 +529,7 @@
                                     <div class="col-12 col-md-4">
                                         <div class="form-group">
                                             <label for="product_id">Products</label>
-                                            <select name="product_id" id="product_id" class="form-select">
+                                            <select name="product_id" id="product_id" class="form-select" required data-live-search="true">
                                                 <option value=""> -- Select One --</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">
@@ -563,7 +568,7 @@
                                             <label for="product_sqm">SQM</label>
                                             <input id="product_sqm" name="sqm" class="form-control" type="number"
                                                 placeholder="" readonly value="">
-                                            <input id="db_sqm" class="form-control" type="hidden" placeholder="">
+                                            <input id="db_sqm" class="form-control" type="hidden" placeholder="" value="">
                                             <input id="product_lm" class="form-control" type="hidden" placeholder="">
                                             <input id="pro_price" class="form-control" type="hidden" placeholder="">
                                             <input id="product_price" name="product_price" class="form-control"
@@ -1115,7 +1120,7 @@
             });
 
             $('.select2').select2().on('select2:open', function(e){
-                $('.select2-search__field').attr('placeholder', 'Search customer here.....');
+                $('.select2-search__field').attr('placeholder', 'Search here.....');
             });
             
 
@@ -1311,7 +1316,7 @@
         function client_info() {
             var selectElement = document.querySelector('.form-select');
             var selectedValue = selectElement.value;
-            //alert($("#clients").val());
+            //alert(selectedValue);
             $.ajax({
                 type: "get",
                 url: "{{ route('clientinfo') }}/" + selectedValue,
@@ -1322,6 +1327,13 @@
                     $('#cust_name').val(response.client.name);
                     $('#cust_phone').val(response.client.phone);
                     $('#cust_email').val(response.client.email);
+                    if(response.client.billing_postal_code == null) {
+                        $('#cust_billcode').val(response.client.postal_code);
+                    }
+                    else{
+                        $('#cust_billcode').val(response.client.billing_postal_code);
+                    }
+                    
                     $('#cust_postcode').val(response.client.postal_code);
                     $('#cust_address').val(response.client.address);
                     $('#trade_discount').val(response.client.trade_discount);
