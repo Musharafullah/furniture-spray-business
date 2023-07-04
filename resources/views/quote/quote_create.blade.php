@@ -1582,6 +1582,7 @@
                 $('#product_height').attr('readonly', 'disabled');
             }
         });
+        
 
         //calculate sqm and lm
         $('#product_width, #product_height').on('keyup', function(event) {
@@ -1640,13 +1641,24 @@
                 var total = 0;
 
                 // product price per sqm
-                var input_sqm = Number($('#product_sqm').val());
+                var height = $('#product_height').val();
+                var width = $('#product_width').val();
+                var mul = width * height;
+                var input_sqm = mul / 1000000;
+                var calculated_sqm = mul / 1000000;
+                var db_sqm = Number($('#db_sqm').val());
+
                 var min_sqm = Number($('#db_sqm').val());
                 if (input_sqm < min_sqm || $('#product_sqm').val() == '') {
                     input_sqm = min_sqm;
                     $('#product_sqm').val(min_sqm);
                 }
+                else {
+                    $('#product_sqm').val(input_sqm);
+                }
 
+
+                var product_sqm = $('#product_sqm').val();
                 var sqm_product = Number($('#pro_price').val());
 
                 /*if ($('#matt_finish_option').val() == 2) {
@@ -1668,25 +1680,56 @@
                     .each(function() {
 
                         if ($('#matt_finish_option').val() == 2) {
-                            var value = Number($(this).val()) * input_sqm * 2;
-                            total += value;
+                            var temp = calculated_sqm * 2;
+                            if(temp > product_sqm) {
+                                var value = Number($(this).val()) * input_sqm * 2;
+                                total += value;
+                            }
+                            else {
+                                var value = Number($(this).val()) * input_sqm;
+                                total += value;
+                            }
                         } else {
                             var value = Number($(this).val()) * input_sqm;
                             total += value;
                         }
                     });
 
+                $('#matt_finish_option').each(function() {
 
-                if (input_sqm > min_sqm && $('#matt_finish_option').val() == 2) {
-                    var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
-                    total += matt_finish;
-                    //alert(matt_finish);
+                    if ($('#matt_finish_option').val() == 2) {
+                        var temp = calculated_sqm * 2;
+                        if(temp > product_sqm) {
+                            var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
+                            total += matt_finish;
+                        }
+                        else {
+                            var matt_finish = Number($('#matt_finish').val()) * input_sqm;
+                            total += matt_finish;
+                        }
+                    }
+                    else {
+                        var matt_finish = Number($('#matt_finish').val()) * input_sqm;
+                        total += matt_finish;
+                    }
+                });
+
+
+                /*if ($('#matt_finish_option').val() == 2) {
+                    var temp = calculated_sqm * 2;
+                    if(temp > product_sqm) {
+                        var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
+                        total += matt_finish;
+                    }
+                    else {
+                        var matt_finish = Number($('#matt_finish').val()) * input_sqm;
+                        total += matt_finish;
+                    }
                 }
                 else {
                     var matt_finish = Number($('#matt_finish').val()) * input_sqm;
                     total += matt_finish;
-                    //alert(matt_finish);
-                }
+                }*/
                 
 
                 var lm = Number($('#product_lm').val());
