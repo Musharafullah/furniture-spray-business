@@ -606,7 +606,7 @@
                 $('.full_paint, .full_wood').hide();
                 $('.sqm, .width, .height').show();
 
-                $('#product_sqm').val(row.min_sqm);
+                //$('#product_sqm').val(row.min_sqm);
                 $('#db_sqm').val(row.min_sqm);
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
@@ -619,7 +619,7 @@
                 $('.full_paint').show();
                 $('.sqm, .width, .height').show();
 
-                $('#product_sqm').val(row.min_sqm);
+                //$('#product_sqm').val(row.min_sqm);
                 $('#db_sqm').val(row.min_sqm);
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
@@ -632,7 +632,7 @@
                 $('.full_wood').show();
                 $('.sqm, .width, .height').show();
 
-                $('#product_sqm').val(row.min_sqm);
+                //$('#product_sqm').val(row.min_sqm);
                 $('#db_sqm').val(row.min_sqm);
 
                 if ($('#product_height').val() == '' || $('#product_width').val() == '') {
@@ -728,14 +728,25 @@
                 var db_sqm = Number($('#db_sqm').val());
 
                 var min_sqm = Number($('#db_sqm').val());
-                if (input_sqm < min_sqm || $('#product_sqm').val() == '') {
-                    input_sqm = min_sqm;
-                    $('#product_sqm').val(min_sqm);
+                if ($('#matt_finish_option').val() == 1) {
+                    if(input_sqm < min_sqm || $('#product_sqm').val() == '' ) {
+                        input_sqm = min_sqm;
+                        $('#product_sqm').val(min_sqm);
+                    }
+                    else {
+                        $('#product_sqm').val(input_sqm);
+                    }
                 }
-                else {
+                else if ($('#matt_finish_option').val() == 2) {
+                    var temp = input_sqm * 2;
+                    if (temp > min_sqm || $('#product_sqm').val() != '' ){
+                        input_sqm = temp;
+                    }
+                    else {
+                        input_sqm = min_sqm;
+                    }
                     $('#product_sqm').val(input_sqm);
                 }
-
 
                 var product_sqm = $('#product_sqm').val();
                 var sqm_product = Number($('#pro_price').val());
@@ -761,7 +772,7 @@
                         if ($('#matt_finish_option').val() == 2) {
                             var temp = calculated_sqm * 2;
                             if(temp > product_sqm) {
-                                var value = Number($(this).val()) * input_sqm * 2;
+                                var value = Number($(this).val()) * calculated_sqm * 2;
                                 total += value;
                             }
                             else {
@@ -791,7 +802,7 @@
                 if ($('#matt_finish_option').val() == 2) {
                     var temp = calculated_sqm * 2;
                     if(temp > product_sqm) {
-                        var matt_finish = Number($('#matt_finish').val()) * input_sqm * 2;
+                        var matt_finish = Number($('#matt_finish').val()) * calculated_sqm * 2;
                         total += matt_finish;
                     }
                     else {
