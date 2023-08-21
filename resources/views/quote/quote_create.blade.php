@@ -1650,7 +1650,7 @@
 
                 var min_sqm = Number($('#db_sqm').val());
                 if ($('#matt_finish_option').val() == 1) {
-                    if(input_sqm < min_sqm || $('#product_sqm').val() == '' ) {
+                    if(input_sqm < min_sqm ) {
                         input_sqm = min_sqm;
                         $('#product_sqm').val(min_sqm);
                     }
@@ -1660,7 +1660,7 @@
                 }
                 else if ($('#matt_finish_option').val() == 2) {
                     var temp = input_sqm * 2;
-                    if (temp > min_sqm || $('#product_sqm').val() != '' ){
+                    if (temp > min_sqm){
                         input_sqm = temp;
                     }
                     else {
