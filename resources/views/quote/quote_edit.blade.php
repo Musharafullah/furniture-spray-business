@@ -730,7 +730,7 @@
                 var min_sqm = Number($('#db_sqm').val());
 
                 if ($('#matt_finish_option').val() == 1) {
-                    if(input_sqm < min_sqm || $('#product_sqm').val() == '' ) {
+                    if(input_sqm < min_sqm) {
                         input_sqm = min_sqm;
                         $('#product_sqm').val(min_sqm);
                     }
@@ -757,7 +757,7 @@
 
                 var sqm_price = input_sqm * sqm_product;
                 $('#product_price').val(sqm_price);
-                total += sqm_price;
+                //total += sqm_price;
                 
 
                 $(' #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat')
@@ -766,7 +766,7 @@
                         if ($('#matt_finish_option').val() == 2) {
                             var temp = calculated_sqm * 2;
                             if(temp > product_sqm) {
-                                var value = Number($(this).val()) * calculated_sqm * 2;
+                                var value = Number($(this).val()) * temp;
                                 total += value;
                             }
                             else {
@@ -783,7 +783,7 @@
                 if ($('#matt_finish_option').val() == 2) {
                     var temp = calculated_sqm * 2;
                     if(temp > product_sqm) {
-                        var matt_finish = Number($('#matt_finish').val()) * calculated_sqm * 2;
+                        var matt_finish = Number($('#matt_finish').val()) * temp;
                         total += matt_finish;
                     }
                     else {
