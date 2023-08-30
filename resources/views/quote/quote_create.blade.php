@@ -515,6 +515,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
+                                            <input type="hidden" id="type" />
                                             <label for="code_id">Code</label>
                                             <select name="code_id" id="code_id" class="form-select" required data-live-search="true">
                                                 <option value=""> -- Select One --</option>
@@ -1493,6 +1494,7 @@
         //set product data
         function set_product(row) {
             var type = row.type;
+            $('#type').val(type);
 
             if (type == 'full_wood') {
                 addon_selectboxes('gloss_100_acrylic_lacquer', row.gloss_100_acrylic_lacquer);
@@ -1684,8 +1686,10 @@
 
                 var sqm_price = input_sqm * sqm_product;
                 $('#product_price').val(sqm_price);
-                //total += sqm_price;
-                
+                var type = $('#type').val();
+                if (type == 'basic' || type == 'standard'){
+                    total += sqm_price;
+                } 
 
                 $(' #metallic_paint, #wood_stain, #gloss_percentage, #gloss_100_acrylic_lacquer, #polyester, #burnished_finish, #barrier_coat')
                     .each(function() {
