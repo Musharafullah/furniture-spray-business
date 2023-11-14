@@ -615,4 +615,17 @@ class QuotesController extends Controller
             return redirect()->route('quote_status_message')->with('message','Quote has already been approved. You can not change the status again.');
         } 
     }
+
+    public function updated_quote_notes()
+    {
+        $id = $this->_request->id;
+        $var = $this->get_by_id($this->_modal, $id);
+
+        $data['internal_comment'] = $this->_request->internal_comment;
+        $data['comment'] = $this->_request->comment;
+
+        $var->update($data);
+
+        return response()->json('Notes updated successfully!');
+    }
 }

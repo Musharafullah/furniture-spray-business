@@ -797,22 +797,33 @@
                             <div class="col-12">
                                 <h4>Quote Notes</h4>
                             </div>
+                                
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="comment">Comment</label>
-                                    <textarea id="comment" name="comment" class="form-control" rows="3" placeholder=""></textarea>
+                                    <textarea id="comment" name="comment" class="form-control" rows="3" style="text-align: start">@if ($quote->id){{ $quote->comment }}@endif</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="internal-comment">Internal comment</label>
-                                    <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" placeholder=""></textarea>
+                                    <textarea id="internal-comment" class="form-control" name="internal_comment" rows="3" style="text-align: start">@if ($quote->id){{ $quote->internal_comment }}@endif</textarea>
                                 </div>
                             </div>
-                            <div class="col-sm-6 pull-right mt-4">
-                                <button type="submit" class="btn btn-primary-rounded">
-                                    Add another item <span><i class="fa fa-save"></i></span>
-                                </button>
+
+                            <div class="row mt-4 mx-0 g-3">
+                                @if ($quote->id)
+                                    <div class="col-sm-6">
+                                        <button type="button" onclick="update_notes({{ $quote->id }})" class="btn btn-primary-rounded">
+                                            Update quote notes <span><i class="fa fa-save"></i></span>
+                                        </button>
+                                    </div>  
+                                @endif
+                                <div class="col-sm-6 pull-right ms-auto">
+                                    <button type="submit" class="btn btn-primary-rounded">
+                                        Add another item <span><i class="fa fa-save"></i></span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -1104,6 +1115,51 @@
 
 @endsection
 @section('scripts')
+    <script>
+        function update_notes(id) {
+
+            var comment = document.getElementById("comment").value;
+            var internal_comment = document.getElementById("internal-comment").value;
+
+            $.ajax({
+                type: "get",
+                url: "{{ route('update.notes') }}",
+                data: {
+                    id: id,
+                    internal_comment: internal_comment,
+                    comment: comment,
+                },
+                success: function(response) {
+                    //alert(response);
+                    showMessage('success', response)
+                }
+            });
+        }
+
+        function showMessage(data, message) {
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-bottom-right",
+                "progressBar": true,
+                "debug": false,
+                "newestOnTop": false,
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            if (data == 'success') {
+                toastr.success(message)
+            }
+        }
+    </script>
+
     <script>
         $(document).ready(function() {
             var quote_id = '{{ $quote->id }}';

@@ -8,6 +8,7 @@
                     <th>Phone Number</th>
                     <th>Postal Code</th>
                     <th>Added On</th>
+                    <th>Comments</th>
                     <th>Quote Total</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -22,16 +23,16 @@
                             <td>{{ $quote->client->phone }}</td>
                             <td>{{ $quote->client->postal_code }}</td>
                             <td>{{ date('d-m-Y', strtotime($quote->created_at)) }}</td>
+                            <td>{{ $quote->comment }}</td>
                             <td>
                                 @php
                                     $quote_total = $quote->deals->sum('total_gross');
                                 @endphp
                                 {{ number_format($quote_total, 2) }}</td>
-
                             <td>
                                 <select name="status" id="quote-status"
                                     onchange="quoteStatus('{{ $quote->id ?? '' }}', this)" class="form-select"
-                                    data-live-search="true" tabindex="-1" aria-hidden="true">
+                                    data-live-search="true" tabindex="-1" aria-hidden="true" style="min-width: 120px">
                                     @php
                                         $quote_status = ['draft', 'sent', 'approved', 'rejected', 'reminder', 'paid-collected', 'paid-delivered', 'collect', 'delivered', 'expired'];
                                     @endphp
