@@ -120,7 +120,11 @@
             <span>
                 {{ $quotes->client->address }} <br>
                 {{ $quotes->client->postal_code }}<br />
-                {{ $quotes->client->email }}
+                {{ $quotes->client->email }}<br></br>
+                @if ($quotes->comment != null)
+                    <b>Comment : {{ $quotes->comment }}</b></br>
+                @endif
+                
             </span>
             <h2 align="center"><b>Quote</b></h2>
 
@@ -347,8 +351,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <b>Comment : {{ $quotes->comment }}</b></br>
-                            <b>Internal Comment : {{ $quotes->internal_comment }}</b>
+                            
                         </td>
                         <td colspan="3">
                             <span>
